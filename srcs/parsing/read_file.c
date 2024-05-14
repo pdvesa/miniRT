@@ -33,15 +33,18 @@ char	*read_fd(int fd)
 	return (content);
 }
 
-char	*read_file(char *filename)
+char	**read_file(char *filename)
 {
-	char	*result;
+	char	*content;
+	char	**splitted_content;
 	int		fd;
 
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
 		return (perror("MiniRT : "), NULL);
-	result = read_fd(fd);
+	content = read_fd(fd);
 	close(fd);
-	return (result);
+	splitted_content = ft_split(content, '\n');
+	free(content);
+	return (splitted_content);
 }

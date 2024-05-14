@@ -67,6 +67,7 @@ typedef struct	s_render_scene
 {
 	t_ambient_light	**ambient_light;
 	t_camera		**camera;
+	t_light			**light;
 	t_sphere		**sphere;
 	t_plane			**plane;
 	t_cylinder 		**cylinder;

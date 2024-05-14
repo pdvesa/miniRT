@@ -16,6 +16,7 @@ SRCS			:= $(SRCS_DIR)/miniRT.c \
 					$(PARSING_DIR)/parse_file.c \
 					$(PARSING_DIR)/read_file.c \
 					$(PARSING_DIR)/validate_content.c \
+					$(PARSING_DIR)/scene_parser.c \
 					$(UTILS_DIR)/ft_strappend.c
 
 OBJS			:= ${SRCS:.c=.o}
