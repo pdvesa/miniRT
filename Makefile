@@ -9,8 +9,14 @@ HEADERS			:= -I ./include -I $(LIBMLX_DIR)/include -I $(LIBFT_DIR)
 LIBS			:= $(LIBMLX_DIR)/build/libmlx42.a -ldl -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/" -pthread -lm
 
 SRCS_DIR		:= srcs
+PARSING_DIR		:= $(SRCS_DIR)/parsing
+UTILS_DIR		:= $(SRCS_DIR)/utils
 
-SRCS			:=
+SRCS			:= $(SRCS_DIR)/miniRT.c \
+					$(PARSING_DIR)/parse_file.c \
+					$(PARSING_DIR)/read_file.c \
+					$(PARSING_DIR)/validate_content.c \
+					$(UTILS_DIR)/ft_strappend.c
 
 OBJS			:= ${SRCS:.c=.o}
 
