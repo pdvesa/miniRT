@@ -11,6 +11,8 @@
 # include <sys/fcntl.h>
 # include <ft_maths.h>
 # include <MLX42/MLX42.h>
+# include <libft.h>
+# include <ft_utils.h>
 
 typedef struct	s_rgb
 {
@@ -63,11 +65,11 @@ typedef struct	s_cylinder
 
 typedef struct	s_render_scene
 {
-	t_ambient_light	*ambient_light;
-	t_camera		*camera;
-	t_sphere		*sphere;
-	t_plane			*plane;
-	t_cylinder 		*cylinder;
+	t_ambient_light	**ambient_light;
+	t_camera		**camera;
+	t_sphere		**sphere;
+	t_plane			**plane;
+	t_cylinder 		**cylinder;
 }	 t_render_scene;
 
 t_render_scene	parse_file(char *filename);

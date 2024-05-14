@@ -2,19 +2,33 @@
 // Created by Jules Cayot on 13/05/2024.
 //
 
-#include <miniRT.h>
+#include <miniRT_parsing.h>
 
-char	*readfile(char *filename) {
-	char	*content;
-	char	buffer;
-	int		fd;
+t_render_scene	new_render_scene()
+{
+	t_render_scene	scene;
 
-	fd = open(filename, O_RDONLY);
-	if (fd == -1)
-		return (NULL);
-
+	scene.ambient_light = NULL;
+	scene.camera = NULL;
+	scene.cylinder = NULL;
+	scene.plane = NULL;
+	scene.sphere = NULL;
+	return (scene);
 }
 
-t_render_scene	parse_file(char *filename) {
+t_render_scene	parse_file(char *filename)
+{
+	t_render_scene	scene;
+	char			*content;
 
+	scene = new_render_scene();
+	content = read_file(filename);
+	if (!content)
+		return (scene);
+	if (valid_category(content))
+	{
+
+	}
+	free(content);
+	return (scene);
 }

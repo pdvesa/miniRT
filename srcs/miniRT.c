@@ -4,7 +4,8 @@
 
 #include "miniRT.h"
 
-int	miniRT(char *filename) {
+int	miniRT(char *filename)
+{
 	t_render_scene	scene;
 
 	scene = parse_file(filename);
@@ -12,7 +13,8 @@ int	miniRT(char *filename) {
 		return (1);
 }
 
-int	main(int n, char *args[]) {
+int	main(int n, char *args[])
+{
 	if (n != 2)
 		return (1);
 	return (miniRT(args[1]));

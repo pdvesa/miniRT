@@ -14,7 +14,9 @@ UTILS_DIR		:= $(SRCS_DIR)/utils
 
 SRCS			:= $(SRCS_DIR)/miniRT.c \
 					$(PARSING_DIR)/parse_file.c \
-					$(UTILS_DIR)/readfile.c
+					$(PARSING_DIR)/read_file.c \
+					$(PARSING_DIR)/validate_content.c \
+					$(UTILS_DIR)/ft_strappend.c
 
 OBJS			:= ${SRCS:.c=.o}
 
