@@ -8,6 +8,6 @@
 # include "miniRT.h"
 
 char	*read_file(char *filename);
-int		valid_category(char *content);
+int		valid_category(const char *content);
 
 #endif //MINIRT_PARSING_H
