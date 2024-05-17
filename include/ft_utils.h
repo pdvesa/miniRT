@@ -8,5 +8,6 @@
 # include <libft.h>
 
 char	*ft_strappend(char *s1, char *s2);
+void	*ft_free_array(void **array);
 
 #endif //FT_UTILS_H

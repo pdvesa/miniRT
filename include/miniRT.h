@@ -13,6 +13,15 @@
 # include <MLX42/MLX42.h>
 # include <libft.h>
 # include <ft_utils.h>
+# include <miniRT_hooks.h>
+
+# ifndef WIDTH
+#  define WIDTH 1920
+# endif //WIDTH
+
+# ifndef HEIGHT
+#  define HEIGHT 1080
+# endif //HEIGHT
 
 typedef struct	s_rgb
 {
@@ -74,5 +83,6 @@ typedef struct	s_render_scene
 }	 t_render_scene;
 
 t_render_scene	parse_file(char *filename);
+t_render_scene	free_render_scene(t_render_scene *scene);
 
 #endif //MINIRT_H

@@ -19,17 +19,17 @@ t_render_scene	new_render_scene()
 t_render_scene	free_render_scene(t_render_scene *scene)
 {
 	if (scene -> ambient_light)
-		free(scene -> ambient_light);
+		ft_free_array(scene -> ambient_light);
 	if (scene -> camera)
-		free(scene -> camera);
+		ft_free_array(scene -> camera);
 	if (scene -> light)
-		free(scene -> light);
+		ft_free_array(scene -> light);
 	if (scene -> sphere)
-		free(scene -> sphere);
+		ft_free_array(scene -> sphere);
 	if (scene -> plane)
-		free(scene -> plane);
+		ft_free_array(scene -> plane);
 	if (scene -> cylinder)
-		free(scene -> cylinder);
+		ft_free_array(scene -> cylinder);
 }
 
 void parse_content(t_render_scene *scene, char **content, int *n_objs)
