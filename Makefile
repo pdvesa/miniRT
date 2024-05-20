@@ -30,7 +30,8 @@ SRCS			:= $(SRCS_DIR)/miniRT.c \
 					$(UTILS_DIR)/ft_array_len.c \
 					$(UTILS_DIR)/ft_mlx_error.c \
 					$(MATHS_DIR)/points_distance.c \
-					$(MATHS_DIR)/inter_points.c
+					$(MATHS_DIR)/inter_points.c \
+					$(MATHS_DIR)/vector_arithmetics.c
 
 OBJS			:= ${SRCS:.c=.o}
 
