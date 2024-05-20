@@ -84,5 +84,6 @@ typedef struct	s_render_scene
 
 t_render_scene	parse_file(char *filename);
 t_render_scene	free_render_scene(t_render_scene *scene);
+int				render_scene(mlx_t *mlx, t_render_scene *scene);
 
 #endif //MINIRT_H

@@ -18,10 +18,11 @@ int	miniRT(char *filename)
 	if (mlx)
 	{
 		mlx_loop_hook(mlx, &close_hook, mlx);
+		result = render_scene(mlx, &scene);
 		mlx_terminate(mlx);
 	}
 	else
-		ft_putendl_fd("MiniRT : Error initializing MLX", 2);
+		ft_putmlx_error();
 	free_render_scene(&scene);
 	return (result);
 }

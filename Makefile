@@ -10,6 +10,7 @@ LIBS			:= $(LIBMLX_DIR)/build/libmlx42.a -ldl -lglfw -L"/Users/$(USER)/.brew/opt
 
 SRCS_DIR		:= srcs
 PARSING_DIR		:= $(SRCS_DIR)/parsing
+RENDER_DIR		:= $(SRCS_DIR)/render
 HOOKS_DIR		:= $(SRCS_DIR)/hooks
 UTILS_DIR		:= $(SRCS_DIR)/utils
 
@@ -18,9 +19,13 @@ SRCS			:= $(SRCS_DIR)/miniRT.c \
 					$(PARSING_DIR)/read_file.c \
 					$(PARSING_DIR)/validate_content.c \
 					$(PARSING_DIR)/scene_parser.c \
+					$(RENDER_DIR)/render_scene.c \
+					$(RENDER_DIR)/ray_trace.c \
 					$(HOOKS_DIR)/close_hook.c \
 					$(UTILS_DIR)/ft_strappend.c \
-					$(UTILS_DIR)/ft_free_array.c
+					$(UTILS_DIR)/ft_free_array.c \
+					$(UTILS_DIR)/ft_array_len.c \
+					$(UTILS_DIR)/ft_mlx_error.c
 
 OBJS			:= ${SRCS:.c=.o}
 
