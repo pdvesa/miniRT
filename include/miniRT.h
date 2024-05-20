@@ -10,6 +10,7 @@
 # include <stdio.h>
 # include <sys/fcntl.h>
 # include <ft_maths.h>
+# include <float.h>
 # include <MLX42/MLX42.h>
 # include <libft.h>
 # include <ft_utils.h>
@@ -29,6 +30,12 @@ typedef struct	s_rgb
 	int g;
 	int b;
 }	t_rgb;
+
+typedef struct	s_line
+{
+	t_coordinates		origin;
+	t_vector			direction;
+}	t_line;
 
 typedef struct	s_ambient_light
 {
