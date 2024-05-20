@@ -10,9 +10,19 @@
 # include <stdio.h>
 # include <sys/fcntl.h>
 # include <ft_maths.h>
+# include <float.h>
 # include <MLX42/MLX42.h>
 # include <libft.h>
 # include <ft_utils.h>
+# include <miniRT_hooks.h>
+
+# ifndef WIDTH
+#  define WIDTH 1920
+# endif //WIDTH
+
+# ifndef HEIGHT
+#  define HEIGHT 1080
+# endif //HEIGHT
 
 typedef struct	s_rgb
 {
@@ -20,6 +30,12 @@ typedef struct	s_rgb
 	int g;
 	int b;
 }	t_rgb;
+
+typedef struct	s_line
+{
+	t_coordinates		origin;
+	t_vector			direction;
+}	t_line;
 
 typedef struct	s_ambient_light
 {
@@ -74,5 +90,7 @@ typedef struct	s_render_scene
 }	 t_render_scene;
 
 t_render_scene	parse_file(char *filename);
+t_render_scene	free_render_scene(t_render_scene *scene);
+int				render_scene(mlx_t *mlx, t_render_scene *scene);
 
 #endif //MINIRT_H

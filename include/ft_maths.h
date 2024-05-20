@@ -5,7 +5,8 @@
 #ifndef FT_MATHS_H
 # define FT_MATHS_H
 
-# include "math.h"
+# include <math.h>
+# include <miniRT.h>
 
 typedef struct	s_vector
 {
@@ -16,9 +17,11 @@ typedef struct	s_vector
 
 typedef struct	s_coordinates
 {
-	int	x;
-	int y;
-	int z;
+	float	x;
+	float	y;
+	float	z;
 }	t_coordinates;
+
+float	point_distance(t_coordinates p1, t_coordinates p2);
 
 #endif //FT_MATHS_H
