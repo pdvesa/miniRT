@@ -45,21 +45,21 @@ typedef struct	s_ambient_light
 
 typedef struct	s_camera
 {
-	t_coordinates		view_point;
+	t_coordinates		center;
 	t_vector			vector;
 	int 				fov;
 }	t_camera;
 
 typedef struct	s_light
 {
-	t_coordinates	light_point;
+	t_coordinates	center;
 	float 			brightness;
 }	t_light;
 
 typedef struct	s_sphere
 {
-	t_coordinates	light_point;
-	float			brightness;
+	t_coordinates	center;
+	float			diameter;
 	t_rgb			rgb;
 }	t_sphere;
 
@@ -72,7 +72,7 @@ typedef struct	s_plane
 
 typedef struct	s_cylinder
 {
-	t_coordinates	coordinates;
+	t_coordinates	center;
 	t_vector		vector;
 	float			diameter;
 	float			height;
