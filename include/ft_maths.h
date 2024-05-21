@@ -38,4 +38,6 @@ float		dot_product(t_vector v1, t_vector v2);
 
 t_coordinates	translate_point(t_coordinates origin, t_vector vector);
 
+t_coordinates new_far_point();
+
 #endif //FT_MATHS_H
