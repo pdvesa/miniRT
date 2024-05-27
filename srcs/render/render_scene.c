@@ -37,7 +37,7 @@ mlx_image_t	**initialize_images(mlx_t *mlx, size_t n_cam)
 	return (render_images);
 }
 
-int	render_scene(mlx_t *mlx, t_render_scene *scene)
+int	render_scene(mlx_t *mlx, t_scene *scene)
 {
 	mlx_image_t	**render_images;
 

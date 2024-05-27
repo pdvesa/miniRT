@@ -14,6 +14,7 @@
 # include <MLX42/MLX42.h>
 # include <libft.h>
 # include <ft_utils.h>
+# include <mlx_utils.h>
 # include <miniRT_hooks.h>
 
 # ifndef WIDTH
@@ -45,21 +46,21 @@ typedef struct	s_ambient_light
 
 typedef struct	s_camera
 {
-	t_coordinates		view_point;
+	t_coordinates		center;
 	t_vector			vector;
 	int 				fov;
 }	t_camera;
 
 typedef struct	s_light
 {
-	t_coordinates	light_point;
+	t_coordinates	center;
 	float 			brightness;
 }	t_light;
 
 typedef struct	s_sphere
 {
-	t_coordinates	light_point;
-	float			brightness;
+	t_coordinates	center;
+	float			diameter;
 	t_rgb			rgb;
 }	t_sphere;
 
@@ -72,14 +73,14 @@ typedef struct	s_plane
 
 typedef struct	s_cylinder
 {
-	t_coordinates	coordinates;
+	t_coordinates	center;
 	t_vector		vector;
 	float			diameter;
 	float			height;
 	t_rgb			rgb;
 }	t_cylinder;
 
-typedef struct	s_render_scene
+typedef struct	s_scene
 {
 	t_ambient_light	**ambient_light;
 	t_camera		**camera;
@@ -87,10 +88,10 @@ typedef struct	s_render_scene
 	t_sphere		**sphere;
 	t_plane			**plane;
 	t_cylinder 		**cylinder;
-}	 t_render_scene;
+}	 t_scene;
 
-t_render_scene	parse_file(char *filename);
-t_render_scene	free_render_scene(t_render_scene *scene);
-int				render_scene(mlx_t *mlx, t_render_scene *scene);
+t_scene	parse_file(char *filename);
+t_scene	free_render_scene(t_scene *scene);
+int				render_scene(mlx_t *mlx, t_scene *scene);
 
 #endif //MINIRT_H

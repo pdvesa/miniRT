@@ -4,9 +4,9 @@
 
 #include <miniRT_parsing.h>
 
-t_render_scene	new_render_scene()
+t_scene	new_render_scene()
 {
-	t_render_scene	scene;
+	t_scene	scene;
 
 	scene.ambient_light = NULL;
 	scene.camera = NULL;
@@ -16,7 +16,7 @@ t_render_scene	new_render_scene()
 	return (scene);
 }
 
-t_render_scene	free_render_scene(t_render_scene *scene)
+t_scene	free_render_scene(t_scene *scene)
 {
 	if (scene -> ambient_light)
 		ft_free_array(scene -> ambient_light);
@@ -32,7 +32,7 @@ t_render_scene	free_render_scene(t_render_scene *scene)
 		ft_free_array(scene -> cylinder);
 }
 
-void parse_content(t_render_scene *scene, char **content, int *n_objs)
+void parse_content(t_scene *scene, char **content, int *n_objs)
 {
 	if (!scene_parser(scene -> ambient_light, content, n_objs, A))
 		return ;
@@ -48,9 +48,9 @@ void parse_content(t_render_scene *scene, char **content, int *n_objs)
 		free_render_scene(scene);
 }
 
-t_render_scene	parse_file(char *filename)
+t_scene	parse_file(char *filename)
 {
-	t_render_scene	scene;
+	t_scene	scene;
 	int 			n_objs[6];
 	char			**content;
 
