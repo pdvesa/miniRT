@@ -14,6 +14,7 @@ RENDER_DIR		:= $(SRCS_DIR)/render
 HOOKS_DIR		:= $(SRCS_DIR)/hooks
 MATHS_DIR		:= $(SRCS_DIR)/maths
 UTILS_DIR		:= $(SRCS_DIR)/utils
+MLX_UTILS_DIR	:= $(SRCS_DIR)/mlx_utils
 
 SRCS			:= $(SRCS_DIR)/miniRT.c \
 					$(PARSING_DIR)/parse_file.c \
@@ -22,19 +23,18 @@ SRCS			:= $(SRCS_DIR)/miniRT.c \
 					$(PARSING_DIR)/scene_parser.c \
 					$(RENDER_DIR)/render_scene.c \
 					$(RENDER_DIR)/ray_trace.c \
+					$(RENDER_DIR)/ray_direction.c \
 					$(RENDER_DIR)/get_closer_inter.c \
-					$(RENDER_DIR)/inter_points.c \
 					$(HOOKS_DIR)/close_hook.c \
-					$(UTILS_DIR)/ft_strappend.c \
-					$(UTILS_DIR)/ft_free_array.c \
-					$(UTILS_DIR)/ft_array_len.c \
-					$(UTILS_DIR)/ft_mlx_error.c \
 					$(MATHS_DIR)/points_distance.c \
-					$(MATHS_DIR)/inter_points.c \
 					$(MATHS_DIR)/vector_arithmetics.c \
 					$(MATHS_DIR)/poly_root.c \
 					$(MATHS_DIR)/translate_point.c \
-					$(MATHS_DIR)/far_point.c
+					$(MATHS_DIR)/far_point.c \
+					$(UTILS_DIR)/ft_strappend.c \
+                    $(UTILS_DIR)/ft_free_array.c \
+                    $(UTILS_DIR)/ft_array_len.c \
+					$(MLX_UTILS_DIR)/ft_mlx_error.c
 
 OBJS			:= ${SRCS:.c=.o}
 

@@ -7,7 +7,7 @@
 int	miniRT(char *filename)
 {
 	mlx_t			*mlx;
-	t_render_scene	scene;
+	t_scene	scene;
 	int 			result;
 
 	scene = parse_file(filename);
