@@ -16,7 +16,11 @@ t_ray	make_ray(t_scene *scene, int cam_i, t_image_size s, t_pixel_cdts p)
 
 int	calculate_color(t_scene *scene, int cam_i, t_image_size s, t_pixel_cdts p)
 {
+	int		color;
+	t_ray	ray;
 
+	ray = make_ray(scene, cam_i, s, p);
+	
 }
 
 void	ray_trace(mlx_image_t *image, t_scene *scene, int cam_index)
