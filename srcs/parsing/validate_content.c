@@ -27,6 +27,17 @@ int	in_categories(char *content, int *objs_num)
 	ft_putendl_fd("MiniRT : invalid content in provided file", 2);
 	return (0);
 }
+void	validate_error(int error_num)
+{
+	if (error_num == 1)
+		ft_putendl_fd("MiniRT : more than one ambient light in provided file", 2);
+	if (error_num == 2)
+		ft_putendl_fd("MiniRT : no camera in provided file", 2);
+	if (error_num == 3)
+		ft_putendl_fd("MiniRT : more than one camera in provided file", 2);
+	if (error_num == 4)
+		ft_putendl_fd("MiniRT : more than one light source in provided file", 2);
+}
 
 int	valid_category(char **content, int *objs_num)
 {
@@ -40,14 +51,12 @@ int	valid_category(char **content, int *objs_num)
 		i++;
 	}
 	if (objs_num[A] > 1)
-	{
-		ft_putendl_fd("MiniRT : more than one ambient light in provided file", 2);
-		return (0);
-	}
+		return (validate_error(1), 0);
 	if (objs_num[C] == 0)
-	{
-		ft_putendl_fd("MiniRT : no camera in provided file", 2);
-		return (0);
-	}
+		return (validate_error(2), 0);
+	if (objs_num[C] > 1)
+		return (validate_error(3), 0);
+	if (objs_num[L] > 1)
+		return (validate_error(4), 0);
 	return (1);
 }

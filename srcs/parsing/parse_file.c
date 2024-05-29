@@ -34,17 +34,17 @@ t_scene	free_render_scene(t_scene *scene)
 
 void parse_content(t_scene *scene, char **content, int *n_objs)
 {
-	if (!scene_parser(scene -> ambient_light, content, n_objs, A))
+	if (!scene_parser(scene, content, n_objs, A))
 		return ;
-	else if (!scene_parser(scene -> camera, content, n_objs, C))
+	else if (!scene_parser(scene, content, n_objs, C))
 		free_render_scene(scene);
-	else if (!scene_parser(scene -> light, content, n_objs, L))
+	else if (!scene_parser(scene, content, n_objs, L))
 		free_render_scene(scene);
-	else if (!scene_parser(scene -> sphere, content, n_objs, sp))
+	else if (!scene_parser(scene, content, n_objs, sp))
 		free_render_scene(scene);
-	else if (!scene_parser(scene -> plane, content, n_objs, pl))
+	else if (!scene_parser(scene, content, n_objs, pl))
 		free_render_scene(scene);
-	else if (!scene_parser(scene -> cylinder, content, n_objs, cyka))
+	else if (!scene_parser(scene, content, n_objs, cyka))
 		free_render_scene(scene);
 }
 
