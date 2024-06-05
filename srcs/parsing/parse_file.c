@@ -1,6 +1,14 @@
-//
-// Created by Jules Cayot on 13/05/2024.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_file.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: svesa <svesa@student.hive.fi>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/03 16:52:37 by svesa             #+#    #+#             */
+/*   Updated: 2024/06/05 20:41:24 by svesa            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include <miniRT_parsing.h>
 
@@ -16,41 +24,43 @@ t_scene	new_render_scene()
 	return (scene);
 }
 
-t_scene	free_render_scene(t_scene *scene)
+void	free_render_scene(t_scene *scene)
 {
 	if (scene -> ambient_light)
-		ft_free_array(scene -> ambient_light);
+		free(scene -> ambient_light);
 	if (scene -> camera)
-		ft_free_array(scene -> camera);
+		free(scene -> camera);
 	if (scene -> light)
-		ft_free_array(scene -> light);
+		free(scene -> light);
 	if (scene -> sphere)
-		ft_free_array(scene -> sphere);
+		ft_free_array((void**)(scene -> sphere));
 	if (scene -> plane)
-		ft_free_array(scene -> plane);
+		ft_free_array((void**)(scene -> plane));
 	if (scene -> cylinder)
-		ft_free_array(scene -> cylinder);
+		ft_free_array((void**)(scene -> cylinder));
 }
+
 
 void parse_content(t_scene *scene, char **content, int *n_objs)
 {
-	if (!scene_parser(scene, content, n_objs, A))
+	if (scene_parser(scene, content, n_objs, A))
 		return ;
-	else if (!scene_parser(scene, content, n_objs, C))
+	else if (scene_parser(scene, content, n_objs, C))
 		free_render_scene(scene);
-	else if (!scene_parser(scene, content, n_objs, L))
+	else if (scene_parser(scene, content, n_objs, L))
 		free_render_scene(scene);
-	else if (!scene_parser(scene, content, n_objs, sp))
-		free_render_scene(scene);
-	else if (!scene_parser(scene, content, n_objs, pl))
-		free_render_scene(scene);
-	else if (!scene_parser(scene, content, n_objs, cyka))
-		free_render_scene(scene);
+	// else if (scene_parser(scene, content, n_objs, sp))
+	// 	free_render_scene(scene);
+	// else if (scene_parser(scene, content, n_objs, pl))
+	// 	free_render_scene(scene);
+	// else if (scene_parser(scene, content, n_objs, cyka))
+	// 	free_render_scene(scene);
 }
+
 
 t_scene	parse_file(char *filename)
 {
-	t_scene	scene;
+	t_scene			scene;
 	int 			n_objs[6];
 	char			**content;
 

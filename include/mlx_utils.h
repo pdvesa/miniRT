@@ -9,5 +9,6 @@
 # include <MLX42/MLX42.h>
 
 int		ft_putmlx_error(void);
+double	ft_floatoi(char *s);
 
 #endif //MLX_UTILS_H

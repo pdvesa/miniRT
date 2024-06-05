@@ -1,6 +1,14 @@
-//
-// Created by Jules Cayot on 5/14/24.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   read_file.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: svesa <svesa@student.hive.fi>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/03 16:53:39 by svesa             #+#    #+#             */
+/*   Updated: 2024/06/05 20:41:28 by svesa            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include <miniRT_parsing.h>
 
@@ -15,7 +23,7 @@ char	*read_fd(int fd)
 	read_return = (int) read(fd, &buffer, 9);
 	while (read_return > 0)
 	{
-		content = ft_strappend(content, buffer);
+		content = ft_strappend(content, buffer, 10);
 		if (!content)
 		{
 			ft_putendl_fd("MiniRT : Malloc error", 2);

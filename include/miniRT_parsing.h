@@ -30,6 +30,15 @@ typedef struct s_object_amount
 
 char	**read_file(char *filename);
 int		valid_category(char **content, int objs_num[6]);
-int		scene_parser(void **objs_ptr, char **content, int *n_objs, int item);
+int		scene_parser(t_scene *scene, char **content, int *n_objs, int item);
+int	parse_ambient(t_scene *scene, char **content);
+int	parse_camera(t_scene *scene, char **content);
+int	parse_light(t_scene *scene, char **content);
+char	*skip_white(char *str);
+char	*find_content_str(char **content, char item);
+double get_numbers(char *str, int type);
+int	save_vector(t_scene *scene, char *content_str, int obj_type);
+int	save_cords(t_scene *scene, char *content_str, int obj_type);
+int	extract_rgb(t_rgb *colors, char *content);
 
 #endif //MINIRT_PARSING_H

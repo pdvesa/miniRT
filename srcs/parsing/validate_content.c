@@ -1,6 +1,14 @@
-//
-// Created by Jules Cayot on 5/14/24.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   validate_content.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: svesa <svesa@student.hive.fi>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/03 16:53:54 by svesa             #+#    #+#             */
+/*   Updated: 2024/06/05 20:41:31 by svesa            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include <miniRT_parsing.h>
 
@@ -16,7 +24,7 @@ int	in_categories(char *content, int *objs_num)
 	i = 0;
 	while (i < 6)
 	{
-		if (ft_strncmp(content + spaces, category[i], ft_strlen(category[i])) &&
+		if (!(ft_strncmp(content + spaces, category[i], ft_strlen(category[i]))) &&
 			*(content + spaces + ft_strlen(category[i])) == ' ')
 		{
 			objs_num[i]++;
