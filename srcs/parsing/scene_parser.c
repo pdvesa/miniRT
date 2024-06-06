@@ -6,7 +6,7 @@
 /*   By: svesa <svesa@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 11:16:09 by svesa             #+#    #+#             */
-/*   Updated: 2024/06/05 20:45:36 by svesa            ###   ########.fr       */
+/*   Updated: 2024/06/06 20:10:20 by svesa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,14 @@ int scene_parser(t_scene *scene, char **content, int *n_objs, int item)
 		return (parse_camera(scene, content));
 	else if (item == L)
 		return (parse_light(scene, content));
-	// else if (item == sp)
-	// 	return (parse_sphere(scene, content, n_objs[3]));
-	// else if (item == pl)
-	// 	return (parse_plane(scene, content, n_objs[4]));
-	// else if (item == cyka)
-	// 	return (parse_cylinder(scene, content, n_objs[5]));
+	else if (item == sp)
+		return (parse_sphere(scene, content, n_objs[3]));
+	else if (item == pl)
+		return (parse_plane(scene, content, n_objs[4]));
+	else if (item == cyka)
+		return (parse_cylinder(scene, content, n_objs[5]));
 	else 
 		return (EXIT_FAILURE);
 }
 // seems to be currently useless, fix it monke
+// rounding errors in floatoi, need fix

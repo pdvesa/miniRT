@@ -6,7 +6,7 @@
 /*   By: svesa <svesa@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 16:52:37 by svesa             #+#    #+#             */
-/*   Updated: 2024/06/05 20:41:24 by svesa            ###   ########.fr       */
+/*   Updated: 2024/06/06 21:06:27 by svesa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,10 @@ t_scene	new_render_scene()
 void	free_render_scene(t_scene *scene)
 {
 	if (scene -> ambient_light)
+	{
 		free(scene -> ambient_light);
+		scene->ambient_light = NULL; //need this to exit
+	}
 	if (scene -> camera)
 		free(scene -> camera);
 	if (scene -> light)
@@ -44,17 +47,17 @@ void	free_render_scene(t_scene *scene)
 void parse_content(t_scene *scene, char **content, int *n_objs)
 {
 	if (scene_parser(scene, content, n_objs, A))
-		return ;
+		free_render_scene(scene);
 	else if (scene_parser(scene, content, n_objs, C))
 		free_render_scene(scene);
 	else if (scene_parser(scene, content, n_objs, L))
 		free_render_scene(scene);
-	// else if (scene_parser(scene, content, n_objs, sp))
-	// 	free_render_scene(scene);
-	// else if (scene_parser(scene, content, n_objs, pl))
-	// 	free_render_scene(scene);
-	// else if (scene_parser(scene, content, n_objs, cyka))
-	// 	free_render_scene(scene);
+	else if (scene_parser(scene, content, n_objs, sp))
+		free_render_scene(scene);
+	else if (scene_parser(scene, content, n_objs, pl))
+		free_render_scene(scene);
+	else if (scene_parser(scene, content, n_objs, cyka))
+		free_render_scene(scene);
 }
 
 

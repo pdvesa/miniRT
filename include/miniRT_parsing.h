@@ -37,8 +37,12 @@ int	parse_light(t_scene *scene, char **content);
 char	*skip_white(char *str);
 char	*find_content_str(char **content, char item);
 double get_numbers(char *str, int type);
-int	save_vector(t_scene *scene, char *content_str, int obj_type);
-int	save_cords(t_scene *scene, char *content_str, int obj_type);
+int	save_vector(t_scene *scene, char *content_str, int obj_type, int i);
+int	save_cords(t_scene *scene, char *content_str, int obj_type, int i);
 int	extract_rgb(t_rgb *colors, char *content);
+void extract_error(int object);
+int	parse_sphere(t_scene *scene, char **content, int n_objs);
+int	parse_plane(t_scene *scene, char **content, int n_objs);
+int	parse_cylinder(t_scene *scene, char **content, int n_objs);
 
 #endif //MINIRT_PARSING_H
