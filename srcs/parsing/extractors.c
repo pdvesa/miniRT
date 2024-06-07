@@ -6,21 +6,11 @@
 /*   By: svesa <svesa@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:23:25 by svesa             #+#    #+#             */
-/*   Updated: 2024/06/06 21:19:59 by svesa            ###   ########.fr       */
+/*   Updated: 2024/06/07 16:05:37 by svesa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <miniRT_parsing.h>
-
-void extract_error(int object)
-{
-	const char	category[6][3] = {"A", "C", "L", "sp", "pl", "cy"};
-	// const char	error_name[3][12] = {"colors", "vectors", "coordinates"};
-	
-	ft_putendl_fd("Error: \tTerminating program on first error occured!", 2);
-	ft_putstr_fd("\tInput file has illegal data in field: ", 2);
-	ft_putendl_fd((char *)category[object], 2);
-}
 
 int	extract_rgb(t_rgb *colors, char *content)
 {
@@ -147,7 +137,7 @@ int	save_cords(t_scene *scene, char *content_str, int obj_type, int i)
 // int	save_cords(t_scene *scene, char *content_str, int obj_type, int i)
 // {
 // 	t_coordinates	*cords_array[3] = {&(scene->camera->center), &(scene->light->center), &(scene->sphere[i]->center)};
-	
+
 // 	printf("str %s and obj %d and i %d\n", content_str, obj_type, i);
 // 	if (extract_cords(cords_array[obj_type - 1], content_str))
 // 			return (EXIT_FAILURE);
