@@ -25,6 +25,9 @@ SRCS			:= $(SRCS_DIR)/miniRT.c \
 					$(RENDER_DIR)/ray_trace.c \
 					$(RENDER_DIR)/ray_direction.c \
 					$(RENDER_DIR)/get_closer_inter.c \
+					$(RENDER_DIR)/calculate_normal_to_inter.c \
+					$(RENDER_DIR)/calculate_lights.c \
+					$(RENDER_DIR)/add_rgb.c \
 					$(HOOKS_DIR)/close_hook.c \
 					$(MATHS_DIR)/points_distance.c \
 					$(MATHS_DIR)/vector_arithmetics.c \
@@ -34,7 +37,8 @@ SRCS			:= $(SRCS_DIR)/miniRT.c \
 					$(UTILS_DIR)/ft_strappend.c \
                     $(UTILS_DIR)/ft_free_array.c \
                     $(UTILS_DIR)/ft_array_len.c \
-					$(MLX_UTILS_DIR)/ft_mlx_error.c
+					$(MLX_UTILS_DIR)/ft_mlx_error.c \
+					$(MLX_UTILS_DIR)/get_color_int.c
 
 OBJS			:= ${SRCS:.c=.o}
 

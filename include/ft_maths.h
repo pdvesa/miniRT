@@ -36,6 +36,7 @@ t_vector	scalar_vector(float scalar, t_vector v);
 t_vector	add_vector(t_vector v1, t_vector v2);
 t_vector	substract_vector(t_vector v1, t_vector v2);
 t_vector	orthogonal_vector(t_vector v);
+t_vector	normalize_vector(t_vector v);
 float		dot_product(t_vector v1, t_vector v2);
 t_vector	cross_product(t_vector v1, t_vector v2);
 

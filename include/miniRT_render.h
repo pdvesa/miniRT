@@ -10,7 +10,8 @@
 typedef struct s_inter_point
 {
 	t_coordinates	coordinates;
-	t_rgb			rgb;
+	int 			object_type;
+	void			*object;
 }	t_inter_point;
 
 typedef struct	s_ray
@@ -33,6 +34,12 @@ typedef struct	s_pixel_cdts
 
 void			ray_trace(mlx_image_t *image, t_scene *scene, int cam_index);
 t_vector		ray_direction(t_camera *cam, t_image_size s, t_pixel_cdts p);
-t_inter_point get_closer_inter(t_line * line, t_scene * scene);
+t_inter_point	get_closer_inter(t_line * line, t_scene * scene);
+t_rgb			get_ambient_light(t_ambient_light *am_light);
+t_rgb			get_diffuse_lights(t_light **lights, t_ray *ray);
+t_vector		calculate_normal_inter(t_ray *ray);
+
+//Utils like
+t_rgb			add_rgb(t_rgb rgb1, t_rgb rgb2);
 
 #endif //MINIRT_RENDER_H

@@ -69,6 +69,18 @@ t_vector	orthogonal_vector(t_vector v)
 	return (orthogonal);
 }
 
+t_vector	normalize_vector(t_vector v)
+{
+	t_vector	result;
+	float		norm;
+
+	norm = sqrtf(powf(v.x, 2.0f) + powf(v.y, 2.0f) + powf(v.z, 2.0f));
+	result.x = v.x / norm;
+	result.y = v.y / norm;
+	result.z = v.z / norm;
+	return (result);
+}
+
 float	dot_product(t_vector v1, t_vector v2)
 {
 	return ((v1.x * v2.x) + (v1.y * v2.y) + (v1.z * v2.z));

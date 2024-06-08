@@ -18,9 +18,16 @@ int	calculate_color(t_scene *scene, int cam_i, t_image_size s, t_pixel_cdts p)
 {
 	int		color;
 	t_ray	ray;
+	t_rgb	ambient_light;
+	t_rgb	diffuse_lights;
+	t_rgb	sum_lights;
 
 	ray = make_ray(scene, cam_i, s, p);
-	
+	ambient_light = get_ambient_light(*scene->ambient_light);
+	diffuse_lights = get_diffuse_lights(scene->light, &ray);
+	sum_lights = add_rgb(ambient_light, diffuse_lights);
+	color = get_color_int(sum_lights.r, sum_lights.g, sum_lights.b, 1);
+	return (color);
 }
 
 void	ray_trace(mlx_image_t *image, t_scene *scene, int cam_index)

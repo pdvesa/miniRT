@@ -25,6 +25,16 @@
 #  define HEIGHT 1080
 # endif //HEIGHT
 
+typedef enum s_objs_index
+{
+	A = 0,
+	C = 1,
+	L = 2,
+	sp = 3,
+	pl = 4,
+	cyka = 5
+}	t_objs_index;
+
 typedef struct	s_rgb
 {
 	int r;

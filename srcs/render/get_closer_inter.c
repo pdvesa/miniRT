@@ -12,7 +12,8 @@ t_inter_point	sphere_inter(t_line *line, t_sphere *sphere)
 	t_vector		cam_to_center;
 
 	inter.coordinates = new_far_point();
-	inter.rgb = sphere->rgb;
+	inter.object_type = sp;
+	inter.object = sphere;
 	cam_to_center = vector_from_points(line->origin, sphere->center);
 	roots = poly_root(dot_product(line->direction, line->direction),
 						 dot_product(scalar_vector(2.0f, line->direction), cam_to_center),
@@ -40,7 +41,8 @@ t_inter_point	plane_inter(t_line *line, t_plane *plan)
 	float			dot;
 
 	inter.coordinates = new_far_point();
-	inter.rgb = plan->rgb;
+	inter.object_type = pl;
+	inter.object = plan;
 	dot = dot_product(plan->vector, line->direction);
 	if (dot < 0)
 		return (inter);
@@ -60,7 +62,8 @@ t_inter_point	cylinder_inter(t_line *line, t_cylinder *cylinder)
 	t_vector		B;
 
 	inter.coordinates = new_far_point();
-	inter.rgb = cylinder->rgb;
+	inter.object_type = cyka;
+	inter.object = cylinder;
 	A = substract_vector(line->direction,scalar_vector(
 			dot_product(line->direction, cylinder->vector), cylinder->vector));
 	B = substract_vector(vector_from_points(line->origin, cylinder->center),
