@@ -55,35 +55,7 @@ t_inter_point	plane_inter(t_line *line, t_plane *plan)
 
 t_inter_point	cylinder_inter(t_line *line, t_cylinder *cylinder)
 {
-	t_inter_point	inter;
-	t_polyroot		roots;
-	float			line_len;
-	t_vector		A;
-	t_vector		B;
 
-	inter.coordinates = new_far_point();
-	inter.object_type = cyka;
-	inter.object = cylinder;
-	A = substract_vector(line->direction,scalar_vector(
-			dot_product(line->direction, cylinder->vector), cylinder->vector));
-	B = substract_vector(vector_from_points(line->origin, cylinder->center),
-						 scalar_vector(dot_product(
-								 vector_from_points(line->origin, cylinder->center),
-								 cylinder->vector), cylinder->vector));
-	roots = poly_root(dot_product(A, A), 2.0f * dot_product(A, B), dot_product(B, B) - powf(cylinder->diameter, 2.0f));
-	if (roots.n == 0)
-		return (inter);
-	else if (roots.n == 1)
-		line_len = roots.values[0];
-	else
-	{
-		if (roots.values[0] > roots.values[1])
-			line_len = roots.values[1];
-		else
-			line_len = roots.values[0];
-	}
-	inter.coordinates = translate_point(line->origin, scalar_vector(line_len, line->direction));
-	return (inter);
 }
 
 void	closer_obj(t_line *line, void **obj, t_inter_point (*f) (t_line*, void*), t_inter_point	*closer)

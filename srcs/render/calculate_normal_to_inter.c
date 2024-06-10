@@ -6,21 +6,31 @@
 
 t_vector	normal_inter_sphere(t_ray *ray)
 {
-	t_vector result;
+	t_vector	result;
+
 
 	return (result);
 }
 
 t_vector	normal_inter_plane(t_ray *ray)
 {
-	t_vector result;
+	t_vector		result;
+	t_plane			*plane;
+	t_coordinates	p1;
+	t_coordinates	p2;
 
+	plane = (t_plane *) ray->inter_point.object;
+	p1 = translate_point(plane->coordinates, orthogonal_vector(plane->vector, 1, 0));
+	p2 = translate_point(plane->coordinates, orthogonal_vector(plane->vector, 0, 1));
+	result = cross_product(vector_from_points(p1, plane->coordinates),
+						   vector_from_points(p2, plane->coordinates));
+	result = normalize_vector(result);
 	return (result);
 }
 
 t_vector	normal_inter_cyka(t_ray *ray)
 {
-	t_vector result;
+	t_vector	result;
 
 	return (result);
 }

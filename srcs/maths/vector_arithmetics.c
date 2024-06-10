@@ -44,31 +44,6 @@ t_vector	substract_vector(t_vector v1, t_vector v2)
 	return (result);
 }
 
-t_vector	orthogonal_vector(t_vector v)
-{
-	t_vector	orthogonal;
-
-	if (v.x != 0 || v.y != 0)
-	{
-		orthogonal.x = 0;
-		orthogonal.y = v.z;
-		orthogonal.z = -1.0f * v.y;
-	}
-	else if (v.z != 0)
-	{
-		orthogonal.x = -1.0f * v.z;
-		orthogonal.y = 0;
-		orthogonal.z = v.x;
-	}
-	else
-	{
-		orthogonal.x = 1;
-		orthogonal.y = 0;
-		orthogonal.z = 0;
-	}
-	return (orthogonal);
-}
-
 t_vector	normalize_vector(t_vector v)
 {
 	t_vector	result;

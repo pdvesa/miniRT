@@ -31,6 +31,7 @@ SRCS			:= $(SRCS_DIR)/miniRT.c \
 					$(HOOKS_DIR)/close_hook.c \
 					$(MATHS_DIR)/points_distance.c \
 					$(MATHS_DIR)/vector_arithmetics.c \
+					$(MATHS_DIR)/orthogonal_vector.c \
 					$(MATHS_DIR)/poly_root.c \
 					$(MATHS_DIR)/translate_point.c \
 					$(MATHS_DIR)/far_point.c \

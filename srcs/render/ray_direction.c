@@ -16,7 +16,7 @@ t_vector	ray_direction(t_camera *cam, t_image_size s, t_pixel_cdts p)
 	projection_point.x = (((2.0f * p.x) / s.W) - 1) * (s.W / 2.0f * focal_len);
 	projection_point.y = (1 - ((2.0f * p.y) / s.H)) * (s.H / 2.0f * focal_len);
 	projection_point.z = focal_len * -1.0f;
-	v_up = orthogonal_vector(cam -> vector);
+	v_up = orthogonal_vector(cam->vector, 1, 1);
 	v_right = cross_product(cam -> vector, v_up);
 	ray_vector = add_vector(scalar_vector(projection_point.x, v_right),
 							scalar_vector(projection_point.y, v_up));

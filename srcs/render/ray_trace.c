@@ -32,21 +32,24 @@ int	calculate_color(t_scene *scene, int cam_i, t_image_size s, t_pixel_cdts p)
 
 void	ray_trace(mlx_image_t *image, t_scene *scene, int cam_index)
 {
-	t_pixel_cdts	current_pixel;
-	t_image_size	image_size;
-	int 			pixel_color;
+	t_pixel_cdts	pixel;
+	t_image_size	size;
+	int 			color;
+	void			*address;
 
-	current_pixel.x = 0;
-	current_pixel.y = 0;
-	image_size.W = image -> width;
-	image_size.H = image -> height;
-	while (current_pixel.y < image_size.H)
+	pixel.x = 0;
+	pixel.y = 0;
+	size.W = image -> width;
+	size.H = image -> height;
+	while (pixel.y < size.H)
 	{
-		while (current_pixel.x < image_size.W)
+		while (pixel.x < size.W)
 		{
-			pixel_color = calculate_color(scene, cam_index, image_size, current_pixel);
-			current_pixel.x++;
+			color = calculate_color(scene, cam_index, size, pixel);
+			address = image -> pixels + (pixel.y * image -> width) + pixel.x;
+			ft_memset(address, color, sizeof (int));
+			pixel.x++;
 		}
-		current_pixel.y++;
+		pixel.y++;
 	}
 }
