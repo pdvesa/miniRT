@@ -23,7 +23,7 @@ t_rgb	diffuse_light(t_light *light, t_ray *ray)
 
 	light_dir = vector_from_points(light->center, ray->inter_point.coordinates);
 	light_dir = normalize_vector(light_dir);
-	normal_to_inter = calculate_normal_inter(ray);
+	normal_to_inter = get_normal_to_inter(ray);
 	light_coefficient = dot_product(light_dir, normal_to_inter) * light -> brightness;
 	color = get_object_color(ray);
 	color.r *= light_coefficient;
@@ -32,7 +32,7 @@ t_rgb	diffuse_light(t_light *light, t_ray *ray)
 	return (color);
 }
 
-t_rgb	get_diffuse_lights(t_light **lights, t_ray *ray)
+t_rgb	ray_to_lights(t_light **lights, t_ray *ray)
 {
 	t_rgb	color_sum;
 	t_rgb	color;

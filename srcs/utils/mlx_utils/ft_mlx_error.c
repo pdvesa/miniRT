@@ -2,7 +2,7 @@
 // Created by Jules Cayot on 5/18/24.
 //
 
-#include <mlx_utils.h>
+#include "mlx_utils.h"
 
 int	ft_putmlx_error(void)
 {
