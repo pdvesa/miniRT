@@ -14,8 +14,13 @@ int	calculate_color(t_scene *scene, int cam_i, t_image_size s, t_pixel_cdts p)
 
 	ray = ray_to_object(scene, cam_i, s, p);
 	ambient_light = get_ambient_light(*scene->ambient_light);
-	diffuse_lights = ray_to_lights(scene->light, &ray);
-	sum_lights = add_rgb(ambient_light, diffuse_lights);
+	if (!is_far_point(ray.inter_point.coordinates))
+	{
+		diffuse_lights = inter_to_lights(scene->light, &ray);
+		sum_lights = add_rgb(ambient_light, diffuse_lights);
+	}
+	else
+		sum_lights = ambient_light;
 	color = get_color_int(sum_lights.r, sum_lights.g, sum_lights.b, 1);
 	return (color);
 }

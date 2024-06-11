@@ -36,7 +36,7 @@ typedef struct	s_pixel_cdts
 void			ray_trace(mlx_image_t *image, t_scene *scene, int cam_index);
 t_ray			ray_to_object(t_scene *scene, int cam_i, t_image_size s, t_pixel_cdts p);
 t_rgb			get_ambient_light(t_ambient_light *am_light);
-t_rgb			ray_to_lights(t_light **lights, t_ray *ray);
+t_rgb			inter_to_lights(t_light **lights, t_ray *ray);
 
 //Utils like
 t_rgb			add_rgb(t_rgb rgb1, t_rgb rgb2);

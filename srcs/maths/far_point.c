@@ -4,6 +4,11 @@
 
 #include <ft_maths.h>
 
+int	is_far_point(t_coordinates point)
+{
+	return (point.x == MAXFLOAT || point.y == MAX_FLOAT || point.z == MAX_FLOAT);
+}
+
 t_coordinates new_far_point()
 {
 	t_coordinates	far_point;

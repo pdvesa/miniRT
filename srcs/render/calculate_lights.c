@@ -32,7 +32,7 @@ t_rgb	diffuse_light(t_light *light, t_ray *ray)
 	return (color);
 }
 
-t_rgb	ray_to_lights(t_light **lights, t_ray *ray)
+t_rgb	inter_to_lights(t_light **lights, t_ray *ray)
 {
 	t_rgb	color_sum;
 	t_rgb	color;

@@ -33,7 +33,8 @@ typedef enum s_objs_index
 	L = 2,
 	sp = 3,
 	pl = 4,
-	cyka = 5
+	cyka = 5,
+	cyka_circle = 6
 }	t_objs_index;
 
 typedef struct	s_rgb
