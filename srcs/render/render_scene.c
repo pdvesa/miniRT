@@ -41,7 +41,10 @@ int	switch_cam(mlx_t* mlx, mlx_image_t** render_images, t_scene* scene, int cam_
 {
 	ray_trace(render_images[cam_i], scene, cam_i);
 	if (mlx_image_to_window(mlx, render_images[cam_i], 0, 0) == -1)
-		return (!ft_putmlx_error());
+	{
+		ft_putmlx_error();
+		return (0);
+	}
 	return (1);
 }
 

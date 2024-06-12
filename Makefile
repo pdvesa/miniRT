@@ -31,6 +31,7 @@ SRCS				:= $(SRCS_DIR)/miniRT.c \
 						$(RENDER_DIR)/ray_to_object.c \
 						$(RENDER_DIR)/ray_direction.c \
 						$(RENDER_DIR)/calculate_lights.c \
+						$(INTER_DIR)/get_closer_inter.c \
 						$(INTER_DIR)/normal_to_inter.c \
 						$(INTER_DIR)/sphere_inter.c \
 						$(INTER_DIR)/plane_inter.c \

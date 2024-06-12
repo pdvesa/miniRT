@@ -26,7 +26,7 @@ int light_visible(t_scene *scene, t_coordinates origin, t_coordinates light)
 	closer_inter = get_closer_inter(&line, scene);
 	inter_distance = point_distance(origin, closer_inter.coordinates);
 	light_distance = point_distance(origin, light);
-	if (inter_distance > 0 && inter_distance < light_distance)
+	if (inter_distance > 0.001f && inter_distance < light_distance)
 		return (0);
 	return (1);
 }
