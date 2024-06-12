@@ -14,14 +14,19 @@ t_rgb get_object_color(t_ray *ray)
 		return (((t_cylinder*)(ray->inter_point.object))->rgb);
 }
 
-int light_visible(t_scene *scene, t_line *line, float distance)
+int light_visible(t_scene *scene, t_coordinates origin, t_coordinates light)
 {
+	t_line			line;
 	t_inter_point	closer_inter;
+	float			light_distance;
 	float			inter_distance;
 
-	closer_inter = get_closer_inter(line, scene);
-	inter_distance = point_distance(line->origin, closer_inter.coordinates);
-	if (inter_distance > 0 && inter_distance < distance)
+	line.origin = origin;
+	line.direction = vector_from_points(origin, light);
+	closer_inter = get_closer_inter(&line, scene);
+	inter_distance = point_distance(origin, closer_inter.coordinates);
+	light_distance = point_distance(origin, light);
+	if (inter_distance > 0 && inter_distance < light_distance)
 		return (0);
 	return (1);
 }
@@ -56,8 +61,12 @@ t_rgb inter_to_lights(t_scene* scene, t_ray* ray)
 	color_sum.b = 0;
 	while (scene->light[i])
 	{
-		color = diffuse_light(scene->light[i], ray);
-		color_sum = add_rgb(color_sum, color);
+		if (light_visible(scene, ray->inter_point.coordinates,
+					scene->light[i]->center))
+		{
+			color = diffuse_light(scene->light[i], ray);
+			color_sum = add_rgb(color_sum, color);
+		}
 		i++;
 	}
 	return (color_sum);
