@@ -37,20 +37,25 @@ mlx_image_t	**initialize_images(mlx_t *mlx, size_t n_cam)
 	return (render_images);
 }
 
+int	switch_cam(mlx_t* mlx, mlx_image_t** render_images, t_scene* scene, int cam_i)
+{
+	ray_trace(render_images[cam_i], scene, cam_i);
+	if (mlx_image_to_window(mlx, render_images[cam_i], 0, 0) == -1)
+		return (!ft_putmlx_error());
+	return (1);
+}
+
 int	render_scene(mlx_t *mlx, t_scene *scene)
 {
-	mlx_image_t	**render_images;
+	mlx_image_t				**render_images;
+	t_switch_cam_hook_param	hook_param;
 
 	render_images = initialize_images(mlx, ft_array_len(scene -> camera));
 	if (!render_images)
 		return (EXIT_FAILURE);
-	ray_trace(render_images[0], scene, 0);
-	if (mlx_image_to_window(mlx, render_images[0], 0, 0) != -1)
-	{
+	add_switch_cam_hook(hook_param, mlx, render_images, scene);
+	if (switch_cam(mlx, render_images, scene, 0))
 		mlx_loop(mlx);
-	}
-	else
-		ft_putmlx_error();
 	clear_images(mlx, render_images);
 	return (EXIT_SUCCESS);
 }

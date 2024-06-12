@@ -16,7 +16,8 @@ MATHS_DIR			:= $(SRCS_DIR)/maths
 UTILS_DIR			:= $(SRCS_DIR)/utils
 
 INTER_DIR			:= $(RENDER_DIR)/objects_inter
-MINIRT_UTILS_DIR	:= $(UTILS_DIR)/miniRT_utils
+
+RENDER_UTILS_DIR	:= $(UTILS_DIR)/render_utils
 MLX_UTILS_DIR		:= $(UTILS_DIR)/mlx_utils
 
 
@@ -35,6 +36,7 @@ SRCS				:= $(SRCS_DIR)/miniRT.c \
 						$(INTER_DIR)/plane_inter.c \
 						$(INTER_DIR)/cylinder_inter.c \
 						$(HOOKS_DIR)/close_hook.c \
+						$(HOOKS_DIR)/switch_cam_hook.c \
 						$(MATHS_DIR)/points_distance.c \
 						$(MATHS_DIR)/vector_arithmetics.c \
 						$(MATHS_DIR)/orthogonal_vector.c \
@@ -44,7 +46,8 @@ SRCS				:= $(SRCS_DIR)/miniRT.c \
 						$(UTILS_DIR)/ft_strappend.c \
 						$(UTILS_DIR)/ft_free_array.c \
 						$(UTILS_DIR)/ft_array_len.c \
-						$(MINIRT_UTILS_DIR)/add_rgb.c \
+						$(RENDER_UTILS_DIR)/add_rgb.c \
+						$(RENDER_UTILS_DIR)/get_cyka_circles_planes.c \
 						$(MLX_UTILS_DIR)/ft_mlx_error.c \
 						$(MLX_UTILS_DIR)/get_color_int.c
 

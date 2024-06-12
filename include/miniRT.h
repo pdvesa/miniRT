@@ -15,7 +15,6 @@
 # include <libft.h>
 # include <ft_utils.h>
 # include <mlx_utils.h>
-# include <miniRT_utils.h>
 # include <miniRT_hooks.h>
 
 # ifndef WIDTH

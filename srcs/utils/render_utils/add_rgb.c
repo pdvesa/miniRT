@@ -2,7 +2,7 @@
 // Created by jules on 08/06/2024.
 //
 
-#include <miniRT_utils.h>
+#include <render_utils.h>
 
 t_rgb	add_rgb(t_rgb rgb1, t_rgb rgb2)
 {

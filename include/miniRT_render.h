@@ -7,6 +7,7 @@
 
 # include <miniRT.h>
 # include <render_inter.h>
+# include <render_utils.h>
 
 typedef struct s_inter_point
 {
