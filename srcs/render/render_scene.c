@@ -56,7 +56,7 @@ int	render_scene(mlx_t *mlx, t_scene *scene)
 	render_images = initialize_images(mlx, ft_array_len(scene -> camera));
 	if (!render_images)
 		return (EXIT_FAILURE);
-	add_switch_cam_hook(hook_param, mlx, render_images, scene);
+	add_switch_cam_hook(&hook_param, mlx, render_images, scene);
 	if (switch_cam(mlx, render_images, scene, 0))
 		mlx_loop(mlx);
 	clear_images(mlx, render_images);

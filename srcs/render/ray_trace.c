@@ -4,18 +4,6 @@
 
 #include <miniRT_render.h>
 
-int check_rendered(int cam_index)
-{
-	static int	rendered[256] = {0};
-
-	if (cam_index > 255)
-		return (0);
-	if (rendered[cam_index])
-		return (1);
-	rendered[cam_index] = 1;
-	return (0);
-}
-
 int	calculate_color(t_scene *scene, int cam_i, t_image_size s, t_pixel_cdts p)
 {
 	int		color;
@@ -44,22 +32,19 @@ void	ray_trace(mlx_image_t *image, t_scene *scene, int cam_index)
 	int 			color;
 	void			*address;
 
-	if (!check_rendered(cam_index))
+	pixel.x = 0;
+	pixel.y = 0;
+	size.W = image -> width;
+	size.H = image -> height;
+	while (pixel.y < size.H)
 	{
-		pixel.x = 0;
-		pixel.y = 0;
-		size.W = image -> width;
-		size.H = image -> height;
-		while (pixel.y < size.H)
+		while (pixel.x < size.W)
 		{
-			while (pixel.x < size.W)
-			{
-				color = calculate_color(scene, cam_index, size, pixel);
-				address = image -> pixels + (pixel.y * image -> width) + pixel.x;
-				ft_memset(address, color, sizeof (int));
-				pixel.x++;
-			}
-			pixel.y++;
+			color = calculate_color(scene, cam_index, size, pixel);
+			address = image -> pixels + (pixel.y * image -> width) + pixel.x;
+			ft_memset(address, color, sizeof (int));
+			pixel.x++;
 		}
+		pixel.y++;
 	}
 }

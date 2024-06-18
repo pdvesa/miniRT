@@ -2,7 +2,7 @@
 // Created by jules on 12/06/2024.
 //
 
-# include <miniRT_hooks.h>
+# include <miniRT_render.h>
 
 int	update_cam_index(mlx_key_data_t keydata, int cam_index, int cam_n)
 {

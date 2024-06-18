@@ -30,20 +30,20 @@ SRCS				:= $(SRCS_DIR)/miniRT.c \
 						$(RENDER_DIR)/ray_trace.c \
 						$(RENDER_DIR)/ray_to_object.c \
 						$(RENDER_DIR)/ray_direction.c \
-						$(RENDER_DIR)/calculate_lights.c \
+						$(RENDER_DIR)/lights.c \
+						$(RENDER_DIR)/switch_cam_hook.c \
 						$(INTER_DIR)/get_closer_inter.c \
 						$(INTER_DIR)/normal_to_inter.c \
 						$(INTER_DIR)/sphere_inter.c \
 						$(INTER_DIR)/plane_inter.c \
 						$(INTER_DIR)/cylinder_inter.c \
-						$(HOOKS_DIR)/close_hook.c \
-						$(HOOKS_DIR)/switch_cam_hook.c \
 						$(MATHS_DIR)/points_distance.c \
 						$(MATHS_DIR)/vector_arithmetics.c \
 						$(MATHS_DIR)/orthogonal_vector.c \
 						$(MATHS_DIR)/poly_root.c \
 						$(MATHS_DIR)/translate_point.c \
 						$(MATHS_DIR)/far_point.c \
+						$(MATHS_DIR)/points_equals.c \
 						$(UTILS_DIR)/ft_strappend.c \
 						$(UTILS_DIR)/ft_free_array.c \
 						$(UTILS_DIR)/ft_array_len.c \
