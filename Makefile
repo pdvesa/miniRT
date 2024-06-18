@@ -1,5 +1,5 @@
 NAME			:= miniRT
-CFLAGS			:= -Wextra -Wall -Werror
+CFLAGS			:= -g -Wextra -Wall #-Werror
 LIBMLX_DIR		:= ./lib/MLX42
 
 LIBFT			:= ./lib/libft/libft.a
@@ -21,7 +21,16 @@ SRCS			:= $(SRCS_DIR)/miniRT.c \
 					$(PARSING_DIR)/read_file.c \
 					$(PARSING_DIR)/validate_content.c \
 					$(PARSING_DIR)/scene_parser.c \
-					$(RENDER_DIR)/render_scene.c \
+					$(PARSING_DIR)/parse_utils.c \
+					$(PARSING_DIR)/extractors.c \
+					$(PARSING_DIR)/array_extractors.c \
+					$(PARSING_DIR)/scene_parser2.c \
+					$(UTILS_DIR)/ft_strappend.c \
+                    $(UTILS_DIR)/ft_free_array.c \
+                    $(UTILS_DIR)/ft_array_len.c \
+					$(UTILS_DIR)/atois.c \
+					$(SRCS_DIR)/debug/parsing_test.c \
+#					$(RENDER_DIR)/render_scene.c \
 					$(RENDER_DIR)/ray_trace.c \
 					$(RENDER_DIR)/ray_direction.c \
 					$(RENDER_DIR)/get_closer_inter.c \
@@ -31,10 +40,7 @@ SRCS			:= $(SRCS_DIR)/miniRT.c \
 					$(MATHS_DIR)/poly_root.c \
 					$(MATHS_DIR)/translate_point.c \
 					$(MATHS_DIR)/far_point.c \
-					$(UTILS_DIR)/ft_strappend.c \
-                    $(UTILS_DIR)/ft_free_array.c \
-                    $(UTILS_DIR)/ft_array_len.c \
-					$(MLX_UTILS_DIR)/ft_mlx_error.c
+
 
 OBJS			:= ${SRCS:.c=.o}
 
