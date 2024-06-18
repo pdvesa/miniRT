@@ -6,7 +6,7 @@
 /*   By: svesa <svesa@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 11:16:09 by svesa             #+#    #+#             */
-/*   Updated: 2024/06/07 16:15:35 by svesa            ###   ########.fr       */
+/*   Updated: 2024/06/18 19:45:16 by svesa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	parse_ambient(t_scene *scene, char **content)
 	cont_arr = ft_split(content_str, ' ');
 	if (!cont_arr)
 		return (EXIT_FAILURE);
-	if (cont_arr[3])
+	if (ft_strarray_len(cont_arr) != 3)
 		return (ft_strarray_free(cont_arr), extract_error(A), EXIT_FAILURE);
 	scene->ambient_light->ratio = get_numbers(cont_arr[1], 1);
 	if (scene->ambient_light->ratio < 0.0F
@@ -50,13 +50,13 @@ int	parse_camera(t_scene *scene, char **content)
 	cont_arr = ft_split(content_str, ' ');
 	if (!cont_arr)
 		return (EXIT_FAILURE);
-	if (cont_arr[4])
+	if (ft_strarray_len(cont_arr) != 4)
 		return (ft_strarray_free(cont_arr), extract_error(C), EXIT_FAILURE);
 	if (save_cords(scene, cont_arr[1], C, 0))
 		return (ft_strarray_free(cont_arr), EXIT_FAILURE);
 	if (save_vector(scene, cont_arr[2], C, 0))
 		return (ft_strarray_free(cont_arr), EXIT_FAILURE);
-	scene->camera->fov = ft_atoi(cont_arr[3]);
+	scene->camera->fov = get_numbers(cont_arr[3], 0);
 	if (scene->camera->fov > 180 || scene->camera->fov < 0)
 		return (ft_strarray_free(cont_arr), extract_error(C), EXIT_FAILURE);
 	return (ft_strarray_free(cont_arr), EXIT_SUCCESS);
@@ -74,7 +74,7 @@ int	parse_light(t_scene *scene, char **content)
 	cont_arr = ft_split(content_str, ' ');
 	if (!cont_arr)
 		return (EXIT_FAILURE);
-	if (cont_arr[3])
+	if (ft_strarray_len(cont_arr) != 3)
 		return (ft_strarray_free(cont_arr), extract_error(L), EXIT_FAILURE);
 	if (save_cords(scene, cont_arr[1], L, 0))
 		return (ft_strarray_free(cont_arr), EXIT_FAILURE);
@@ -96,7 +96,7 @@ int	parse_sphere(t_scene *scene, char **content, int n_objs)
 	{
 		scene->sphere[i] = ft_calloc(1, sizeof(t_sphere));
 		if (!(scene->sphere[i]))
-			return (EXIT_FAILURE); //free head and before here
+			return (EXIT_FAILURE); //i think we free after error so no free here
 		if (extract_sphere(scene, content, i))
 			return (EXIT_FAILURE);
 		i++;
@@ -126,12 +126,13 @@ int	parse_plane(t_scene *scene, char **content, int n_objs)
 	return (EXIT_SUCCESS);
 }
 
-// idk if we can have random data in file
-// also maybe remember to check return values, it is inconsistent
-// 0.5345345 might not be valid, ie. only 0.x might be, idk
-// do we care if there is garbage in string after this ??//??
-// seems to be currently useless, fix it monke
 // rounding errors in floatoi, need fix
+// check floats in general
+// tabs are error rn, as subject didnt mention
+// test with invalid file types permissions etc
+// for now if multiple input field has . insted of , ie. vector 0.5.0.4.06 it will gracefully exit with no leaks but no error message, fix
+//if (!scene.ambient_light)
+//		return (1);
 
 // int scene_parser(t_scene *scene, char **content, int *n_objs, int item)
 // {	

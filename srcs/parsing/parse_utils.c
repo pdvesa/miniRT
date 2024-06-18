@@ -6,7 +6,7 @@
 /*   By: svesa <svesa@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 20:32:17 by svesa             #+#    #+#             */
-/*   Updated: 2024/06/07 16:10:17 by svesa            ###   ########.fr       */
+/*   Updated: 2024/06/18 19:46:44 by svesa            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,7 @@ double	get_numbers(char *str, int type)
 		if ((ftemp == 0.0F && str[0] != '0' && !str[1])
 			|| (ftemp == 0.0F && ft_strncmp("0.", str, 2) && ft_strlen(str) > 2)
 			|| (ftemp == -1 && ft_strncmp("-1", str, 2))) // fix this garbage monster shit
-		{
-			printf("float %f and str %s\n", ftemp, str);
 			return (-42069);
-		}
 		return (ftemp);
 	}
 }
@@ -73,6 +70,4 @@ void	extract_error(int object)
 	ft_putstr_fd("\tInput file has illegal data in field: ", 2);
 	ft_putendl_fd((char *)category[object], 2);
 }
-//also caller function dont check for -420, check what hules atoi does on overflow etc.
-//then again dont really need this function anymore
 //floatoi has some rounding problems and we still save perhaps too many digits after .
