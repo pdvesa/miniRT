@@ -18,6 +18,7 @@ t_scene	new_render_scene(void)
 
 	scene.ambient_light = NULL;
 	scene.camera = NULL;
+	scene.light = NULL;
 	scene.cylinder = NULL;
 	scene.plane = NULL;
 	scene.sphere = NULL;
