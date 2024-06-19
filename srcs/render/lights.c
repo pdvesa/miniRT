@@ -49,27 +49,19 @@ t_rgb	diffuse_light(t_light *light, t_ray *ray)
 	return (color);
 }
 
-t_rgb inter_to_lights(t_scene* scene, t_ray* ray)
+t_rgb inter_to_light(t_scene* scene, t_ray* ray)
 {
-	t_rgb	color_sum;
 	t_rgb	color;
-	int		i;
 
-	i = 0;
-	color_sum.r = 0;
-	color_sum.g = 0;
-	color_sum.b = 0;
-	while (scene->light[i])
+	if (light_visible(scene, ray->inter_point.coordinates,scene->light[0]->center))
+		color = diffuse_light(scene->light[0], ray);
+	else
 	{
-		if (light_visible(scene, ray->inter_point.coordinates,
-					scene->light[i]->center))
-		{
-			color = diffuse_light(scene->light[i], ray);
-			color_sum = add_rgb(color_sum, color);
-		}
-		i++;
+		color.r = 0;
+		color.g = 0;
+		color.b = 0;
 	}
-	return (color_sum);
+	return (color);
 }
 
 t_rgb	get_ambient_light(t_ambient_light *am_light)
