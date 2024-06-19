@@ -52,7 +52,12 @@ char	**read_file(char *filename)
 		return (perror("MiniRT : "), NULL);
 	content = read_fd(fd);
 	close(fd);
+	if (!content)
+		return (ft_putendl_fd("MiniRT : Empty file", 2), NULL);
+	convert_tabs(content);
 	splitted_content = ft_split(content, '\n');
 	free(content);
 	return (splitted_content);
 }
+
+//maybe we need general file validity checker, this was just segfault fix for empty file

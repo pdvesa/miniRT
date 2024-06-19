@@ -71,3 +71,16 @@ void	extract_error(int object)
 	ft_putendl_fd((char *)category[object], 2);
 }
 //floatoi has some rounding problems and we still save perhaps too many digits after .
+
+void	convert_tabs(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '\t')
+			str[i] = ' ';
+		i++;
+	}
+}

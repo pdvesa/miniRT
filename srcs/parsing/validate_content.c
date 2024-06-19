@@ -47,7 +47,7 @@ void	validate_error(int error_num)
 		ft_putendl_fd("MiniRT: Incorrect amount of lights in file", 2);
 }
 
-int	valid_category(char **content, int *objs_num)
+int	valid_category(char **content, int objs_num[6])
 {
 	int	i;
 
