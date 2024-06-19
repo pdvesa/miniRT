@@ -12,6 +12,22 @@
 
 #include <miniRT_parsing.h>
 
+int	check_filename(char *name)
+{
+	char	*temp;
+	int		len;
+
+	len = ft_strlen(name);
+	if (!name || len < 3)
+		return (EXIT_FAILURE);
+	temp = name + len - 3;
+	if (ft_strncmp(temp, ".rt", 3))
+		return (EXIT_FAILURE);
+	else
+		return (EXIT_SUCCESS);
+}
+
+
 char	*read_fd(int fd)
 {
 	char	*content;
@@ -47,9 +63,11 @@ char	**read_file(char *filename)
 	char	**splitted_content;
 	int		fd;
 
+	if (check_filename(filename))
+		return (ft_putendl_fd("MiniRT : Incorrect file type", 2), NULL);
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
-		return (perror("MiniRT : "), NULL);
+		return (perror("MiniRT "), NULL);
 	content = read_fd(fd);
 	close(fd);
 	if (!content)
