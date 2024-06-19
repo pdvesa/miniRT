@@ -15,7 +15,6 @@
 # include <libft.h>
 # include <ft_utils.h>
 # include <mlx_utils.h>
-# include <miniRT_hooks.h>
 
 # ifndef WIDTH
 #  define WIDTH 1920
@@ -24,6 +23,17 @@
 # ifndef HEIGHT
 #  define HEIGHT 1080
 # endif //HEIGHT
+
+typedef enum s_objs_index
+{
+	A = 0,
+	C = 1,
+	L = 2,
+	sp = 3,
+	pl = 4,
+	cyka = 5,
+	cyka_circle = 6
+}	t_objs_index;
 
 typedef struct	s_rgb
 {
@@ -91,8 +101,9 @@ typedef struct	s_scene
 }	 t_scene;
 
 t_scene	parse_file(char *filename);
-void	free_render_scene(t_scene *scene);
-int				render_scene(mlx_t *mlx, t_scene *scene);
-void	print_all(t_scene *scene);
+
+void  free_render_scene(t_scene *scene);
+int   render_scene(mlx_t *mlx, t_scene *scene);
+void  print_all(t_scene *scene);
 
 #endif //MINIRT_H

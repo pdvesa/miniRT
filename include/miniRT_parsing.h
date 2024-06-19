@@ -13,17 +13,7 @@
 #ifndef MINIRT_PARSING_H
 # define MINIRT_PARSING_H
 
-# include "miniRT.h"
-
-typedef enum s_objs_index
-{
-	A = 0,
-	C = 1,
-	L = 2,
-	sp = 3,
-	pl = 4,
-	cyka = 5
-}	t_objs_index;
+# include <miniRT.h>
 
 typedef struct s_object_amount
 {

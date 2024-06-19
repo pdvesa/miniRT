@@ -4,53 +4,64 @@
 
 #include <miniRT_render.h>
 
-void	*clear_images(mlx_t *mlx, mlx_image_t **render_images)
+int calculate_color(t_scene* scene, t_image_size s, t_pixel_cdts p)
 {
-	int	i;
+	int		color;
+	t_ray	ray;
+	t_rgb	ambient_light;
+	t_rgb	diffuse_lights;
+	t_rgb	sum_lights;
 
-	i = 0;
-	while (render_images[i])
-		mlx_delete_image(mlx, render_images[i]);
-	free(render_images);
-	return (NULL);
+	ray = ray_to_object(scene, s, p);
+	ambient_light = get_ambient_light(*scene->ambient_light);
+	if (!is_far_point(ray.inter_point.coordinates))
+	{
+		diffuse_lights = inter_to_light(scene, &ray);
+		sum_lights = add_rgb(ambient_light, diffuse_lights);
+	}
+	else
+		sum_lights = ambient_light;
+	color = get_color_int(sum_lights.r, sum_lights.g, sum_lights.b, 1);
+	return (color);
 }
 
-mlx_image_t	**initialize_images(mlx_t *mlx, size_t n_cam)
+void ray_trace(mlx_image_t* image, t_scene* scene)
 {
-	mlx_image_t	**render_images;
-	size_t		i;
+	t_pixel_cdts	pixel;
+	t_image_size	size;
+	int 			color;
+	void			*address;
 
-	render_images = malloc(n_cam * sizeof (mlx_image_t*));
-	if (!render_images)
-		return (NULL);
-	i = 0;
-	while (i < n_cam)
+	pixel.x = 0;
+	pixel.y = 0;
+	size.W = image -> width;
+	size.H = image -> height;
+	while (pixel.y < size.H)
 	{
-		render_images[i] = mlx_new_image(mlx, mlx -> width, mlx -> height);
-		if (!render_images[i])
+		while (pixel.x < size.W)
 		{
-			ft_putmlx_error();
-			return (clear_images(mlx, render_images));
+			color = calculate_color(scene, size, pixel);
+			address = image -> pixels + (pixel.y * image -> width) + pixel.x;
+			ft_memset(address, color, sizeof (int));
+			pixel.x++;
 		}
-		i++;
+		pixel.y++;
 	}
-	return (render_images);
 }
 
 int	render_scene(mlx_t *mlx, t_scene *scene)
 {
-	mlx_image_t	**render_images;
+	mlx_image_t				*render_image;
 
-	render_images = initialize_images(mlx, ft_array_len(scene -> camera));
-	if (!render_images)
-		return (EXIT_FAILURE);
-	ray_trace(render_images[0], scene, 0);
-	if (mlx_image_to_window(mlx, render_images[0], 0, 0) != -1)
+	render_image = mlx_new_image(mlx, mlx -> width, mlx -> height);
+	if (!render_image)
+		return (ft_putmlx_error());
+	ray_trace(render_image, scene);
+	if (mlx_image_to_window(mlx, render_image, 0, 0) == -1)
 	{
-		mlx_loop(mlx);
+		mlx_delete_image(mlx, render_image);
+		return (ft_putmlx_error());
 	}
-	else
-		ft_putmlx_error();
-	clear_images(mlx, render_images);
+	mlx_delete_image(mlx, render_image);
 	return (EXIT_SUCCESS);
 }

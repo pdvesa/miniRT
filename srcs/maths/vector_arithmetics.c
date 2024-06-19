@@ -44,29 +44,16 @@ t_vector	substract_vector(t_vector v1, t_vector v2)
 	return (result);
 }
 
-t_vector	orthogonal_vector(t_vector v)
+t_vector	normalize_vector(t_vector v)
 {
-	t_vector	orthogonal;
+	t_vector	result;
+	float		norm;
 
-	if (v.x != 0 || v.y != 0)
-	{
-		orthogonal.x = 0;
-		orthogonal.y = v.z;
-		orthogonal.z = -1.0f * v.y;
-	}
-	else if (v.z != 0)
-	{
-		orthogonal.x = -1.0f * v.z;
-		orthogonal.y = 0;
-		orthogonal.z = v.x;
-	}
-	else
-	{
-		orthogonal.x = 1;
-		orthogonal.y = 0;
-		orthogonal.z = 0;
-	}
-	return (orthogonal);
+	norm = sqrtf(powf(v.x, 2.0f) + powf(v.y, 2.0f) + powf(v.z, 2.0f));
+	result.x = v.x / norm;
+	result.y = v.y / norm;
+	result.z = v.z / norm;
+	return (result);
 }
 
 float	dot_product(t_vector v1, t_vector v2)

@@ -4,31 +4,15 @@
 
 #include <miniRT.h>
 
-// int	miniRT(char *filename)
-// {
-// 	mlx_t			*mlx;
-// 	t_scene	scene;
-// 	int 			result;
+void	close_hook(void *param)
+{
+	mlx_t	*mlx;
 
-// 	scene = parse_file(filename);
-// 	if (!scene.camera)
-// 		return (1);
-// 	result = 1;
-// 	mlx = mlx_init(WIDTH, HEIGHT, "miniRT", true);
-// 	if (mlx)
-// 	{
-// 		mlx_loop_hook(mlx, &close_hook, mlx);
-// 		result = render_scene(mlx, &scene);
-// 		mlx_terminate(mlx);
-// 	}
-// 	else
-// 		ft_putmlx_error();
-// 	free_render_scene(&scene);
-// 	return (result);
-// }
+	mlx = param;
+	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
+		mlx_close_window(mlx);
+}
 
-
-// for parsing testing
 int	miniRT(char *filename)
 {
 	mlx_t			*mlx;
