@@ -23,9 +23,13 @@ MLX_UTILS_DIR		:= $(UTILS_DIR)/mlx_utils
 
 SRCS				:= $(SRCS_DIR)/miniRT.c \
 						$(PARSING_DIR)/parse_file.c \
-						$(PARSING_DIR)/read_file.c \
-						$(PARSING_DIR)/validate_content.c \
-						$(PARSING_DIR)/scene_parser.c \
+					  $(PARSING_DIR)/read_file.c \
+					  $(PARSING_DIR)/validate_content.c \
+					  $(PARSING_DIR)/scene_parser.c \
+					  $(PARSING_DIR)/parse_utils.c \
+					  $(PARSING_DIR)/extractors.c \
+					  $(PARSING_DIR)/array_extractors.c \
+					  $(PARSING_DIR)/scene_parser2.c \
 						$(RENDER_DIR)/render_scene.c \
 						$(RENDER_DIR)/ray_to_object.c \
 						$(RENDER_DIR)/lights.c \

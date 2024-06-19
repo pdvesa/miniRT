@@ -7,7 +7,7 @@
 
 # include <libft.h>
 
-char	*ft_strappend(char *s1, char *s2);
+char	*ft_strappend(char *s1, char *s2, int size);
 void	*ft_free_array(void **array);
 size_t	ft_array_len(void **array);
 

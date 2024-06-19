@@ -1,14 +1,22 @@
-//
-// Created by Jules Cayot on 5/14/24.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   validate_content.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: svesa <svesa@student.hive.fi>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/03 16:53:54 by svesa             #+#    #+#             */
+/*   Updated: 2024/06/07 16:18:15 by svesa            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include <miniRT_parsing.h>
 
 int	in_categories(char *content, int *objs_num)
 {
 	const char	category[6][3] = {"A", "C", "L", "sp", "pl", "cy"};
-	int 		i;
-	int 		spaces;
+	int			i;
+	int			spaces;
 
 	spaces = 0;
 	while (ft_isspace(content[spaces]))
@@ -16,8 +24,9 @@ int	in_categories(char *content, int *objs_num)
 	i = 0;
 	while (i < 6)
 	{
-		if (ft_strncmp(content + spaces, category[i], ft_strlen(category[i])) &&
-			*(content + spaces + ft_strlen(category[i])) == ' ')
+		if (!(ft_strncmp(content + spaces, category[i],
+					ft_strlen(category[i])))
+			&& *(content + spaces + ft_strlen(category[i])) == ' ')
 		{
 			objs_num[i]++;
 			return (1);
@@ -28,9 +37,19 @@ int	in_categories(char *content, int *objs_num)
 	return (0);
 }
 
-int	valid_category(char **content, int *objs_num)
+void	validate_error(int error_num)
 {
-	int i;
+	if (error_num == 1)
+		ft_putendl_fd("MiniRT: Incorrect amount of ambient lights in file", 2);
+	if (error_num == 2)
+		ft_putendl_fd("MiniRT: Incorrect amount of cameras in file", 2);
+	if (error_num == 3)
+		ft_putendl_fd("MiniRT: Incorrect amount of lights in file", 2);
+}
+
+int	valid_category(char **content, int objs_num[6])
+{
+	int	i;
 
 	i = 0;
 	while (content[i])
@@ -39,15 +58,11 @@ int	valid_category(char **content, int *objs_num)
 			return (0);
 		i++;
 	}
-	if (objs_num[A] > 1)
-	{
-		ft_putendl_fd("MiniRT : more than one ambient light in provided file", 2);
-		return (0);
-	}
-	if (objs_num[C] == 0)
-	{
-		ft_putendl_fd("MiniRT : no camera in provided file", 2);
-		return (0);
-	}
+	if (objs_num[A] != 1)
+		return (validate_error(1), 0);
+	if (objs_num[C] != 1)
+		return (validate_error(2), 0);
+	if (objs_num[L] != 1)
+		return (validate_error(3), 0);
 	return (1);
 }

@@ -51,7 +51,7 @@ typedef struct	s_line
 typedef struct	s_ambient_light
 {
 	float	ratio;
-	t_rgb	rbg;
+	t_rgb	rgb;
 }	t_ambient_light;
 
 typedef struct	s_camera
@@ -92,16 +92,18 @@ typedef struct	s_cylinder
 
 typedef struct	s_scene
 {
-	t_ambient_light	**ambient_light;
-	t_camera		**camera;
-	t_light			**light;
+	t_ambient_light	*ambient_light;
+	t_camera		*camera;
+	t_light			*light;
 	t_sphere		**sphere;
 	t_plane			**plane;
 	t_cylinder 		**cylinder;
 }	 t_scene;
 
 t_scene	parse_file(char *filename);
-t_scene	free_render_scene(t_scene *scene);
-int		render_scene(mlx_t *mlx, t_scene *scene);
+
+void  free_render_scene(t_scene *scene);
+int   render_scene(mlx_t *mlx, t_scene *scene);
+void  print_all(t_scene *scene);
 
 #endif //MINIRT_H
