@@ -21,6 +21,8 @@ int	extract_rgb(t_rgb *colors, char *content)
 	temp_array = ft_split(content, ',');
 	if (!temp_array)
 		return (EXIT_FAILURE);
+	if (ft_strarray_len(temp_array) != 3)
+		return (ft_strarray_free(temp_array), EXIT_FAILURE);
 	colors->r = get_numbers(temp_array[0], 0);
 	if (colors->r > 255 || colors->r < 0)
 		error = 1;
@@ -45,6 +47,8 @@ int	extract_vector(t_vector *vector, char *content)
 	temp_array = ft_split(content, ',');
 	if (!temp_array)
 		return (EXIT_FAILURE);
+	if (ft_strarray_len(temp_array) != 3)
+		return (ft_strarray_free(temp_array), EXIT_FAILURE);
 	vector->x = get_numbers(temp_array[0], 1);
 	if (vector->x > 1.0F || vector->x < -1.0F)
 		error = 2;
@@ -69,6 +73,8 @@ int	extract_cords(t_coordinates *cords, char *content)
 	temp_array = ft_split(content, ',');
 	if (!temp_array)
 		return (EXIT_FAILURE);
+	if (ft_strarray_len(temp_array) != 3)
+		return (ft_strarray_free(temp_array), EXIT_FAILURE);
 	cords->x = get_numbers(temp_array[0], 1);
 	if (cords->x > 1000.0F || cords->x < -1000.0F) //no idea for limits here
 		error = 3;
