@@ -27,11 +27,8 @@ SRCS				:= $(SRCS_DIR)/miniRT.c \
 						$(PARSING_DIR)/validate_content.c \
 						$(PARSING_DIR)/scene_parser.c \
 						$(RENDER_DIR)/render_scene.c \
-						$(RENDER_DIR)/ray_trace.c \
 						$(RENDER_DIR)/ray_to_object.c \
-						$(RENDER_DIR)/ray_direction.c \
 						$(RENDER_DIR)/lights.c \
-						$(RENDER_DIR)/switch_cam_hook.c \
 						$(INTER_DIR)/get_closer_inter.c \
 						$(INTER_DIR)/normal_to_inter.c \
 						$(INTER_DIR)/sphere_inter.c \
