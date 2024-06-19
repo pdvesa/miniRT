@@ -31,35 +31,26 @@ int light_visible(t_scene *scene, t_coordinates origin, t_coordinates light)
 	return (1);
 }
 
-t_rgb	diffuse_light(t_light *light, t_ray *ray)
+t_rgb inter_to_light(t_scene* scene, t_ray* ray)
 {
-	t_rgb		color;
+	t_rgb	color;
 	t_vector	light_dir;
 	t_vector	normal_to_inter;
 	float		light_coefficient;
 
-	light_dir = vector_from_points(light->center, ray->inter_point.coordinates);
-	light_dir = normalize_vector(light_dir);
-	normal_to_inter = get_normal_to_inter(ray);
-	light_coefficient = dot_product(light_dir, normal_to_inter) * light -> brightness;
-	color = get_object_color(ray);
-	color.r *= light_coefficient;
-	color.g *= light_coefficient;
-	color.b *= light_coefficient;
-	return (color);
-}
-
-t_rgb inter_to_light(t_scene* scene, t_ray* ray)
-{
-	t_rgb	color;
-
+	color.r = 0;
+	color.g = 0;
+	color.b = 0;
 	if (light_visible(scene, ray->inter_point.coordinates,scene->light[0]->center))
-		color = diffuse_light(scene->light[0], ray);
-	else
 	{
-		color.r = 0;
-		color.g = 0;
-		color.b = 0;
+		light_dir = vector_from_points(scene->light[0]->center, ray->inter_point.coordinates);
+		light_dir = normalize_vector(light_dir);
+		normal_to_inter = get_normal_to_inter(ray);
+		light_coefficient = dot_product(light_dir, normal_to_inter) * scene->light[0] -> brightness;
+		color = get_object_color(ray);
+		color.r *= light_coefficient;
+		color.g *= light_coefficient;
+		color.b *= light_coefficient;
 	}
 	return (color);
 }
