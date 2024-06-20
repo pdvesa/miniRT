@@ -28,8 +28,8 @@ t_ray ray_to_object(t_scene* scene, t_image_size s, t_pixel_cdts p)
 {
 	t_ray	ray;
 
-	ray.line.origin = scene->camera[0]->center;
-	ray.line.direction = ray_direction(scene->camera[0], s, p);
+	ray.line.origin = scene->camera->center;
+	ray.line.direction = ray_direction(scene->camera, s, p);
 	ray.inter_point = get_closer_inter(&ray.line, scene);
 	return (ray);
 }

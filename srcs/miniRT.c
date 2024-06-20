@@ -22,9 +22,18 @@ int	miniRT(char *filename)
 	scene = parse_file(filename);
 	if (!scene.ambient_light)
 		return (1);
-	print_all(&scene);
+	result = 1;
+	mlx = mlx_init(WIDTH, HEIGHT, "miniRT", true);
+	if (mlx)
+	{
+		mlx_loop_hook(mlx, &close_hook, mlx);
+		result = render_scene(mlx, &scene);
+		mlx_terminate(mlx);
+	}
+	else
+		ft_putmlx_error();
 	free_render_scene(&scene);
-	return (0);
+	return (result);
 }
 
 int	main(int n, char *args[])

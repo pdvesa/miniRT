@@ -6,6 +6,7 @@
 # define FT_MATHS_H
 
 # include <math.h>
+# include <values.h>
 
 typedef struct	s_vector
 {

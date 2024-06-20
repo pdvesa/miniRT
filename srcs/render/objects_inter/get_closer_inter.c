@@ -24,8 +24,8 @@ t_inter_point	get_closer_inter(t_line *line, t_scene *scene)
 	t_inter_point	closer;
 
 	closer.coordinates = new_far_point();
-	closer_obj(line, scene->sphere, (t_inter_point (*)(t_line*, void*)) &sphere_inter, &closer);
-	closer_obj(line, scene->plane, (t_inter_point (*)(t_line*, void*)) &plane_inter, &closer);
-	closer_obj(line, scene->cylinder, (t_inter_point (*)(t_line*, void*)) &cylinder_inter, &closer);
+	closer_obj(line, (void **) scene->sphere, (t_inter_point (*)(t_line*, void*)) &sphere_inter, &closer);
+	closer_obj(line, (void **) scene->plane, (t_inter_point (*)(t_line*, void*)) &plane_inter, &closer);
+	closer_obj(line, (void **) scene->cylinder, (t_inter_point (*)(t_line*, void*)) &cylinder_inter, &closer);
 	return (closer);
 }

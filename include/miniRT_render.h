@@ -6,7 +6,6 @@
 # define MINIRT_RENDER_H
 
 # include <miniRT.h>
-# include <render_inter.h>
 # include <render_utils.h>
 
 typedef struct s_inter_point
@@ -38,6 +37,12 @@ t_ray			ray_to_object(t_scene* scene, t_image_size s, t_pixel_cdts p);
 t_inter_point	get_closer_inter(t_line *line, t_scene *scene);
 t_rgb			get_ambient_light(t_ambient_light *am_light);
 t_rgb			inter_to_light(t_scene* scene, t_ray* ray);
+
+//render_inter
+t_inter_point	sphere_inter(t_line *line, t_sphere *sphere);
+t_inter_point	plane_inter(t_line *line, t_plane *plan);
+t_inter_point	cylinder_inter(t_line *line, t_cylinder *cylinder);
+t_vector		get_normal_to_inter(t_ray *ray);
 
 //Utils like
 t_rgb			add_rgb(t_rgb rgb1, t_rgb rgb2);

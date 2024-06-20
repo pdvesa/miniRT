@@ -2,7 +2,7 @@
 // Created by jules on 11/06/2024.
 //
 
-#include <render_inter.h>
+#include <miniRT_render.h>
 
 t_inter_point	cyka_circles_inter(t_line *line, t_cylinder *cylinder)
 {

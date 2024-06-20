@@ -6,7 +6,7 @@
 
 int	is_far_point(t_coordinates point)
 {
-	return (point.x == MAXFLOAT || point.y == MAX_FLOAT || point.z == MAX_FLOAT);
+	return (point.x == MAXFLOAT || point.y == MAXFLOAT || point.z == MAXFLOAT);
 }
 
 t_coordinates new_far_point()

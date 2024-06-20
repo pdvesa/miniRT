@@ -41,12 +41,12 @@ t_rgb inter_to_light(t_scene* scene, t_ray* ray)
 	color.r = 0;
 	color.g = 0;
 	color.b = 0;
-	if (light_visible(scene, ray->inter_point.coordinates,scene->light[0]->center))
+	if (light_visible(scene, ray->inter_point.coordinates,scene->light->center))
 	{
-		light_dir = vector_from_points(scene->light[0]->center, ray->inter_point.coordinates);
+		light_dir = vector_from_points(scene->light->center, ray->inter_point.coordinates);
 		light_dir = normalize_vector(light_dir);
 		normal_to_inter = get_normal_to_inter(ray);
-		light_coefficient = dot_product(light_dir, normal_to_inter) * scene->light[0] -> brightness;
+		light_coefficient = dot_product(light_dir, normal_to_inter) * scene->light->brightness;
 		color = get_object_color(ray);
 		color.r *= light_coefficient;
 		color.g *= light_coefficient;
@@ -59,8 +59,8 @@ t_rgb	get_ambient_light(t_ambient_light *am_light)
 {
 	t_rgb	am_light_color;
 
-	am_light_color.r = am_light->rbg.r * am_light->ratio;
-	am_light_color.g = am_light->rbg.g * am_light->ratio;
-	am_light_color.b = am_light->rbg.b * am_light->ratio;
+	am_light_color.r = am_light->rgb.r * am_light->ratio;
+	am_light_color.g = am_light->rgb.g * am_light->ratio;
+	am_light_color.b = am_light->rgb.b * am_light->ratio;
 	return (am_light_color);
 }
