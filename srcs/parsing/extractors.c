@@ -95,17 +95,17 @@ int	save_vector(t_scene *scene, char *content_str, int obj_type, int i)
 	if (obj_type == C)
 	{
 		if (extract_vector(&(scene->camera->vector), content_str))
-			return (extract_error(C), EXIT_FAILURE);
+			return (EXIT_FAILURE);
 	}
 	else if (obj_type == pl)
 	{
 		if (extract_vector(&(scene->plane[i]->vector), content_str))
-			return (extract_error(pl), EXIT_FAILURE);
+			return (EXIT_FAILURE);
 	}
 	else if (obj_type == cyka)
 	{
 		if (extract_vector(&(scene->cylinder[i]->vector), content_str))
-			return (extract_error(cyka), EXIT_FAILURE);
+			return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);
 }
@@ -115,27 +115,27 @@ int	save_cords(t_scene *scene, char *content_str, int obj_type, int i)
 	if (obj_type == C)
 	{
 		if (extract_cords(&(scene->camera->center), content_str))
-			return (extract_error(C), EXIT_FAILURE);
+			return (EXIT_FAILURE);
 	}
 	else if (obj_type == L)
 	{
 		if (extract_cords(&(scene->light->center), content_str))
-			return (extract_error(L), EXIT_FAILURE);
+			return (EXIT_FAILURE);
 	}
 	else if (obj_type == sp)
 	{
 		if (extract_cords(&(scene->sphere[i])->center, content_str))
-			return (extract_error(sp), EXIT_FAILURE);
+			return (EXIT_FAILURE);
 	}
 	else if (obj_type == pl)
 	{
 		if (extract_cords(&(scene->plane[i])->coordinates, content_str))
-			return (extract_error(pl), EXIT_FAILURE);
+			return (EXIT_FAILURE);
 	}
 	else if (obj_type == cyka)
 	{
 		if (extract_cords(&(scene->cylinder[i])->center, content_str))
-			return (extract_error(cyka), EXIT_FAILURE);
+			return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);
 }

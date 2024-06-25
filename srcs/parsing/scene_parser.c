@@ -25,16 +25,13 @@ int	parse_ambient(t_scene *scene, char **content)
 	if (!cont_arr)
 		return (EXIT_FAILURE);
 	if (ft_strarray_len(cont_arr) != 3)
-		return (ft_strarray_free(cont_arr), extract_error(A), EXIT_FAILURE);
+		return (erreur_dictateur(cont_arr, A));
 	scene->ambient_light->ratio = get_numbers(cont_arr[1], 1);
 	if (scene->ambient_light->ratio < 0.0F
 		|| scene->ambient_light->ratio > 1.0F)
-		return (ft_strarray_free(cont_arr), extract_error(A), EXIT_FAILURE); //fix for norm, now i was lazy
+		return (erreur_dictateur(cont_arr, A));
 	if (extract_rgb(&(scene->ambient_light->rgb), cont_arr[2]))
-	{
-		ft_strarray_free(cont_arr);
-		return (extract_error(A), EXIT_FAILURE);
-	}
+		return (erreur_dictateur(cont_arr, A));
 	return (ft_strarray_free(cont_arr), EXIT_SUCCESS);
 }
 
@@ -51,14 +48,14 @@ int	parse_camera(t_scene *scene, char **content)
 	if (!cont_arr)
 		return (EXIT_FAILURE);
 	if (ft_strarray_len(cont_arr) != 4)
-		return (ft_strarray_free(cont_arr), extract_error(C), EXIT_FAILURE);
+		return (erreur_dictateur(cont_arr, C));
 	if (save_cords(scene, cont_arr[1], C, 0))
-		return (ft_strarray_free(cont_arr), EXIT_FAILURE);
+		return (erreur_dictateur(cont_arr, C));
 	if (save_vector(scene, cont_arr[2], C, 0))
-		return (ft_strarray_free(cont_arr), EXIT_FAILURE);
+		return (erreur_dictateur(cont_arr, C));
 	scene->camera->fov = get_numbers(cont_arr[3], 0);
 	if (scene->camera->fov > 180 || scene->camera->fov < 0)
-		return (ft_strarray_free(cont_arr), extract_error(C), EXIT_FAILURE);
+		return (erreur_dictateur(cont_arr, C));
 	return (ft_strarray_free(cont_arr), EXIT_SUCCESS);
 }
 
@@ -75,12 +72,12 @@ int	parse_light(t_scene *scene, char **content)
 	if (!cont_arr)
 		return (EXIT_FAILURE);
 	if (ft_strarray_len(cont_arr) != 3)
-		return (ft_strarray_free(cont_arr), extract_error(L), EXIT_FAILURE);
+		return (erreur_dictateur(cont_arr, L));
 	if (save_cords(scene, cont_arr[1], L, 0))
-		return (ft_strarray_free(cont_arr), EXIT_FAILURE);
+		return (erreur_dictateur(cont_arr, L));
 	scene->light->brightness = get_numbers(cont_arr[2], 1);
 	if (scene->light->brightness > 1.0F || scene->light->brightness < 0.0F)
-		return (ft_strarray_free(cont_arr), extract_error(L), EXIT_FAILURE);
+		return (erreur_dictateur(cont_arr, L));
 	return (ft_strarray_free(cont_arr), EXIT_SUCCESS);
 }
 
@@ -128,10 +125,7 @@ int	parse_plane(t_scene *scene, char **content, int n_objs)
 
 // rounding errors in floatoi, need fix
 // check floats in general
-// tabs are error rn, as subject didnt mention
-// test with invalid file types permissions etc
-// for now if multiple input field has . insted of , ie. vector 0.5.0.4.06 it will gracefully exit with no leaks but no error message, fix
-//if (!scene.ambient_light)
+// if (!scene.ambient_light)
 //		return (1);
 
 // int scene_parser(t_scene *scene, char **content, int *n_objs, int item)
