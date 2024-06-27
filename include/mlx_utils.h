@@ -9,7 +9,7 @@
 # include <MLX42/MLX42.h>
 
 int		ft_putmlx_error(void);
-int		get_color_int(int r, int g, int b, int a);
+int get_color_int(int r, int g, int b);
 double	ft_floatoi(char *s);
 int	ft_mod_atoi(const char *str);
 

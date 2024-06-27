@@ -18,7 +18,7 @@ t_inter_point	sphere_inter(t_line *line, t_sphere *sphere)
 	roots = poly_root(dot_product(line->direction, line->direction),
 					  dot_product(scalar_vector(2.0f, line->direction), cam_to_center),
 					  (dot_product(cam_to_center, cam_to_center) -
-					   powf(sphere->diameter, 2)));
+					   powf(sphere->diameter / 2, 2)));
 	if (roots.n == 0)
 		return (inter);
 	else if (roots.n == 1)

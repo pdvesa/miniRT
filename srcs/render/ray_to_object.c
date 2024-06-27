@@ -13,14 +13,15 @@ t_vector	ray_direction(t_camera *cam, t_image_size s, t_pixel_cdts p)
 	t_vector		v_right;
 
 	focal_len = s.W/(2 * tanf(cam->fov / 2));
-	projection_point.x = (((2.0f * p.x) / s.W) - 1) * (s.W / 2.0f * focal_len);
-	projection_point.y = (1 - ((2.0f * p.y) / s.H)) * (s.H / 2.0f * focal_len);
+	projection_point.x = ((2.0f * (p.x + 0.5f) / s.W) - 1.0f) * (s.W / (2.0f * focal_len));
+	projection_point.y = (1.0f - (2.0f * (p.y + 0.5f) / s.H)) * (s.H / (2.0f * focal_len));
 	projection_point.z = focal_len * -1.0f;
 	v_up = orthogonal_vector(cam->vector, 1, 1);
 	v_right = cross_product(cam -> vector, v_up);
 	ray_vector = add_vector(scalar_vector(projection_point.x, v_right),
 							scalar_vector(projection_point.y, v_up));
 	ray_vector = add_vector(ray_vector, scalar_vector(focal_len, cam -> vector));
+	ray_vector = normalize_vector(ray_vector);
 	return (ray_vector);
 }
 

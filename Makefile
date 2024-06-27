@@ -1,5 +1,5 @@
 NAME				:= miniRT
-CFLAGS				:= -Wextra -Wall #-Werror
+CFLAGS				:= -Wextra -Wall -Werror
 LIBMLX_DIR			:= ./lib/MLX42
 
 LIBFT				:= ./lib/libft/libft.a

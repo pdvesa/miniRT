@@ -23,6 +23,7 @@ int	miniRT(char *filename)
 	if (!scene.ambient_light)
 		return (1);
 	result = 1;
+	print_all(&scene);
 	mlx = mlx_init(WIDTH, HEIGHT, "miniRT", true);
 	if (mlx)
 	{

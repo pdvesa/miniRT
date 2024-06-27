@@ -4,9 +4,16 @@
 
 #include <miniRT_render.h>
 
-int calculate_color(t_scene* scene, t_image_size s, t_pixel_cdts p)
+void	set_pixel_color(void *address, u_int8_t r, u_int8_t g, u_int8_t b)
 {
-	int		color;
+	ft_memset(address, r, sizeof (int8_t));
+	ft_memset(address + sizeof (u_int8_t), g, sizeof (int8_t));
+	ft_memset(address + 2 * sizeof (u_int8_t), b, sizeof (int8_t));
+	ft_memset(address + 3 * sizeof (u_int8_t), 255, sizeof (int8_t));
+}
+
+t_rgb	calculate_color(t_scene* scene, t_image_size s, t_pixel_cdts p)
+{
 	t_ray	ray;
 	t_rgb	ambient_light;
 	t_rgb	diffuse_lights;
@@ -15,36 +22,32 @@ int calculate_color(t_scene* scene, t_image_size s, t_pixel_cdts p)
 	ray = ray_to_object(scene, s, p);
 	ambient_light = get_ambient_light(scene->ambient_light);
 	if (!is_far_point(ray.inter_point.coordinates)) {
-		printf("I'm an object\n");
 		diffuse_lights = inter_to_light(scene, &ray);
 		sum_lights = add_rgb(ambient_light, diffuse_lights);
-		printf("R %d G %d B %d", sum_lights.r, sum_lights.g, sum_lights.b);
 	} else
 		sum_lights = ambient_light;
-	color = get_color_int(sum_lights.r, sum_lights.g, 0, sum_lights.b);
-	printf("color int %d\n", color);
-	return (color);
+	return (sum_lights);
 }
 
 void ray_trace(mlx_image_t* image, t_scene* scene)
 {
 	t_pixel_cdts	pixel;
 	t_image_size	size;
-	int 			color;
+	t_rgb 			color;
 	void			*address;
 
 	pixel.x = 0;
 	pixel.y = 0;
 	size.W = image -> width;
 	size.H = image -> height;
-	while (pixel.y < size.W)
+	while (pixel.y < size.H)
 	{
 		pixel.x = 0;
-		while (pixel.x < size.H)
+		while (pixel.x < size.W)
 		{
 			color = calculate_color(scene, size, pixel);
-			address = image -> pixels + ((pixel.y * image -> height) * sizeof (int)) + (pixel.x * sizeof (int));
-			ft_memset(address, color, sizeof (int));
+			address = image -> pixels + (((pixel.y * image -> width) + (pixel.x)) * sizeof(uint32_t));
+			set_pixel_color(address, color.r, color.g, color.b);
 			pixel.x++;
 		}
 		pixel.y++;
