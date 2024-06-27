@@ -1,12 +1,12 @@
 NAME				:= miniRT
-CFLAGS				:= -Wextra -Wall -Werror
+CFLAGS				:= -Wextra -Wall #-Werror
 LIBMLX_DIR			:= ./lib/MLX42
 
 LIBFT				:= ./lib/libft/libft.a
 LIBFT_DIR			:= ./lib/libft
 
 HEADERS				:= -I ./include -I $(LIBMLX_DIR)/include -I $(LIBFT_DIR)
-LIBS				:= $(LIBMLX_DIR)/build/libmlx42.a -ldl -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/" -pthread -lm
+LIBS				:= $(LIBMLX_DIR)/build/libmlx42.a -ldl -lglfw -pthread -lm
 
 SRCS_DIR			:= srcs
 PARSING_DIR			:= $(SRCS_DIR)/parsing
@@ -22,6 +22,7 @@ MLX_UTILS_DIR		:= $(UTILS_DIR)/mlx_utils
 
 
 SRCS				:= $(SRCS_DIR)/miniRT.c \
+						$(SRCS_DIR)/debug/parsing_test.c \
 						$(PARSING_DIR)/parse_file.c \
 						$(PARSING_DIR)/read_file.c \
 						$(PARSING_DIR)/validate_content.c \

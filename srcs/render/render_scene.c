@@ -14,14 +14,15 @@ int calculate_color(t_scene* scene, t_image_size s, t_pixel_cdts p)
 
 	ray = ray_to_object(scene, s, p);
 	ambient_light = get_ambient_light(scene->ambient_light);
-	if (!is_far_point(ray.inter_point.coordinates))
-	{
+	if (!is_far_point(ray.inter_point.coordinates)) {
+		printf("I'm an object\n");
 		diffuse_lights = inter_to_light(scene, &ray);
 		sum_lights = add_rgb(ambient_light, diffuse_lights);
-	}
-	else
+		printf("R %d G %d B %d", sum_lights.r, sum_lights.g, sum_lights.b);
+	} else
 		sum_lights = ambient_light;
-	color = get_color_int(sum_lights.r, sum_lights.g, sum_lights.b, 1);
+	color = get_color_int(sum_lights.r, sum_lights.g, 0, sum_lights.b);
+	printf("color int %d\n", color);
 	return (color);
 }
 
@@ -36,12 +37,13 @@ void ray_trace(mlx_image_t* image, t_scene* scene)
 	pixel.y = 0;
 	size.W = image -> width;
 	size.H = image -> height;
-	while (pixel.y < size.H)
+	while (pixel.y < size.W)
 	{
-		while (pixel.x < size.W)
+		pixel.x = 0;
+		while (pixel.x < size.H)
 		{
 			color = calculate_color(scene, size, pixel);
-			address = image -> pixels + (pixel.y * image -> width) + pixel.x;
+			address = image -> pixels + ((pixel.y * image -> height) * sizeof (int)) + (pixel.x * sizeof (int));
 			ft_memset(address, color, sizeof (int));
 			pixel.x++;
 		}
@@ -62,6 +64,7 @@ int	render_scene(mlx_t *mlx, t_scene *scene)
 		mlx_delete_image(mlx, render_image);
 		return (ft_putmlx_error());
 	}
+	mlx_loop(mlx);
 	mlx_delete_image(mlx, render_image);
 	return (EXIT_SUCCESS);
 }
