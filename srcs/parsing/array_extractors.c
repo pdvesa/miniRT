@@ -27,8 +27,8 @@ int	extract_sphere(t_scene *scene, char **content, int i)
 	if (save_cords(scene, cont_arr[1], sp, i))
 		return (erreur_dictateur(cont_arr, sp));
 	scene->sphere[i]->diameter = get_numbers(cont_arr[2], 1);
-	if (scene->sphere[i]->diameter < -100.0F
-		|| scene->ambient_light->ratio > 100.0F) //no idea about limit
+	if (scene->sphere[i]->diameter < 0.0F
+		|| scene->sphere[i]->diameter > HEIGHT) //no idea about limit
 		return (erreur_dictateur(cont_arr, sp));
 	if (extract_rgb(&(scene->sphere[i]->rgb), cont_arr[3]))
 		return (erreur_dictateur(cont_arr, sp));
@@ -73,12 +73,12 @@ int	extract_cylinder(t_scene *scene, char **content, int i)
 	if (save_vector(scene, cont_arr[2], cyka, i))
 		return (erreur_dictateur(cont_arr, cyka));
 	scene->cylinder[i]->diameter = get_numbers(cont_arr[3], 1);
-	if (scene->cylinder[i]->diameter > 1000.0F
-		|| scene->cylinder[i]->diameter < -1000.0F) //idk about limits again
+	if (scene->cylinder[i]->diameter > HEIGHT
+		|| scene->cylinder[i]->diameter < 0.0F) //idk about limits again
 		return (erreur_dictateur(cont_arr, cyka));
 	scene->cylinder[i]->height = get_numbers(cont_arr[4], 1);
-	if (scene->cylinder[i]->height > 1000.0F
-		|| scene->cylinder[i]->height < -1000.0F)
+	if (scene->cylinder[i]->height > HEIGHT
+		|| scene->cylinder[i]->height < 0.0F)
 		return (erreur_dictateur(cont_arr, cyka));
 	if (extract_rgb(&(scene->cylinder[i]->rgb), cont_arr[5]))
 		return (erreur_dictateur(cont_arr, cyka));
