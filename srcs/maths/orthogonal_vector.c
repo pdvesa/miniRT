@@ -10,7 +10,7 @@ t_vector	all_non_null(t_vector v, float a, float b)
 
 	orthogonal.x = a;
 	orthogonal.y = b;
-	orthogonal.z = ((v.x * a) + v.y * b) / v.z;
+	orthogonal.z = -1.0f * (((v.x * a) + v.y * b) / v.z);
 	return (orthogonal);
 }
 

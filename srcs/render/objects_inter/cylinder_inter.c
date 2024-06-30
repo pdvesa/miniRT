@@ -25,7 +25,7 @@ t_inter_point	cyka_circles_inter(t_line *line, t_cylinder *cylinder)
 		&& point_distance(inter2.coordinates, line->origin)
 		   < point_distance(inter1.coordinates, line->origin))
 		return (inter2);
-	inter1.coordinates = new_far_point();
+	inter1.object = NULL;
 	return (inter1);
 }
 
@@ -60,17 +60,16 @@ t_inter_point	cyka_curve_inter(t_line *line, t_cylinder *cylinder)
 	t_inter_point	inter;
 	float			line_len;
 
-
-	inter.coordinates = new_far_point();
-	inter.object_type = cyka;
-	inter.object = cylinder;
+	inter.object = NULL;
 	line_len = curve_line_len(line, cylinder);
 	if (line_len == -1.0f)
 		return (inter);
+	inter.object_type = cyka;
+	inter.object = cylinder;
 	inter.coordinates = translate_point(line->origin, scalar_vector(line_len, line->direction));
 	if (point_distance(cylinder->center, inter.coordinates) >
 			sqrtf(powf(cylinder->height, 2.0f) + powf(cylinder->diameter, 2.0f)))
-		inter.coordinates = new_far_point();
+		inter.object = NULL;
 	return (inter);
 }
 
@@ -81,9 +80,9 @@ t_inter_point	cylinder_inter(t_line *line, t_cylinder *cylinder)
 
 	inter_cyka_part = cyka_curve_inter(line, cylinder);
 	inter_circle_part = cyka_circles_inter(line, cylinder);
-	if (point_distance(line -> origin, inter_cyka_part.coordinates)
-		< point_distance(line -> origin, inter_circle_part.coordinates))
+	if (inter_cyka_part.object && !inter_circle_part.object)
 		return (inter_cyka_part);
-	else
+	if (inter_circle_part.object && !inter_cyka_part.object)
 		return (inter_circle_part);
+	return (inter_cyka_part);
 }

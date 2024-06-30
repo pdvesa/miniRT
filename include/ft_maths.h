@@ -6,7 +6,7 @@
 # define FT_MATHS_H
 
 # include <math.h>
-# include <values.h>
+# include <float.h>
 
 typedef struct	s_vector
 {
@@ -44,8 +44,5 @@ t_vector		cross_product(t_vector v1, t_vector v2);
 t_coordinates	translate_point(t_coordinates origin, t_vector vector);
 
 int				point_equals(t_coordinates p1, t_coordinates p2);
-
-t_coordinates	new_far_point();
-int				is_far_point(t_coordinates point);
 
 #endif //FT_MATHS_H

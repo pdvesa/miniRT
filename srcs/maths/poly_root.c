@@ -4,14 +4,14 @@
 
 #include <ft_maths.h>
 
-t_polyroot poly_root(float a, float b, float c)
+t_polyroot	poly_root(float a, float b, float c)
 {
 	t_polyroot roots;
 	float discriminant;
 
 	roots.values[0] = 0;
 	roots.values[1] = 0;
-	discriminant = b * b - 4.0f * a * c;
+	discriminant = b * b - (4.0f * a * c);
 	if (discriminant < 0.0f)
 		roots.n = 0;
 	else if (discriminant == 0.0f)

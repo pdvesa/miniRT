@@ -21,11 +21,12 @@ t_rgb	calculate_color(t_scene* scene, t_image_size s, t_pixel_cdts p)
 
 	ray = ray_to_object(scene, s, p);
 	ambient_light = get_ambient_light(scene->ambient_light);
-	if (!is_far_point(ray.inter_point.coordinates)) {
+	if (ray.inter_point.object) {
 		diffuse_lights = inter_to_light(scene, &ray);
 		sum_lights = add_rgb(ambient_light, diffuse_lights);
-	} else
+	} else {
 		sum_lights = ambient_light;
+	}
 	return (sum_lights);
 }
 

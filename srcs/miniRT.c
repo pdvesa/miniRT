@@ -37,6 +37,16 @@ int	miniRT(char *filename)
 	return (result);
 }
 
+//int main() {
+//	t_line ray = {{0, 0, 0}, {1, 1, 1}};
+//	t_sphere sphere = {{5, 5, 5}, 2, {255,255,255}};
+//	t_inter_point inter = sphere_inter(&ray, &sphere);
+//
+//	printf("Intersection at: (%f, %f, %f)\n", inter.coordinates.x, inter.coordinates.y, inter.coordinates.z);
+//
+//	return 0;
+//}
+
 int	main(int n, char *args[])
 {
 	if (n != 2)
