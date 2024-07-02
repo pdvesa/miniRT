@@ -26,3 +26,19 @@ t_polyroot	poly_root(float a, float b, float c)
 	}
 	return roots;
 }
+
+float	inter_root_linelen(t_polyroot roots)
+{
+	if (roots.n == 0 || (roots.n == 1 && roots.values[0] < 0)
+		|| (roots.n == 2 && roots.values[0] < 0 && roots.values[1] < 0))
+		return (-1.0f);
+	if (roots.n == 1)
+		return (roots.values[0]);
+	else
+	{
+		if (roots.values[0] > roots.values[1] && roots.values[1] > 0)
+			return (roots.values[1]);
+		else
+			return (roots.values[0]);
+	}
+}
