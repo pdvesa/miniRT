@@ -26,12 +26,44 @@ static float	make_float(int n, char *s)
 	return ((double) result);
 }
 
+static int	simple_float_checker(char *str)
+{
+	int	count;
+	int	flag;
+	
+	
+	count = 0;
+	flag = 0;
+	if (*str == '-' || *str == '+')
+		str++;
+	if (!(ft_isdigit(*str++)))
+			return (EXIT_FAILURE);
+	while(*str)
+	{
+		if (*str == '.' && flag == 0)
+		{
+			flag = 1;
+			str++;
+		}
+		if (!(ft_isdigit(*str)))
+			return (EXIT_FAILURE);
+		if (flag == 1)
+			count++;
+		if (count == 7)
+			*(str + 1) = '\0';
+		str++;
+	}
+	return (EXIT_SUCCESS);
+}
+
 double	ft_floatoi(char *s)
 {
 	double		n;
 	int			d_part;
 	int			neg;
 
+	if (simple_float_checker(s))
+		return (-1.0f);
 	neg = 1;
 	n = (double) ft_atoi(s);
 	if (n > 16777216 || n < -16777216)
