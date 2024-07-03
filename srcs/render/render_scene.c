@@ -16,15 +16,15 @@ t_rgb	calculate_color(t_scene* scene, t_image_size s, t_pixel_cdts p)
 {
 	t_ray	ray;
 	t_rgb	ambient_light;
-//	t_rgb	diffuse_lights;
+	t_rgb	diffuse_lights;
 	t_rgb	sum_lights;
 
 	ray = ray_to_object(scene, s, p);
 	ambient_light = get_ambient_light(scene->ambient_light);
 	if (ray.inter_point.object)
 	{
-//		diffuse_lights = inter_to_light(scene, &ray);
-		sum_lights = inter_to_light(scene, &ray);
+		diffuse_lights = inter_to_light(scene, &ray);
+		sum_lights = add_rgb(diffuse_lights, ambient_light);
 	}
 	else
 		sum_lights = ambient_light;

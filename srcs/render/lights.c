@@ -14,19 +14,21 @@ t_rgb get_object_color(t_ray *ray)
 		return (((t_cylinder*)(ray->inter_point.object))->rgb);
 }
 
-int light_visible(t_scene *scene, t_coordinates origin, t_coordinates light)
+int light_visible(t_scene *scene, t_ray *ray, t_coordinates light)
 {
 	t_line			line;
 	t_inter_point	closer_inter;
 	float			light_distance;
 	float			inter_distance;
 
-	line.origin = origin;
-	line.direction = vector_from_points(origin, light);
-	closer_inter = get_closer_inter(&line, scene);
-	inter_distance = point_distance(origin, closer_inter.coordinates);
-	light_distance = point_distance(origin, light);
-	if (inter_distance > 0.01f && inter_distance < light_distance)
+	line.origin = ray->inter_point.coordinates;
+	line.direction = vector_from_points(ray->inter_point.coordinates, light);
+	closer_inter = get_closer_inter(&line, scene, ray->inter_point.object);
+	if (closer_inter.object == NULL)
+		return (1);
+	inter_distance = point_distance(ray->inter_point.coordinates, closer_inter.coordinates);
+	light_distance = point_distance(ray->inter_point.coordinates, light);
+	if (inter_distance < light_distance)
 		return (0);
 	return (1);
 }
@@ -34,26 +36,23 @@ int light_visible(t_scene *scene, t_coordinates origin, t_coordinates light)
 t_rgb inter_to_light(t_scene* scene, t_ray* ray)
 {
 	t_rgb	color;
-//	t_vector	light_dir;
-//	t_vector	normal_to_inter;
-//	float		light_coefficient;
+	t_vector	light_dir;
+	t_vector	normal_to_inter;
+	float		light_coefficient;
 
 	color.r = 0;
 	color.g = 0;
 	color.b = 0;
-	if (light_visible(scene, ray->inter_point.coordinates,scene->light->center))
+	if (light_visible(scene, ray, scene->light->center))
 	{
-		color.r = 255;
-		color.g = 255;
-		color.b = 0;
-//		light_dir = vector_from_points(scene->light->center, ray->inter_point.coordinates);
-//		light_dir = normalize_vector(light_dir);
-//		normal_to_inter = get_normal_to_inter(ray);
-//		light_coefficient = dot_product(light_dir, normal_to_inter) * scene->light->brightness;
-//		color = get_object_color(ray);
-//		color.r *= light_coefficient;
-//		color.g *= light_coefficient;
-//		color.b *= light_coefficient;
+		light_dir = vector_from_points(scene->light->center, ray->inter_point.coordinates);
+		light_dir = normalize_vector(light_dir);
+		normal_to_inter = get_normal_to_inter(ray);
+		light_coefficient = dot_product(light_dir, normal_to_inter) * scene->light->brightness;
+		color = get_object_color(ray);
+		color.r *= light_coefficient;
+		color.g *= light_coefficient;
+		color.b *= light_coefficient;
 	}
 	return (color);
 }

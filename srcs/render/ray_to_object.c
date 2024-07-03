@@ -26,12 +26,12 @@ t_vector	ray_direction(t_camera *cam, t_image_size s, t_pixel_cdts p)
 	return (ray_vector);
 }
 
-t_ray	ray_to_object(t_scene* scene, t_image_size s, t_pixel_cdts p)
+t_ray	ray_to_object(t_scene *scene, t_image_size s, t_pixel_cdts p)
 {
 	t_ray	ray;
 
 	ray.line.origin = scene->camera->center;
 	ray.line.direction = ray_direction(scene->camera, s, p);
-	ray.inter_point = get_closer_inter(&ray.line, scene);
+	ray.inter_point = get_closer_inter(&ray.line, scene, NULL);
 	return (ray);
 }

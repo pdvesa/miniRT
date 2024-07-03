@@ -34,7 +34,7 @@ typedef struct	s_pixel_cdts
 }	t_pixel_cdts;
 
 t_ray			ray_to_object(t_scene* scene, t_image_size s, t_pixel_cdts p);
-t_inter_point	get_closer_inter(t_line *line, t_scene *scene);
+t_inter_point	get_closer_inter(t_line *line, t_scene *scene, void *self);
 t_rgb			get_ambient_light(t_ambient_light *am_light);
 t_rgb			inter_to_light(t_scene* scene, t_ray* ray);
 
