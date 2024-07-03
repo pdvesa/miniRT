@@ -26,7 +26,7 @@ int light_visible(t_scene *scene, t_coordinates origin, t_coordinates light)
 	closer_inter = get_closer_inter(&line, scene);
 	inter_distance = point_distance(origin, closer_inter.coordinates);
 	light_distance = point_distance(origin, light);
-	if (inter_distance > 0.001f && inter_distance < light_distance)
+	if (inter_distance > 0.01f && inter_distance < light_distance)
 		return (0);
 	return (1);
 }
@@ -34,23 +34,26 @@ int light_visible(t_scene *scene, t_coordinates origin, t_coordinates light)
 t_rgb inter_to_light(t_scene* scene, t_ray* ray)
 {
 	t_rgb	color;
-	t_vector	light_dir;
-	t_vector	normal_to_inter;
-	float		light_coefficient;
+//	t_vector	light_dir;
+//	t_vector	normal_to_inter;
+//	float		light_coefficient;
 
 	color.r = 0;
 	color.g = 0;
 	color.b = 0;
 	if (light_visible(scene, ray->inter_point.coordinates,scene->light->center))
 	{
-		light_dir = vector_from_points(scene->light->center, ray->inter_point.coordinates);
-		light_dir = normalize_vector(light_dir);
-		normal_to_inter = get_normal_to_inter(ray);
-		light_coefficient = dot_product(light_dir, normal_to_inter) * scene->light->brightness;
-		color = get_object_color(ray);
-		color.r *= light_coefficient;
-		color.g *= light_coefficient;
-		color.b *= light_coefficient;
+		color.r = 255;
+		color.g = 255;
+		color.b = 0;
+//		light_dir = vector_from_points(scene->light->center, ray->inter_point.coordinates);
+//		light_dir = normalize_vector(light_dir);
+//		normal_to_inter = get_normal_to_inter(ray);
+//		light_coefficient = dot_product(light_dir, normal_to_inter) * scene->light->brightness;
+//		color = get_object_color(ray);
+//		color.r *= light_coefficient;
+//		color.g *= light_coefficient;
+//		color.b *= light_coefficient;
 	}
 	return (color);
 }

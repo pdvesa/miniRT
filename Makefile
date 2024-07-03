@@ -20,7 +20,6 @@ INTER_DIR			:= $(RENDER_DIR)/objects_inter
 RENDER_UTILS_DIR	:= $(UTILS_DIR)/render_utils
 MLX_UTILS_DIR		:= $(UTILS_DIR)/mlx_utils
 
-
 SRCS				:= $(SRCS_DIR)/miniRT.c \
 						$(SRCS_DIR)/debug/parsing_test.c \
 						$(PARSING_DIR)/parse_file.c \

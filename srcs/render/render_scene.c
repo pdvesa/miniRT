@@ -16,17 +16,18 @@ t_rgb	calculate_color(t_scene* scene, t_image_size s, t_pixel_cdts p)
 {
 	t_ray	ray;
 	t_rgb	ambient_light;
-	t_rgb	diffuse_lights;
+//	t_rgb	diffuse_lights;
 	t_rgb	sum_lights;
 
 	ray = ray_to_object(scene, s, p);
 	ambient_light = get_ambient_light(scene->ambient_light);
-	if (ray.inter_point.object) {
-		diffuse_lights = inter_to_light(scene, &ray);
-		sum_lights = add_rgb(ambient_light, diffuse_lights);
-	} else {
-		sum_lights = ambient_light;
+	if (ray.inter_point.object)
+	{
+//		diffuse_lights = inter_to_light(scene, &ray);
+		sum_lights = inter_to_light(scene, &ray);
 	}
+	else
+		sum_lights = ambient_light;
 	return (sum_lights);
 }
 
@@ -47,7 +48,7 @@ void ray_trace(mlx_image_t* image, t_scene* scene)
 		while (pixel.x < size.W)
 		{
 			color = calculate_color(scene, size, pixel);
-			address = image -> pixels + (((pixel.y * image -> width) + (pixel.x)) * sizeof(uint32_t));
+			address = image -> pixels + (((pixel.y * image -> width) + (pixel.x)) * sizeof (uint32_t));
 			set_pixel_color(address, color.r, color.g, color.b);
 			pixel.x++;
 		}
