@@ -12,7 +12,7 @@ void	set_pixel_color(void *address, u_int8_t r, u_int8_t g, u_int8_t b)
 	ft_memset(address + 3 * sizeof (u_int8_t), 255, sizeof (int8_t));
 }
 
-t_rgb	calculate_color(t_scene* scene, t_image_size s, t_pixel_cdts p)
+t_rgb	calculate_color(t_scene* scene, t_image_size *s, t_pixel_cdts *p)
 {
 	t_ray	ray;
 	t_rgb	ambient_light;
@@ -47,7 +47,7 @@ void ray_trace(mlx_image_t* image, t_scene* scene)
 		pixel.x = 0;
 		while (pixel.x < size.W)
 		{
-			color = calculate_color(scene, size, pixel);
+			color = calculate_color(scene, &size, &pixel);
 			address = image -> pixels + (((pixel.y * image -> width) + (pixel.x)) * sizeof (uint32_t));
 			set_pixel_color(address, color.r, color.g, color.b);
 			pixel.x++;
