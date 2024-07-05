@@ -33,7 +33,15 @@ typedef struct	s_pixel_cdts
 	unsigned int	y;
 }	t_pixel_cdts;
 
-t_ray			ray_to_object(t_scene* scene, t_image_size * s, t_pixel_cdts * p);
+typedef struct	s_hook_data
+{
+	t_scene	*scene;
+	mlx_t	*mlx;
+}	t_hook_container;
+
+
+
+t_ray			ray_to_object(t_scene* scene, t_image_size  *s, t_pixel_cdts *p);
 t_inter_point	get_closer_inter(t_line *line, t_scene *scene, void *self);
 t_rgb			get_ambient_light(t_ambient_light *am_light);
 t_rgb			inter_to_light(t_scene* scene, t_ray* ray);
@@ -46,5 +54,8 @@ t_vector		get_normal_to_inter(t_ray *ray);
 
 //Utils like
 t_rgb			add_rgb(t_rgb rgb1, t_rgb rgb2);
+
+//Hooks
+void	key_function(mlx_key_data_t keydata, void *param);
 
 #endif //MINIRT_RENDER_H

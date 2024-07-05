@@ -1,4 +1,4 @@
-#include <miniRT.h>
+#include <miniRT_render.h>
 
 void	print_instructions(void)
 {
@@ -6,6 +6,7 @@ void	print_instructions(void)
 		printf("Possible transformable parameters :\n\tdia (num) for diameter\n\twid (num) for width\n\torientation (num,num,num) for change of direction\n\tcord (num,num,num) for relocation\n");
 		printf("Examples: 'dia 35' will change selected sphere diameter to 35, 'orientation 1,1,1' will change selected object or element directional vector!\n");
 		printf("Only one modification per press of button!@!\n");
+		printf("If situation occurs where you lost your memories and you need to reprint these instructions press A (for acute amnesia)\n");
 }
 
 //void	modify_camera(t_scene *scene)
@@ -18,52 +19,60 @@ void	print_instructions(void)
 	//validate_input(input);
 //}
 
+
 void	mouse_function(mouse_key_t click, action_t action, modifier_key_t mods, void *param)
 {
-	mlx_t	*mlx;
-	int32_t x;
-	int32_t y;
+	t_hook_container	*data;
+	int32_t 			x;
+	int32_t 			y;
+	t_pixel_cdts		pixel;
+	t_image_size		size;
+	t_ray				object_ray;
 	
+	data = (t_hook_container *)param;
+	size.W = data->mlx->width; //maybe problem with resize idk
+	size.H = data->mlx->height;
 	x = 0;
 	y = 0;
-	mlx = (mlx_t *)param;
 	if (click == MLX_MOUSE_BUTTON_LEFT && action == MLX_PRESS)
 	{
 		printf("I got it\n");
-		mlx_get_mouse_pos(mlx, &x, &y);
+		mlx_get_mouse_pos(data->mlx, &x, &y);
 		printf("x %d y %d\n", (int)x, (int)y);
+		pixel.x = x;
+		pixel.y = y;
+		object_ray = ray_to_object(data->scene, &size, &pixel);
+		printf("test object you monkey %d\n", object_ray.inter_point.object_type);
 	}
 }
-
-
+//the mousehook keeps running after first initialized, saving the clicks
+//cant find terminate hook func so need to do it manually or ignore if it causes no problems after testing
 
 void	key_function(mlx_key_data_t keydata, void *param)
 {
-	//t_scene		*scene;
-	mlx_t	*mlx;
-	static  int	flag = 0;
-	
-	
-	//scene = (t_scene *)param;
-	mlx = (mlx_t *)param;
+	t_hook_container	*data;
+	static  int			flag = 0;
+
+	data = (t_hook_container *)param;
 	if (flag == 0)
+		print_instructions();
+	flag = 1;
+	if (keydata.key == MLX_KEY_A && keydata.action == MLX_PRESS)
 		print_instructions();
 	if (keydata.key == MLX_KEY_O && keydata.action == MLX_PRESS)
 	{
-		flag = 1;
 		printf("Input please\n");
-		//func to cast ray and save obj ptr, keyhook?
-		mlx_mouse_hook(mlx, mouse_function, mlx);
+		mlx_mouse_hook(data->mlx, mouse_function, data);
 	}
 	if (keydata.key == MLX_KEY_C && keydata.action == MLX_PRESS)
 	{
-		flag = 1;
-//		modify_camera(scene);
+		printf("Input please\n");
+//		modify_camera(data->scene);
 	}
 	if (keydata.key == MLX_KEY_L && keydata.action == MLX_PRESS)
 	{
-		flag = 1;
 		printf("Input please\n");
+//		modify_light(data->scene);
 	}
 }
 

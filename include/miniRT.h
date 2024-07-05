@@ -98,13 +98,13 @@ typedef struct	s_scene
 	t_sphere		**sphere;
 	t_plane			**plane;
 	t_cylinder 		**cylinder;
-}	 t_scene;
+}	t_scene;
+
 
 t_scene	parse_file(char *filename);
 
 void  free_render_scene(t_scene *scene);
 int   render_scene(mlx_t *mlx, t_scene *scene);
 void  print_all(t_scene *scene);
-void	key_function(mlx_key_data_t keydata, void *param); //maybe change loc
 
 #endif //MINIRT_H
