@@ -69,6 +69,8 @@ int	render_scene(mlx_t *mlx, t_scene *scene)
 		mlx_delete_image(mlx, render_image);
 		return (ft_putmlx_error());
 	}
+	printf("If you want to modify objects press O, for camera C and for light L\n");
+	mlx_key_hook(mlx, &key_function, mlx);
 	mlx_loop(mlx);
 	mlx_delete_image(mlx, render_image);
 	return (EXIT_SUCCESS);
