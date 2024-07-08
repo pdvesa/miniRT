@@ -14,7 +14,7 @@ t_rgb get_object_color(t_ray *ray)
 		return (((t_cylinder*)(ray->inter_point.object))->rgb);
 }
 
-int light_visible(t_scene *scene, t_ray *ray, t_coordinates light)
+int light_visible(t_scene *scene, t_ray *ray)
 {
 	t_line			line;
 	t_inter_point	closer_inter;
@@ -22,12 +22,12 @@ int light_visible(t_scene *scene, t_ray *ray, t_coordinates light)
 	float			inter_distance;
 
 	line.origin = ray->inter_point.coordinates;
-	line.direction = vector_from_points(ray->inter_point.coordinates, light);
+	line.direction = vector_from_points(ray->inter_point.coordinates, scene->light->center);
 	closer_inter = get_closer_inter(&line, scene, ray->inter_point.object);
 	if (closer_inter.object == NULL)
 		return (1);
 	inter_distance = point_distance(ray->inter_point.coordinates, closer_inter.coordinates);
-	light_distance = point_distance(ray->inter_point.coordinates, light);
+	light_distance = point_distance(ray->inter_point.coordinates, scene->light->center);
 	if (inter_distance < light_distance)
 		return (0);
 	return (1);
@@ -35,7 +35,7 @@ int light_visible(t_scene *scene, t_ray *ray, t_coordinates light)
 
 t_rgb inter_to_light(t_scene* scene, t_ray* ray)
 {
-	t_rgb	color;
+	t_rgb		color;
 	t_vector	light_dir;
 	t_vector	normal_to_inter;
 	float		light_coefficient;
@@ -43,7 +43,7 @@ t_rgb inter_to_light(t_scene* scene, t_ray* ray)
 	color.r = 0;
 	color.g = 0;
 	color.b = 0;
-	if (light_visible(scene, ray, scene->light->center))
+	if (light_visible(scene, ray))
 	{
 		light_dir = vector_from_points(scene->light->center, ray->inter_point.coordinates);
 		light_dir = normalize_vector(light_dir);
@@ -61,8 +61,8 @@ t_rgb	get_ambient_light(t_ambient_light *am_light)
 {
 	t_rgb	am_light_color;
 
-	am_light_color.r = am_light->rgb.r * am_light->ratio;
-	am_light_color.g = am_light->rgb.g * am_light->ratio;
-	am_light_color.b = am_light->rgb.b * am_light->ratio;
+	am_light_color.r = (int) ((float) am_light->rgb.r * am_light->ratio);
+	am_light_color.g = (int) ((float) am_light->rgb.g * am_light->ratio);
+	am_light_color.b = (int) ((float) am_light->rgb.b * am_light->ratio);
 	return (am_light_color);
 }

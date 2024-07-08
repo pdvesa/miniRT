@@ -21,11 +21,14 @@ typedef struct	s_ray
 	t_inter_point	inter_point;
 }	t_ray;
 
-typedef struct	s_image_size
+typedef struct	s_viewport
 {
-	unsigned int	W;
-	unsigned int	H;
-}	t_image_size;
+	unsigned int	w;
+	unsigned int	h;
+	t_vector		v_up;
+	t_vector		v_right;
+	t_camera		*cam;
+}	t_viewport;
 
 typedef struct	s_pixel_cdts
 {
@@ -33,7 +36,7 @@ typedef struct	s_pixel_cdts
 	unsigned int	y;
 }	t_pixel_cdts;
 
-t_ray			ray_to_object(t_scene* scene, t_image_size * s, t_pixel_cdts * p);
+t_ray			ray_to_object(t_scene* scene, t_viewport * viewport, t_pixel_cdts * p);
 t_inter_point	get_closer_inter(t_line *line, t_scene *scene, void *self);
 t_rgb			get_ambient_light(t_ambient_light *am_light);
 t_rgb			inter_to_light(t_scene* scene, t_ray* ray);

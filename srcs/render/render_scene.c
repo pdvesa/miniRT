@@ -4,6 +4,18 @@
 
 #include <miniRT_render.h>
 
+t_viewport	initialise_viewport(mlx_image_t *image, t_camera *camera)
+{
+	t_viewport	viewport;
+
+	viewport.w = image->width;
+	viewport.h = image->height;
+	viewport.cam = camera;
+	viewport.v_up = orthogonal_vector(camera->vector, .0f, 1.0f);
+	viewport.v_right = cross_product(camera->vector, viewport.v_up);
+	return (viewport);
+}
+
 void	set_pixel_color(void *address, u_int8_t r, u_int8_t g, u_int8_t b)
 {
 	ft_memset(address, r, sizeof (int8_t));
@@ -12,14 +24,14 @@ void	set_pixel_color(void *address, u_int8_t r, u_int8_t g, u_int8_t b)
 	ft_memset(address + 3 * sizeof (u_int8_t), 255, sizeof (int8_t));
 }
 
-t_rgb	calculate_color(t_scene* scene, t_image_size *s, t_pixel_cdts *p)
+t_rgb	calculate_color(t_scene *scene, t_viewport *viewport, t_pixel_cdts *p)
 {
 	t_ray	ray;
 	t_rgb	ambient_light;
 	t_rgb	diffuse_lights;
 	t_rgb	sum_lights;
 
-	ray = ray_to_object(scene, s, p);
+	ray = ray_to_object(scene, viewport, p);
 	ambient_light = get_ambient_light(scene->ambient_light);
 	if (ray.inter_point.object)
 	{
@@ -31,23 +43,22 @@ t_rgb	calculate_color(t_scene* scene, t_image_size *s, t_pixel_cdts *p)
 	return (sum_lights);
 }
 
-void ray_trace(mlx_image_t* image, t_scene* scene)
+void	ray_trace(mlx_image_t *image, t_scene *scene)
 {
 	t_pixel_cdts	pixel;
-	t_image_size	size;
+	t_viewport		viewport;
 	t_rgb 			color;
 	void			*address;
 
 	pixel.x = 0;
 	pixel.y = 0;
-	size.W = image -> width;
-	size.H = image -> height;
-	while (pixel.y < size.H)
+	viewport = initialise_viewport(image, scene->camera);
+	while (pixel.y < viewport.h)
 	{
 		pixel.x = 0;
-		while (pixel.x < size.W)
+		while (pixel.x < viewport.w)
 		{
-			color = calculate_color(scene, &size, &pixel);
+			color = calculate_color(scene, &viewport, &pixel);
 			address = image -> pixels + (((pixel.y * image -> width) + (pixel.x)) * sizeof (uint32_t));
 			set_pixel_color(address, color.r, color.g, color.b);
 			pixel.x++;
