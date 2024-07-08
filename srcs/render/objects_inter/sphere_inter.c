@@ -9,13 +9,13 @@ t_inter_point	sphere_inter(t_line *line, t_sphere *sphere)
 	t_inter_point	inter;
 	t_polyroot		roots;
 	float			line_len;
-	t_vector		cam_to_center;
+	t_vector		center_to_cam;
 
 	inter.object = NULL;
-	cam_to_center = vector_from_points(line->origin, sphere->center);
+	center_to_cam = vector_from_points(line->origin, sphere->center);
 	roots = poly_root(dot_product(line->direction, line->direction),
-					  2.0f * dot_product(line->direction, cam_to_center),
-					  dot_product(cam_to_center, cam_to_center) -
+					  2.0f * dot_product(line->direction, center_to_cam),
+					  dot_product(center_to_cam, center_to_cam) -
 					  powf(sphere->diameter / 2, 2));
 	line_len = inter_root_linelen(roots);
 	if (line_len < 0.0f)
