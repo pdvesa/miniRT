@@ -14,6 +14,17 @@ t_rgb get_object_color(t_ray *ray)
 		return (((t_cylinder*)(ray->inter_point.object))->rgb);
 }
 
+int hide_itself(t_line *line_to_light, t_ray *ray)
+{
+	if (ray->inter_point.object_type == sp)
+		return (sphere_self_hide(line_to_light, ray));
+//	else if (ray->inter_point.object_type == pl)
+//		return (plane_self_hide(line_to_light, ray));
+//	else
+//		return (cyka_self_hide(line_to_light, ray));
+	return (0);
+}
+
 int light_visible(t_scene *scene, t_ray *ray)
 {
 	t_line			line;
@@ -22,7 +33,9 @@ int light_visible(t_scene *scene, t_ray *ray)
 	float			inter_distance;
 
 	line.origin = ray->inter_point.coordinates;
-	line.direction = vector_from_points(ray->inter_point.coordinates, scene->light->center);
+	line.direction = vector_from_points(scene->light->center, ray->inter_point.coordinates);
+	if (hide_itself(&line, ray))
+		return (0);
 	closer_inter = get_closer_inter(&line, scene, ray->inter_point.object);
 	if (closer_inter.object == NULL)
 		return (1);

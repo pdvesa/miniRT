@@ -34,7 +34,7 @@ t_inter_point	get_closer_inter(t_line *line, t_scene *scene, void *self)
 
 	closer.object = NULL;
 	closer_obj(line, (void **) scene->sphere,
-		(t_inter_point (*)(t_line*, void*)) &sphere_inter, &closer, self);
+		(t_inter_point (*)(t_line*, void*)) &closer_sphere_inter, &closer, self);
 	closer_obj(line, (void **) scene->plane,
 		(t_inter_point (*)(t_line*, void*)) &plane_inter, &closer, self);
 	closer_obj(line, (void **) scene->cylinder,
