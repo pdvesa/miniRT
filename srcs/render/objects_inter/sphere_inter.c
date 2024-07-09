@@ -9,7 +9,7 @@ t_polyroot	sphere_inters(t_line *line, t_sphere *sphere)
 	t_polyroot		roots;
 	t_vector		center_to_cam;
 
-	center_to_cam = vector_from_points(line->origin, sphere->center);
+	center_to_cam = vector_from_points( sphere->center ,line->origin);
 	roots = poly_root(dot_product(line->direction, line->direction),
 					  2.0f * dot_product(line->direction, center_to_cam),
 					  dot_product(center_to_cam, center_to_cam) -

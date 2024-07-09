@@ -2,7 +2,7 @@
 // Created by jules on 08/06/2024.
 //
 
-#include "mlx_utils.h"
+#include <mlx_utils.h>
 
 int get_color_int(int r, int g, int b)
 {

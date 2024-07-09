@@ -9,8 +9,8 @@
 # include <MLX42/MLX42.h>
 
 int		ft_putmlx_error(void);
-int get_color_int(int r, int g, int b);
+void	set_pixel_color(void *address, u_int8_t r, u_int8_t g, u_int8_t b);
 double	ft_floatoi(char *s);
-int	ft_mod_atoi(const char *str);
+int		ft_mod_atoi(const char *str);
 
 #endif //MLX_UTILS_H

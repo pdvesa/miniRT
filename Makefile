@@ -50,8 +50,9 @@ SRCS				:= $(SRCS_DIR)/miniRT.c \
 						$(UTILS_DIR)/atois.c \
 						$(RENDER_UTILS_DIR)/add_rgb.c \
 						$(RENDER_UTILS_DIR)/get_cyka_circles_planes.c \
+						$(RENDER_UTILS_DIR)/get_object_color.c \
 						$(MLX_UTILS_DIR)/ft_mlx_error.c \
-						$(MLX_UTILS_DIR)/get_color_int.c
+						$(MLX_UTILS_DIR)/set_pixel_color.c
 
 OBJS					:= ${SRCS:.c=.o}
 

@@ -41,10 +41,10 @@ float	curve_line_len(t_line *line, t_cylinder *cylinder)
 
 	A = substract_vector(line->direction,scalar_vector(
 			dot_product(line->direction, cylinder->vector), cylinder->vector));
-	B = substract_vector(vector_from_points(line->origin, cylinder->center),
+	B = substract_vector(vector_from_points(cylinder->center ,line->origin),
 						 scalar_vector(dot_product(
-								 vector_from_points(line->origin, cylinder->center),
-								 cylinder->vector), cylinder->vector));
+								 vector_from_points(cylinder->center, line->origin),
+								 cylinder->vector), cylinder->vector)); //TODO check vector from points
 	roots = poly_root(dot_product(A, A), 2.0f * dot_product(A, B), dot_product(B, B) - powf(cylinder->diameter, 2.0f));
 	return (inter_root_linelen(roots));
 }

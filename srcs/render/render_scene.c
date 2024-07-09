@@ -16,31 +16,22 @@ t_viewport	initialise_viewport(mlx_image_t *image, t_camera *camera)
 	return (viewport);
 }
 
-void	set_pixel_color(void *address, u_int8_t r, u_int8_t g, u_int8_t b)
-{
-	ft_memset(address, r, sizeof (int8_t));
-	ft_memset(address + sizeof (u_int8_t), g, sizeof (int8_t));
-	ft_memset(address + 2 * sizeof (u_int8_t), b, sizeof (int8_t));
-	ft_memset(address + 3 * sizeof (u_int8_t), 255, sizeof (int8_t));
-}
-
 t_rgb	calculate_color(t_scene *scene, t_viewport *viewport, t_pixel_cdts *p)
 {
 	t_ray	ray;
 	t_rgb	ambient_light;
 	t_rgb	diffuse_lights;
-	t_rgb	sum_lights;
+	t_rgb	object_color;
 
 	ray = ray_to_object(scene, viewport, p);
-	ambient_light = get_ambient_light(scene->ambient_light);
 	if (ray.inter_point.object)
 	{
-		diffuse_lights = inter_to_light(scene, &ray);
-		sum_lights = add_rgb(diffuse_lights, ambient_light);
+		object_color = get_object_color(&ray);
+		ambient_light = get_ambient_light(scene->ambient_light, &object_color);
+		diffuse_lights = inter_to_light(scene, &ray, &object_color);
+		return (add_rgb(ambient_light, diffuse_lights));
 	}
-	else
-		sum_lights = ambient_light;
-	return (sum_lights);
+	return (get_ambient_light(scene->ambient_light, NULL));
 }
 
 void	ray_trace(mlx_image_t *image, t_scene *scene)
