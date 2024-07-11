@@ -11,7 +11,6 @@ LIBS                := $(LIBMLX_DIR)/build/libmlx42.a -ldl -lglfw -pthread -lm
 SRCS_DIR            := srcs
 PARSING_DIR         := $(SRCS_DIR)/parsing
 RENDER_DIR          := $(SRCS_DIR)/render
-HOOKS_DIR           := $(SRCS_DIR)/hooks
 MATHS_DIR           := $(SRCS_DIR)/maths
 UTILS_DIR           := $(SRCS_DIR)/utils
 
