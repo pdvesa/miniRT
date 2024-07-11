@@ -11,8 +11,8 @@ t_viewport	initialise_viewport(mlx_image_t *image, t_camera *camera)
 	viewport.w = image->width;
 	viewport.h = image->height;
 	viewport.cam = camera;
-	viewport.v_up = orthogonal_vector(camera->vector, .0f, 1.0f);
-	viewport.v_right = cross_product(camera->vector, viewport.v_up);
+	viewport.v_right = cross_product((t_vector){0, 1, 0}, camera->vector);
+	viewport.v_up = cross_product(camera->vector, viewport.v_right);
 	return (viewport);
 }
 

@@ -36,8 +36,6 @@ float			inter_root_linelen(t_polyroot roots);
 t_vector		vector_from_points(t_coordinates origin, t_coordinates destination);
 t_vector		scalar_vector(float scalar, t_vector v);
 t_vector		add_vector(t_vector v1, t_vector v2);
-t_vector		substract_vector(t_vector v1, t_vector v2);
-t_vector		orthogonal_vector(t_vector v, float n1, float n2);
 t_vector		normalize_vector(t_vector v);
 float			dot_product(t_vector v1, t_vector v2);
 t_vector		cross_product(t_vector v1, t_vector v2);
