@@ -42,10 +42,8 @@ t_vector		normalize_vector(t_vector v);
 float			dot_product(t_vector v1, t_vector v2);
 t_vector		cross_product(t_vector v1, t_vector v2);
 
-t_vector	coordinates_to_vector(t_coordinates coordinates);
+t_vector		coordinates_to_vector(t_coordinates coordinates);
 
 t_coordinates	translate_point(t_coordinates origin, t_vector vector);
-
-int				point_equals(t_coordinates p1, t_coordinates p2);
 
 #endif //FT_MATHS_H
