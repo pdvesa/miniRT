@@ -43,7 +43,6 @@ SRCS                := $(SRCS_DIR)/miniRT.c \
                         $(MATHS_DIR)/convertors.c \
                         $(UTILS_DIR)/ft_strappend.c \
                         $(UTILS_DIR)/ft_free_array.c \
-                        $(UTILS_DIR)/ft_array_len.c \
                         $(UTILS_DIR)/atois.c \
                         $(RENDER_UTILS_DIR)/add_rgb.c \
                         $(RENDER_UTILS_DIR)/get_cyka_circles_planes.c \

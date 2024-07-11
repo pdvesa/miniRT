@@ -20,7 +20,8 @@ t_vector	ray_direction(t_viewport *vp, t_pixel_cdts *p)
 	return (normalize_vector(ray_vector));
 }
 
-t_inter_point	closer_obj(t_line *line, void **obj, t_inter_point (*f) (t_line*, void*), void *self)
+t_inter_point	closer_obj(t_line *line, void **obj,
+							t_inter_point (*f) (t_line*, void*), void *self)
 {
 	t_inter_point	closer;
 	t_inter_point	competidor;
