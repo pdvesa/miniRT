@@ -2,11 +2,11 @@
 
 void	print_instructions(void)
 {
-		printf("In order to select object to transform click it on the screen\n");
-		printf("Possible transformable parameters :\n\tdia (num) for diameter\n\twid (num) for width\n\torientation (num,num,num) for change of direction\n\tcord (num,num,num) for relocation\n");
-		printf("Examples: 'dia 35' will change selected sphere diameter to 35, 'orientation 1,1,1' will change selected object or element directional vector!\n");
-		printf("Only one modification per press of button!@!\n");
-		printf("If situation occurs where you lost your memories and you need to reprint these instructions press A (for acute amnesia)\n");
+	printf("In order to select object to transform click it on the screen\n");
+	printf("Possible transformable parameters :\n\tdia (num) for diameter\n\twid (num) for width\n\thgt (num) for height\n\torient (num,num,num) for change of direction\n\tcord (num,num,num) for relocation\n");
+	printf("Examples: 'dia 35' will change selected sphere diameter to 35, 'orient 1,1,1' will change selected object or element directional vector!\n");
+	printf("Only one modification per press of button!@!\n");
+	printf("If situation occurs where you lost your memories and you need to reprint these instructions press A (for acute amnesia)\n");
 }
 
 //void	modify_camera(t_scene *scene)
@@ -19,12 +19,11 @@ void	print_instructions(void)
 	//validate_input(input);
 //}
 
-
 void	mouse_function(mouse_key_t click, action_t action, modifier_key_t mods, void *param)
 {
 	t_hook_container	*data;
-	int32_t 			x;
-	int32_t 			y;
+	int32_t				x;
+	int32_t				y;
 	t_pixel_cdts		pixel;
 	t_image_size		size;
 	t_ray				object_ray;
@@ -47,6 +46,7 @@ void	mouse_function(mouse_key_t click, action_t action, modifier_key_t mods, voi
 }
 //the mousehook keeps running after first initialized, saving the clicks
 //cant find terminate hook func so need to do it manually or ignore if it causes no problems after testing
+//there was mlx func that returns boolean when clicked if needed
 
 void	key_function(mlx_key_data_t keydata, void *param)
 {
