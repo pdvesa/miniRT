@@ -4,50 +4,52 @@
 
 #include <miniRT_render.h>
 
-void	set_pixel_color(void *address, u_int8_t r, u_int8_t g, u_int8_t b)
+t_viewport	initialise_viewport(mlx_image_t *image, t_camera *camera)
 {
-	ft_memset(address, r, sizeof (int8_t));
-	ft_memset(address + sizeof (u_int8_t), g, sizeof (int8_t));
-	ft_memset(address + 2 * sizeof (u_int8_t), b, sizeof (int8_t));
-	ft_memset(address + 3 * sizeof (u_int8_t), 255, sizeof (int8_t));
+	t_viewport	viewport;
+
+	viewport.w = image->width;
+	viewport.h = image->height;
+	viewport.cam = camera;
+	viewport.v_right = cross_product((t_vector){0, 1, 0}, camera->vector);
+	viewport.v_up = cross_product(camera->vector, viewport.v_right);
+	return (viewport);
 }
 
-t_rgb	calculate_color(t_scene* scene, t_image_size *s, t_pixel_cdts *p)
+t_rgb	calculate_color(t_scene *scene, t_viewport *viewport, t_pixel_cdts *p)
 {
 	t_ray	ray;
 	t_rgb	ambient_light;
 	t_rgb	diffuse_lights;
-	t_rgb	sum_lights;
+	t_rgb	object_color;
 
-	ray = ray_to_object(scene, s, p);
-	ambient_light = get_ambient_light(scene->ambient_light);
+	ray = ray_to_object(scene, viewport, p);
 	if (ray.inter_point.object)
 	{
-		diffuse_lights = inter_to_light(scene, &ray);
-		sum_lights = add_rgb(diffuse_lights, ambient_light);
+		object_color = get_object_color(&ray);
+		ambient_light = get_ambient_light(scene->ambient_light, &object_color);
+		diffuse_lights = inter_to_light(scene, &ray, &object_color);
+		return (add_rgb(ambient_light, diffuse_lights));
 	}
-	else
-		sum_lights = ambient_light;
-	return (sum_lights);
+	return (get_ambient_light(scene->ambient_light, NULL));
 }
 
-void ray_trace(mlx_image_t* image, t_scene* scene)
+void	ray_trace(mlx_image_t *image, t_scene *scene)
 {
 	t_pixel_cdts	pixel;
-	t_image_size	size;
+	t_viewport		viewport;
 	t_rgb 			color;
 	void			*address;
 
 	pixel.x = 0;
 	pixel.y = 0;
-	size.W = image -> width;
-	size.H = image -> height;
-	while (pixel.y < size.H)
+	viewport = initialise_viewport(image, scene->camera);
+	while (pixel.y < viewport.h)
 	{
 		pixel.x = 0;
-		while (pixel.x < size.W)
+		while (pixel.x < viewport.w)
 		{
-			color = calculate_color(scene, &size, &pixel);
+			color = calculate_color(scene, &viewport, &pixel);
 			address = image -> pixels + (((pixel.y * image -> width) + (pixel.x)) * sizeof (uint32_t));
 			set_pixel_color(address, color.r, color.g, color.b);
 			pixel.x++;
@@ -72,6 +74,7 @@ int	render_scene(mlx_t *mlx, t_scene *scene)
 	}
 	hook_data.mlx = mlx;
 	hook_data.scene = scene;
+	hook_data.image = render_image;
 	printf("If you want to modify objects press O, for camera C and for light L\n");
 	mlx_key_hook(mlx, &key_function, &hook_data);
 	mlx_loop(mlx);

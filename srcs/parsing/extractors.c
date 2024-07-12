@@ -142,7 +142,7 @@ int	save_cords(t_scene *scene, char *content_str, int obj_type, int i)
 
 // int	save_cords(t_scene *scene, char *content_str, int obj_type, int i)
 // {
-// 	t_coordinates	*cords_array[3] = {&(scene->camera->center), &(scene->light->center), &(scene->sphere[i]->center)};
+// 	t_coordinates	*cords_array[3] = {&(scene->cam->center), &(scene->light->center), &(scene->sphere[i]->center)};
 
 // 	printf("str %s and obj %d and i %d\n", content_str, obj_type, i);
 // 	if (extract_cords(cords_array[obj_type - 1], content_str))

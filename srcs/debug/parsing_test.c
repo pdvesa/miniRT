@@ -98,7 +98,7 @@ void	print_all(t_scene *scene)
 			printf("\tCylinder %d vector y: %f\n", i, scene->cylinder[i]->vector.y);
 			printf("\tCylinder %d vector z: %f\n", i, scene->cylinder[i]->vector.z);
 			printf("\tCylinder %d diameter: %f\n", i, scene->cylinder[i]->diameter);
-			printf("\tCylinder %d height: %f\n", i, scene->cylinder[i]->height);
+			printf("\tCylinder %d h: %f\n", i, scene->cylinder[i]->height);
 			printf("\tCylinder %d color r: %d\n", i, scene->cylinder[i]->rgb.r);
 			printf("\tCylinder %d color g: %d\n", i, scene->cylinder[i]->rgb.g);
 			printf("\tCylinder %d color b: %d\n", i, scene->cylinder[i]->rgb.b);

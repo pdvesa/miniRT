@@ -25,12 +25,12 @@ void	mouse_function(mouse_key_t click, action_t action, modifier_key_t mods, voi
 	int32_t				x;
 	int32_t				y;
 	t_pixel_cdts		pixel;
-	t_image_size		size;
+	t_viewport			view;
 	t_ray				object_ray;
 	
+	(void) mods;
 	data = (t_hook_container *)param;
-	size.W = data->mlx->width; //maybe problem with resize idk
-	size.H = data->mlx->height;
+	view = initialise_viewport(data->image, data->scene->camera);
 	x = 0;
 	y = 0;
 	if (click == MLX_MOUSE_BUTTON_LEFT && action == MLX_PRESS)
@@ -40,7 +40,7 @@ void	mouse_function(mouse_key_t click, action_t action, modifier_key_t mods, voi
 		printf("x %d y %d\n", (int)x, (int)y);
 		pixel.x = x;
 		pixel.y = y;
-		object_ray = ray_to_object(data->scene, &size, &pixel);
+		object_ray = ray_to_object(data->scene, &view, &pixel);
 		printf("test object you monkey %d\n", object_ray.inter_point.object_type);
 	}
 }
