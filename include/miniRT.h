@@ -107,7 +107,6 @@ typedef struct s_scene
 	t_cylinder		**cylinder;
 }	t_scene;
 
-
 t_scene	parse_file(char *filename);
 void	free_render_scene(t_scene *scene);
 
