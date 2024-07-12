@@ -35,18 +35,31 @@ t_inter_point	cyka_circles_inter(t_line *line, t_cylinder *cylinder)
 
 float	curve_line_len(t_line *line, t_cylinder *cylinder)
 {
-	t_polyroot		roots;
-	t_vector		A;
-	t_vector		B;
+	float	line_len1;
+	float	line_len2;
+	float	cal1;
+	float	cal2;
+	float	cal3;
 
-	A = substract_vector(line->direction,scalar_vector(
-			dot_product(line->direction, cylinder->vector), cylinder->vector));
-	B = substract_vector(vector_from_points(line->origin, cylinder->center),
-						 scalar_vector(dot_product(
-								 vector_from_points(line->origin, cylinder->center),
-								 cylinder->vector), cylinder->vector));
-	roots = poly_root(dot_product(A, A), 2.0f * dot_product(A, B), dot_product(B, B) - powf(cylinder->diameter, 2.0f));
-	return (inter_root_linelen(roots));
+	cal3 = dot_product(cross_product(line->direction, cylinder->vector),
+		cross_product(line->direction, cylinder->vector));
+	if (cal3 == 0.f)
+		return (-1.f);
+	cal2 = sqrtf((cal3 * powf(cylinder->diameter / 2.f, 2.f)) -
+		(dot_product(cylinder->vector, cylinder->vector) *
+		powf(dot_product(coordinates_to_vector(cylinder->center),
+		cross_product(line->direction, cylinder->vector)), 2.f)));
+	if (cal2 < 0.f)
+		return (-1.f);
+	cal1 = dot_product(cross_product(line->direction, cylinder->vector),
+		cross_product(coordinates_to_vector(cylinder->center), cylinder->vector));
+	line_len1 = (cal1 + cal2) / cal3;
+	line_len2 = (cal1 - cal2) / cal3;
+	if (line_len1 < line_len2 && line_len1 > 0.f)
+		return (line_len1);
+	else if (line_len2 > 0.0f)
+		return (line_len2);
+	return (-1.f);
 }
 
 t_inter_point	cyka_curve_inter(t_line *line, t_cylinder *cylinder)
