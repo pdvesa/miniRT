@@ -57,7 +57,7 @@ float	curve_line_len(t_line *line, t_cylinder *cylinder)
 	line_len2 = (cal1 - cal2) / cal3;
 	if (line_len1 < line_len2 && line_len1 > 0.f)
 		return (line_len1);
-	else if (line_len2 > 0.0f)
+	if (line_len2 > 0.f)
 		return (line_len2);
 	return (-1.f);
 }
@@ -75,7 +75,7 @@ t_inter_point	cyka_curve_inter(t_line *line, t_cylinder *cylinder)
 	inter.object = cylinder;
 	inter.coordinates = translate_point(line->origin, scalar_vector(line_len, line->direction));
 	if (point_distance(cylinder->center, inter.coordinates) >
-			sqrtf(powf(cylinder->height, 2.0f) + powf(cylinder->diameter / 2.0f, 2.0f)))
+			sqrtf(powf(cylinder->height / 2.0f, 2.0f) + powf(cylinder->diameter / 2.0f, 2.0f)))
 		inter.object = NULL;
 	return (inter);
 }
@@ -93,8 +93,7 @@ t_inter_point	cylinder_inter(t_line *line, t_cylinder *cylinder)
 				point_distance(inter_circle_part.coordinates, line->origin)
 				< point_distance(inter_cyka_part.coordinates, line->origin)))
 			return (inter_circle_part);
-		else
-			return (inter_cyka_part);
+		return (inter_cyka_part);
 	}
 	return (inter_cyka_part);
 }
