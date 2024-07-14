@@ -74,8 +74,8 @@ t_inter_point	cyka_curve_inter(t_line *line, t_cylinder *cylinder)
 	inter.object_type = cyka;
 	inter.object = cylinder;
 	inter.coordinates = translate_point(line->origin, scalar_vector(line_len, line->direction));
-	if (point_distance(cylinder->center, inter.coordinates) >
-			sqrtf(powf(cylinder->height / 2.0f, 2.0f) + powf(cylinder->diameter / 2.0f, 2.0f)))
+	if (powf(point_distance(cylinder->center, inter.coordinates), 2.0f) >
+			powf(cylinder->height / 2.0f, 2.0f) + powf(cylinder->diameter / 2.0f, 2.0f))
 		inter.object = NULL;
 	return (inter);
 }
