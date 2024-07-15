@@ -20,50 +20,39 @@ t_vector	ray_direction(t_viewport *vp, t_pixel_cdts *p)
 	return (normalize_vector(ray_vector));
 }
 
-t_inter_point	closer_obj(t_line *line, void **obj,
-							t_inter_point (*f) (t_line*, void*), void *self)
+void	closer_obj(t_line *line, t_objs_inter objs_inter,
+							t_inter_point *closer, void *self)
 {
-	t_inter_point	closer;
 	t_inter_point	competidor;
 	int 			i;
 
-	closer.object = NULL;
 	i = 0;
-	while (obj[i])
+	while (objs_inter.objects[i])
 	{
-		if (obj[i] != self)
+		if (objs_inter.objects[i] != self)
 		{
-			competidor = f(line, obj[i]);
-			if (competidor.object && (!closer.object ||
+			competidor = objs_inter.f(line, objs_inter.objects[i]);
+			if (competidor.object && (!closer->object ||
 					point_distance(line->origin, competidor.coordinates)
-					< point_distance(line->origin, closer.coordinates)))
-				closer = competidor;
+					< point_distance(line->origin, closer->coordinates)))
+				*closer = competidor;
 		}
 		i++;
 	}
-	return (closer);
 }
 
 t_inter_point	get_closer_inter(t_line *line, t_scene *scene, void *self)
 {
 	t_inter_point	closer;
-	t_inter_point	competitor;
 
 	closer.object = NULL;
-	closer = closer_obj(line, (void **) scene->sphere,
-			   (t_inter_point (*)(t_line*, void*)) &closer_sphere_inter, self);
-	competitor = closer_obj(line, (void **) scene->plane,
-			   (t_inter_point (*)(t_line*, void*)) &plane_inter, self);
-	if (competitor.object && (!closer.object ||
-		point_distance(line->origin, competitor.coordinates)
-		< point_distance(line->origin, closer.coordinates)))
-		closer = competitor;
-	competitor = closer_obj(line, (void **) scene->cylinder,
-			   (t_inter_point (*)(t_line*, void*)) &cylinder_inter, self);
-	if (competitor.object && (!closer.object ||
-		point_distance(line->origin, competitor.coordinates)
-		< point_distance(line->origin, closer.coordinates)))
-		closer = competitor;
+	closer_obj(line, (t_objs_inter) {(void **) scene->sphere,
+		(t_inter_point (*)(t_line*, void*)) &closer_sphere_inter}, &closer, self);
+	closer_obj(line, (t_objs_inter) {(void **) scene->plane,
+		(t_inter_point (*)(t_line*, void*)) &plane_inter}, &closer, self);
+	closer_obj(line, (t_objs_inter) {(void **) scene->cylinder,
+	 (t_inter_point (*)(t_line*, void*)) &cylinder_inter}, &closer, self);
+
 	return (closer);
 }
 

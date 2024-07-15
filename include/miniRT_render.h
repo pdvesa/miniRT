@@ -43,6 +43,12 @@ typedef struct s_pixel_cdts
 	unsigned int	y;
 }	t_pixel_cdts;
 
+typedef struct s_objs_inter
+{
+	void	**objects;
+	t_inter_point (*f) (t_line*, void*);
+}	t_objs_inter;
+
 t_ray			ray_to_object(t_scene *scene, t_viewport *viewport,
 					t_pixel_cdts *p);
 t_inter_point	get_closer_inter(t_line *line, t_scene *scene, void *self);
