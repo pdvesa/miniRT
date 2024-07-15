@@ -46,5 +46,7 @@ int		extract_plane(t_scene *scene, char **content, int i);
 int		extract_cylinder(t_scene *scene, char **content, int i);
 void	convert_tabs(char *str);
 int		erreur_dictateur(char **array, int obj_type);
+int		extract_vector(t_vector *vector, char *content);
+int		extract_cords(t_coordinates *cords, char *content);
 
 #endif //MINIRT_PARSING_H
