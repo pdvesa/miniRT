@@ -11,6 +11,16 @@ void	print_instructions(void)
 	printf("If situation occurs where you lost your memories and you need to reprint these instructions press A (for acute amnesia)\n");
 }
 
+void	ft_re_render(t_hook_container *data)
+{
+	ray_trace(data->image, data->scene);
+	if (mlx_image_to_window(data->mlx, data->image, 0, 0) == -1) // dont know if we can just re_render without deleting or do we need to make new image for not leaking
+	{
+		mlx_delete_image(data->mlx, data->image);
+		ft_putmlx_error();
+	}
+}
+
 char	**sanitize_input(char *str)
 {
 	char	**cont_arr;
@@ -82,7 +92,7 @@ void	modify_light(t_scene *scene)
 	ft_strarray_free(input_arr);
 }
 
-void	mod_sphere(t_hook_container *data, t_sphere *object)
+void	mod_sphere(t_sphere *object)
 {
 	char 			*input;
 	char			**input_arr;
@@ -111,12 +121,6 @@ void	mod_sphere(t_hook_container *data, t_sphere *object)
 	else
 		ft_putendl_fd("Follow the damn instructions\n", 2);
 	ft_strarray_free(input_arr);
-	ray_trace(data->image, data->scene);
-	if (mlx_image_to_window(data->mlx, data->image, 0, 0) == -1) //does it leak? idk
-	{
-		mlx_delete_image(data->mlx, data->image);
-		return ; //error somewhere
-	}
 }
 
 
@@ -132,8 +136,6 @@ void	modify_object(t_hook_container *data)
 	view = initialise_viewport(data->image, data->scene->camera);
 	x = 0;
 	y = 0;
-	
-	printf("I got it\n");
 	mlx_get_mouse_pos(data->mlx, &x, &y);
 	printf("x %d y %d\n", (int)x, (int)y);
 	pixel.x = x;
@@ -141,11 +143,11 @@ void	modify_object(t_hook_container *data)
 	object_ray = ray_to_object(data->scene, &view, &pixel);
 	printf("test object you monkey %d\n", object_ray.inter_point.object_type);
 	if (object_ray.inter_point.object_type == 3)
-		mod_sphere(data, (t_sphere *)(object_ray.inter_point.object));
+		mod_sphere((t_sphere *)(object_ray.inter_point.object));
 /*	else if (object_ray.inter_point.object_type == 4)
 		mod_plane();
 	else if (object_ray.inter_point.object_type == 5)
-		mod_cyka();*/	
+		mod_cyka();*/
 }
 
 
@@ -165,28 +167,19 @@ void	key_function(mlx_key_data_t keydata, void *param)
 	if (keydata.key == MLX_KEY_O && keydata.action == MLX_PRESS)
 	{
 		modify_object(data);
+		ft_re_render(data);	
 	}
 	if (keydata.key == MLX_KEY_C && keydata.action == MLX_PRESS)
 	{
 		printf("Input please\n");
 		modify_camera(data->scene);
-		ray_trace(data->image, data->scene);
-		if (mlx_image_to_window(data->mlx, data->image, 0, 0) == -1) //does it leak? idk
-		{
-			mlx_delete_image(data->mlx, data->image);
-			return ; //error somewhere
-		}
+		ft_re_render(data);
 	}
 	if (keydata.key == MLX_KEY_L && keydata.action == MLX_PRESS)
 	{
 		printf("Input please\n");
 		modify_light(data->scene);
-		ray_trace(data->image, data->scene);
-		if (mlx_image_to_window(data->mlx, data->image, 0, 0) == -1) //does it leak? idk
-		{
-			mlx_delete_image(data->mlx, data->image);
-			return ; //error somewhere
-		}
+		ft_re_render(data);
 	}
 }
 
