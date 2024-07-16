@@ -4,14 +4,10 @@
 
 #include <miniRT_render.h>
 
-int	hide_itself(t_line *line_to_light, t_ray *ray, t_light *light)
+int	hide_itself(t_ray *ray, t_light *light)
 {
-	if (ray->inter_point.object_type == sp)
-		return (sphere_self_hide(line_to_light, ray));
-	else if (ray->inter_point.object_type == pl)
+	if (ray->inter_point.object_type == pl)
 		return (plane_self_hide(ray, light));
-//	else
-//		return (cyka_self_hide(line_to_light, ray));
 	return (0);
 }
 
@@ -24,9 +20,9 @@ int	light_visible(t_scene *scene, t_ray *ray)
 
 	inter_to_light.origin = ray->inter_point.coordinates;
 	inter_to_light.direction = vector_from_points(ray->inter_point.coordinates, scene->light->center);
-	if (hide_itself(&inter_to_light, ray, scene->light))
+	if (hide_itself(ray, scene->light))
 		return (0);
-	closer_inter = get_closer_inter(&inter_to_light, scene, ray->inter_point.object);
+	closer_inter = get_closer_inter(&inter_to_light, scene, NULL);
 	if (closer_inter.object == NULL)
 		return (1);
 	inter_distance = point_distance(ray->inter_point.coordinates, closer_inter.coordinates);

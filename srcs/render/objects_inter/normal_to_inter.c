@@ -34,10 +34,9 @@ t_vector	get_normal_to_inter(t_ray *ray)
 {
 	if (ray->inter_point.object_type == sp)
 		return (normal_inter_sphere(ray));
-	else if (ray->inter_point.object_type == pl)
+	if (ray->inter_point.object_type == pl)
 		return (((t_plane *) ray->inter_point.object)->vector);
-	else if (ray->inter_point.object_type == cyka_circle)
+	if (ray->inter_point.object_type == cyka_circle)
 		return (((t_cylinder *) ray->inter_point.object)->vector);
-	else
-		return (normal_inter_cyka(ray));
+	return (normal_inter_cyka(ray));
 }

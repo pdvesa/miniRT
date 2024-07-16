@@ -59,11 +59,10 @@ t_rgb			inter_to_light(t_scene *scene, t_ray *ray, t_rgb *object_color);
 //render_inter
 t_inter_point	closer_sphere_inter(t_line *line, t_sphere *sphere);
 t_inter_point	plane_inter(t_line *line, t_plane *plan);
-t_inter_point	cylinder_inter(t_line *line, t_cylinder *cylinder);
+t_inter_point	closer_cylinder_inter(t_line *line, t_cylinder *cylinder);
 t_vector		get_normal_to_inter(t_ray *ray);
 
 //self_hide
-int				sphere_self_hide(t_line *line_to_light, t_ray *ray);
 int				plane_self_hide(t_ray *ray, t_light *light);
 
 # include <render_utils.h>

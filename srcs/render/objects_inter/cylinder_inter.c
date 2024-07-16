@@ -80,7 +80,7 @@ t_inter_point	cyka_curve_inter(t_line *line, t_cylinder *cylinder)
 	return (inter);
 }
 
-t_inter_point	cylinder_inter(t_line *line, t_cylinder *cylinder)
+t_inter_point	closer_cylinder_inter(t_line *line, t_cylinder *cylinder)
 {
 	t_inter_point	inter_cyka_part;
 	t_inter_point	inter_circle_part;

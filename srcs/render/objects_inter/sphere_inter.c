@@ -33,15 +33,3 @@ t_inter_point	closer_sphere_inter(t_line *line, t_sphere *sphere)
 	inter.coordinates = translate_point(line->origin, scalar_vector(line_len, line->direction));
 	return (inter);
 }
-
-int sphere_self_hide(t_line *line_to_light, t_ray *ray)
-{
-	t_polyroot		roots;
-
-	roots = sphere_inters(line_to_light, (t_sphere*) ray->inter_point.object);
-	if (roots.n == 0)
-		return (0);
-	if (roots.values[0] > 0.0005f || (roots.n == 2 && roots.values[1] > 0.0005f))
-		return (1);
-	return (0);
-}
