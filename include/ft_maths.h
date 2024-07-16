@@ -42,7 +42,6 @@ typedef struct s_polyroot
 float			point_distance(t_coordinates p1, t_coordinates p2);
 
 t_polyroot		poly_root(float a, float b, float c);
-float			inter_root_linelen(t_polyroot roots);
 
 t_vector		vector_from_points(t_coordinates origin,
 					t_coordinates destination);

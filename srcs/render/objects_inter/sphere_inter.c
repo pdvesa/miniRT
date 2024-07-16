@@ -4,7 +4,7 @@
 
 #include <miniRT_render.h>
 
-t_polyroot	sphere_inters(t_line *line, t_sphere *sphere)
+float	sphere_inter_line_len(t_line *line, t_sphere *sphere)
 {
 	t_polyroot		roots;
 	t_vector		center_to_cam;
@@ -14,18 +14,27 @@ t_polyroot	sphere_inters(t_line *line, t_sphere *sphere)
 					  2.0f * dot_product(line->direction, center_to_cam),
 					  dot_product(center_to_cam, center_to_cam) -
 					  powf(sphere->diameter / 2, 2));
-	return (roots);
+	if (roots.n == 0 || (roots.n == 1 && roots.values[0] < FLOAT_MARGIN)
+		|| (roots.n == 2 && roots.values[0] < FLOAT_MARGIN && roots.values[1] < FLOAT_MARGIN))
+		return (-1.0f);
+	if (roots.n == 1)
+		return (roots.values[0]);
+	else
+	{
+		if (roots.values[0] > roots.values[1] && roots.values[1] > FLOAT_MARGIN)
+			return (roots.values[1]);
+		else
+			return (roots.values[0]);
+	}
 }
 
 t_inter_point	closer_sphere_inter(t_line *line, t_sphere *sphere)
 {
 	t_inter_point	inter;
-	t_polyroot		roots;
 	float			line_len;
 
 	inter.object = NULL;
-	roots = sphere_inters(line, sphere);
-	line_len = inter_root_linelen(roots);
+	line_len = sphere_inter_line_len(line, sphere);
 	if (line_len < 0.f)
 		return (inter);
 	inter.object_type = sp;
