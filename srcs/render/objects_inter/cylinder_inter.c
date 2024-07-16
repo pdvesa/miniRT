@@ -15,9 +15,9 @@ t_inter_point	cyka_circles_inter(t_line *line, t_cylinder *cylinder)
 	get_cyka_circles_planes(cylinder, circles);
 	inter1 = plane_inter(line, &circles[0]);
 	inter2 = plane_inter(line, &circles[1]);
-	if (point_distance(inter1.coordinates, circles[0].coordinates) > cylinder->diameter / 2.0f)
+	if (!inter1.object || point_distance(inter1.coordinates, circles[0].coordinates) > cylinder->diameter / 2.0f)
 		inter1.object = NULL;
-	if (point_distance(inter2.coordinates, circles[1].coordinates) > cylinder->diameter / 2.0f)
+	if (!inter2.object || point_distance(inter2.coordinates, circles[1].coordinates) > cylinder->diameter / 2.0f)
 		inter2.object = NULL;
 	if (inter1.object || inter2.object)
 	{
@@ -55,9 +55,9 @@ float	curve_line_len(t_line *line, t_cylinder *cylinder)
 		cross_product(coordinates_to_vector(cylinder->center), cylinder->vector));
 	line_len1 = (cal1 + cal2) / cal3;
 	line_len2 = (cal1 - cal2) / cal3;
-	if (line_len1 < line_len2 && line_len1 > 0.f)
+	if (line_len1 < line_len2 && line_len1 > FLOAT_MARGIN)
 		return (line_len1);
-	if (line_len2 > 0.f)
+	if (line_len2 > FLOAT_MARGIN)
 		return (line_len2);
 	return (-1.f);
 }
