@@ -11,12 +11,13 @@ t_vector	ray_direction(t_viewport *vp, t_pixel_cdts *p)
 	float			scalar_up;
 
 	scalar_right = ((float) vp->cam->fov / 180.f)
-				   * (((float) p->x - ((float) vp->w / 2.0f)) / ((float) vp->w / 2.0f));
+		* (((float) p->x - ((float) vp->w / 2.0f)) / ((float) vp->w / 2.0f));
 	scalar_up = (((float) vp->h / (float) vp->w) * (float) vp->cam->fov / 180.f)
-				* (((float) p->y - ((float) vp->h / 2.0f)) / ((float) vp->h / 2.0f));
+		* (((float) p->y - ((float) vp->h / 2.0f)) / ((float) vp->h / 2.0f));
 	ray_vector = add_vector(scalar_vec(scalar_right, vp->v_right),
-							scalar_vec(scalar_up, vp->v_up));
-	ray_vector = add_vector(ray_vector, vp->cam->vector);
+		scalar_vec(scalar_up, vp->v_up));
+	ray_vector = add_vector(ray_vector,
+		scalar_vec(vp->cam_scalar, vp->cam->vector));
 	return (normalize_vector(ray_vector));
 }
 
@@ -24,8 +25,8 @@ void	closer_obj(t_line *line, t_objs_inter objs_inter,
 							t_inter *closer)
 {
 	t_inter	competidor;
-	float			competidor_distance;
-	int 			i;
+	float	competidor_distance;
+	int		i;
 
 	i = 0;
 	while (objs_inter.objects[i])

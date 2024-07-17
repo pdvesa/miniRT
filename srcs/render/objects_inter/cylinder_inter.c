@@ -98,7 +98,6 @@ t_inter	cyka_curve_inter(t_line *line, t_cylinder *cylinder)
 	inter.object_type = cyka;
 	inter.object = cylinder;
 	return (pick_curve_inter(line, inter, line_lenghts));
-
 }
 
 t_inter	closer_cylinder_inter(t_line *line, t_cylinder *cylinder)

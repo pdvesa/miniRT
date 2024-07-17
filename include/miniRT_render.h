@@ -35,6 +35,7 @@ typedef struct s_viewport
 	t_vector		v_up;
 	t_vector		v_right;
 	t_camera		*cam;
+	float			cam_scalar;
 }	t_viewport;
 
 typedef struct s_pixel_cdts

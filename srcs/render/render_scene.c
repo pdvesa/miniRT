@@ -11,6 +11,7 @@ t_viewport	initialise_viewport(mlx_image_t *image, t_camera *camera)
 	viewport.w = image->width;
 	viewport.h = image->height;
 	viewport.cam = camera;
+	viewport.cam_scalar = cosf((float)(camera->fov / 2) * (M_PI/180.f));
 	viewport.v_right = cross_product((t_vector){0, 1, 0}, camera->vector);
 	viewport.v_up = cross_product(camera->vector, viewport.v_right);
 	return (viewport);
