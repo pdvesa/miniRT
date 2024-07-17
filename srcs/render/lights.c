@@ -22,7 +22,7 @@ int	light_visible(t_scene *scene, t_ray *ray)
 	inter_to_light.direction = vector_from_points(ray->inter_point.coordinates, scene->light->center);
 	if (hide_itself(ray, scene->light))
 		return (0);
-	closer_inter = get_closer_inter(&inter_to_light, scene, NULL);
+	closer_inter = get_closer_inter(&inter_to_light, scene);
 	if (closer_inter.object == NULL)
 		return (1);
 	inter_distance = point_distance(ray->inter_point.coordinates, closer_inter.coordinates);
@@ -47,7 +47,10 @@ t_rgb	inter_to_light(t_scene *scene, t_ray *ray, t_rgb *object_color)
 		inter_to_light = vector_from_points(ray->inter_point.coordinates, scene->light->center);
 		inter_to_light = normalize_vector(inter_to_light);
 		normal_to_inter = get_normal_to_inter(ray);
-		light_coefficient = dot_product(inter_to_light, normal_to_inter) * scene->light->brightness;
+		light_coefficient = dot_product(inter_to_light, normal_to_inter);
+		if (light_coefficient < 0.f)
+			light_coefficient *= -1.f;
+		light_coefficient *= scene->light->brightness;
 		color.r = (int) ((float) object_color->r * light_coefficient);
 		color.g = (int) ((float) object_color->g * light_coefficient);
 		color.b = (int) ((float) object_color->b * light_coefficient);

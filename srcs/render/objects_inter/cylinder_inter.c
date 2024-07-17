@@ -47,12 +47,12 @@ float	curve_line_len(t_line *line, t_cylinder *cylinder)
 		return (-1.f);
 	cal2 = sqrtf((cal3 * powf(cylinder->diameter / 2.f, 2.f)) -
 		(dot_product(cylinder->vector, cylinder->vector) *
-		powf(dot_product(coordinates_to_vector(cylinder->center),
+		powf(dot_product(vector_from_points(line->origin, cylinder->center),
 		cross_product(line->direction, cylinder->vector)), 2.f)));
-	if (cal2 < 0.f)
+	if (cal2 < 0.f || isnanf(cal2))
 		return (-1.f);
 	cal1 = dot_product(cross_product(line->direction, cylinder->vector),
-		cross_product(coordinates_to_vector(cylinder->center), cylinder->vector));
+		cross_product(vector_from_points(line->origin, cylinder->center), cylinder->vector));
 	line_len1 = (cal1 + cal2) / cal3;
 	line_len2 = (cal1 - cal2) / cal3;
 	if (line_len1 < line_len2 && line_len1 > FLOAT_MARGIN)

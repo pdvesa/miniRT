@@ -21,7 +21,7 @@ t_vector	ray_direction(t_viewport *vp, t_pixel_cdts *p)
 }
 
 void	closer_obj(t_line *line, t_objs_inter objs_inter,
-							t_inter_point *closer, void *self)
+							t_inter_point *closer)
 {
 	t_inter_point	competidor;
 	float			competidor_distance;
@@ -30,32 +30,29 @@ void	closer_obj(t_line *line, t_objs_inter objs_inter,
 	i = 0;
 	while (objs_inter.objects[i])
 	{
-		if (objs_inter.objects[i] != self)
+		competidor = objs_inter.f(line, objs_inter.objects[i]);
+		if (competidor.object)
 		{
-			competidor = objs_inter.f(line, objs_inter.objects[i]);
-			if (competidor.object)
-			{
-				competidor_distance = point_distance(line->origin, competidor.coordinates);
-				if (competidor_distance > FLOAT_MARGIN && (!closer->object ||
-					competidor_distance < point_distance(line->origin, closer->coordinates)))
-					*closer = competidor;
-			}
+			competidor_distance = point_distance(line->origin, competidor.coordinates);
+			if (competidor_distance > FLOAT_MARGIN && (!closer->object ||
+			competidor_distance < point_distance(line->origin, closer->coordinates)))
+				*closer = competidor;
 		}
 		i++;
 	}
 }
 
-t_inter_point	get_closer_inter(t_line *line, t_scene *scene, void *self)
+t_inter_point	get_closer_inter(t_line *line, t_scene *scene)
 {
 	t_inter_point	closer;
 
 	closer.object = NULL;
 	closer_obj(line, (t_objs_inter) {(void **) scene->sphere,
-		(t_inter_point (*)(t_line*, void*)) &closer_sphere_inter}, &closer, self);
+		(t_inter_point (*)(t_line*, void*)) &closer_sphere_inter}, &closer);
 	closer_obj(line, (t_objs_inter) {(void **) scene->plane,
-		(t_inter_point (*)(t_line*, void*)) &plane_inter}, &closer, self);
+		(t_inter_point (*)(t_line*, void*)) &plane_inter}, &closer);
 	closer_obj(line, (t_objs_inter) {(void **) scene->cylinder,
-	 (t_inter_point (*)(t_line*, void*)) &closer_cylinder_inter}, &closer, self);
+	 (t_inter_point (*)(t_line*, void*)) &closer_cylinder_inter}, &closer);
 
 	return (closer);
 }
@@ -66,6 +63,6 @@ t_ray	ray_to_object(t_scene *scene, t_viewport *viewport, t_pixel_cdts *p)
 
 	ray.line.origin = scene->camera->center;
 	ray.line.direction = ray_direction(viewport, p);
-	ray.inter_point = get_closer_inter(&ray.line, scene, NULL);
+	ray.inter_point = get_closer_inter(&ray.line, scene);
 	return (ray);
 }

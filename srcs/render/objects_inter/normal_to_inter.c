@@ -32,11 +32,15 @@ t_vector	normal_inter_cyka(t_ray *ray)
 
 t_vector	get_normal_to_inter(t_ray *ray)
 {
+	t_vector	normal;
+
 	if (ray->inter_point.object_type == sp)
 		return (normal_inter_sphere(ray));
+	if (ray->inter_point.object_type == cyka)
+		return (normal_inter_cyka(ray));
 	if (ray->inter_point.object_type == pl)
-		return (((t_plane *) ray->inter_point.object)->vector);
-	if (ray->inter_point.object_type == cyka_circle)
-		return (((t_cylinder *) ray->inter_point.object)->vector);
-	return (normal_inter_cyka(ray));
+		normal = ((t_plane *) ray->inter_point.object)->vector;
+	else
+		normal = ((t_cylinder *) ray->inter_point.object)->vector;
+	return (normal);
 }

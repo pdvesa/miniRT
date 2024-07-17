@@ -19,13 +19,9 @@ float	sphere_inter_line_len(t_line *line, t_sphere *sphere)
 		return (-1.0f);
 	if (roots.n == 1)
 		return (roots.values[0]);
-	else
-	{
-		if (roots.values[0] > roots.values[1] && roots.values[1] > FLOAT_MARGIN)
-			return (roots.values[1]);
-		else
-			return (roots.values[0]);
-	}
+	if (roots.values[0] > roots.values[1] && roots.values[1] > FLOAT_MARGIN)
+		return (roots.values[1]);
+	return (roots.values[0]);
 }
 
 t_inter_point	closer_sphere_inter(t_line *line, t_sphere *sphere)
