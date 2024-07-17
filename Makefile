@@ -40,7 +40,6 @@ SRCS                := $(SRCS_DIR)/miniRT.c \
                         $(MATHS_DIR)/point_distance.c \
                         $(MATHS_DIR)/poly_root.c \
                         $(MATHS_DIR)/translate_point.c \
-                        $(MATHS_DIR)/convertors.c \
                         $(UTILS_DIR)/ft_strappend.c \
                         $(UTILS_DIR)/ft_free_array.c \
                         $(UTILS_DIR)/atois.c \

@@ -14,7 +14,7 @@ t_vector	vector_from_points(t_coordinates origin, t_coordinates destination)
 	return (result);
 }
 
-t_vector	scalar_vector(float scalar, t_vector v)
+t_vector	scalar_vec(float scalar, t_vector v)
 {
 	t_vector	result;
 

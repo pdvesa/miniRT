@@ -8,8 +8,8 @@ t_vector	normal_inter_sphere(t_ray *ray)
 {
 	t_vector	result;
 
-	result = vector_from_points(((t_sphere *) ray->inter_point.object)->center,
-								ray->inter_point.coordinates);
+	result = vector_from_points(((t_sphere *) ray->inter.object)->center,
+								ray->inter.point);
 	result = normalize_vector(result);
 	return (result);
 }
@@ -20,12 +20,12 @@ t_vector	normal_inter_cyka(t_ray *ray)
 	t_vector		var;
 	t_cylinder		*cylinder;
 
-	cylinder = (t_cylinder*) ray->inter_point.object;
-	var = scalar_vector(dot_product(
-		vector_from_points(ray->inter_point.coordinates, cylinder->center),
+	cylinder = (t_cylinder*) ray->inter.object;
+	var = scalar_vec(dot_product(
+		vector_from_points(ray->inter.point, cylinder->center),
 		cylinder->vector), cylinder->vector);
 	result = vector_from_points(translate_point(cylinder->center, var),
-		ray->inter_point.coordinates);
+		ray->inter.point);
 	result = normalize_vector(result);
 	return (result);
 }
@@ -34,13 +34,13 @@ t_vector	get_normal_to_inter(t_ray *ray)
 {
 	t_vector	normal;
 
-	if (ray->inter_point.object_type == sp)
+	if (ray->inter.object_type == sp)
 		return (normal_inter_sphere(ray));
-	if (ray->inter_point.object_type == cyka)
+	if (ray->inter.object_type == cyka)
 		return (normal_inter_cyka(ray));
-	if (ray->inter_point.object_type == pl)
-		normal = ((t_plane *) ray->inter_point.object)->vector;
+	if (ray->inter.object_type == pl)
+		normal = ((t_plane *) ray->inter.object)->vector;
 	else
-		normal = ((t_cylinder *) ray->inter_point.object)->vector;
+		normal = ((t_cylinder *) ray->inter.object)->vector;
 	return (normal);
 }

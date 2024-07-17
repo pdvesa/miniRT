@@ -6,7 +6,7 @@
 
 int	hide_itself(t_ray *ray, t_light *light)
 {
-	if (ray->inter_point.object_type == pl)
+	if (ray->inter.object_type == pl)
 		return (plane_self_hide(ray, light));
 	return (0);
 }
@@ -14,19 +14,19 @@ int	hide_itself(t_ray *ray, t_light *light)
 int	light_visible(t_scene *scene, t_ray *ray)
 {
 	t_line			inter_to_light;
-	t_inter_point	closer_inter;
+	t_inter	closer_inter;
 	float			light_distance;
 	float			inter_distance;
 
-	inter_to_light.origin = ray->inter_point.coordinates;
-	inter_to_light.direction = vector_from_points(ray->inter_point.coordinates, scene->light->center);
+	inter_to_light.origin = ray->inter.point;
+	inter_to_light.direction = vector_from_points(ray->inter.point, scene->light->center);
 	if (hide_itself(ray, scene->light))
 		return (0);
 	closer_inter = get_closer_inter(&inter_to_light, scene);
 	if (closer_inter.object == NULL)
 		return (1);
-	inter_distance = point_distance(ray->inter_point.coordinates, closer_inter.coordinates);
-	light_distance = point_distance(ray->inter_point.coordinates, scene->light->center);
+	inter_distance = point_distance(ray->inter.point, closer_inter.point);
+	light_distance = point_distance(ray->inter.point, scene->light->center);
 	if (inter_distance < light_distance)
 		return (0);
 	return (1);
@@ -44,7 +44,7 @@ t_rgb	inter_to_light(t_scene *scene, t_ray *ray, t_rgb *object_color)
 	color.b = 0;
 	if (light_visible(scene, ray))
 	{
-		inter_to_light = vector_from_points(ray->inter_point.coordinates, scene->light->center);
+		inter_to_light = vector_from_points(ray->inter.point, scene->light->center);
 		inter_to_light = normalize_vector(inter_to_light);
 		normal_to_inter = get_normal_to_inter(ray);
 		light_coefficient = dot_product(inter_to_light, normal_to_inter);

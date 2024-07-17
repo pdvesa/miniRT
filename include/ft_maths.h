@@ -45,10 +45,9 @@ t_polyroot		poly_root(float a, float b, float c);
 
 t_vector		vector_from_points(t_coordinates origin,
 					t_coordinates destination);
-t_vector		coordinates_to_vector(t_coordinates coordinates);
 t_vector		normalize_vector(t_vector v);
 
-t_vector		scalar_vector(float scalar, t_vector v);
+t_vector		scalar_vec(float scalar, t_vector v);
 t_vector		add_vector(t_vector v1, t_vector v2);
 float			dot_product(t_vector v1, t_vector v2);
 t_vector		cross_product(t_vector v1, t_vector v2);

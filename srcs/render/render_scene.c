@@ -24,7 +24,7 @@ t_rgb	calculate_color(t_scene *scene, t_viewport *viewport, t_pixel_cdts *p)
 	t_rgb	object_color;
 
 	ray = ray_to_object(scene, viewport, p);
-	if (ray.inter_point.object)
+	if (ray.inter.object)
 	{
 		object_color = get_object_color(&ray);
 		ambient_light = get_ambient_light(scene->ambient_light, &object_color);

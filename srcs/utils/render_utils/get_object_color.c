@@ -6,10 +6,10 @@
 
 t_rgb	get_object_color(t_ray *ray)
 {
-	if (ray->inter_point.object_type == sp)
-		return (((t_sphere*)(ray->inter_point.object))->rgb);
-	else if (ray->inter_point.object_type == pl)
-		return (((t_plane*)(ray->inter_point.object))->rgb);
+	if (ray->inter.object_type == sp)
+		return (((t_sphere*)(ray->inter.object))->rgb);
+	else if (ray->inter.object_type == pl)
+		return (((t_plane*)(ray->inter.object))->rgb);
 	else
-		return (((t_cylinder*)(ray->inter_point.object))->rgb);
+		return (((t_cylinder*)(ray->inter.object))->rgb);
 }

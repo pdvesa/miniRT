@@ -24,9 +24,9 @@ float	sphere_inter_line_len(t_line *line, t_sphere *sphere)
 	return (roots.values[0]);
 }
 
-t_inter_point	closer_sphere_inter(t_line *line, t_sphere *sphere)
+t_inter	closer_sphere_inter(t_line *line, t_sphere *sphere)
 {
-	t_inter_point	inter;
+	t_inter	inter;
 	float			line_len;
 
 	inter.object = NULL;
@@ -35,6 +35,6 @@ t_inter_point	closer_sphere_inter(t_line *line, t_sphere *sphere)
 		return (inter);
 	inter.object_type = sp;
 	inter.object = sphere;
-	inter.coordinates = translate_point(line->origin, scalar_vector(line_len, line->direction));
+	inter.point = translate_point(line->origin, scalar_vec(line_len, line->direction));
 	return (inter);
 }
