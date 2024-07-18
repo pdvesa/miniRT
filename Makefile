@@ -1,5 +1,5 @@
 NAME                := miniRT
-CFLAGS              := -Wextra -Wall -Werror
+CFLAGS              := -Wextra -Wall -Werror -g
 LIBMLX_DIR          := ./lib/MLX42
 
 LIBFT               := ./lib/libft/libft.a
@@ -50,7 +50,9 @@ SRCS                := $(SRCS_DIR)/miniRT.c \
                         $(RENDER_UTILS_DIR)/get_object_color.c \
                         $(MLX_UTILS_DIR)/ft_mlx_error.c \
                         $(MLX_UTILS_DIR)/set_pixel_color.c \
-                        $(TRANS_DIR)/hooks.c 
+                        $(TRANS_DIR)/modifiers.c \
+                        $(TRANS_DIR)/hooks.c \
+                        $(TRANS_DIR)/trans_utils.c 
 
 BUILD_PATH          := build
 OBJS                := $(patsubst %.c,$(BUILD_PATH)/%.o,$(SRCS))

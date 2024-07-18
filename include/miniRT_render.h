@@ -43,14 +43,6 @@ typedef struct s_pixel_cdts
 	unsigned int	y;
 }	t_pixel_cdts;
 
-typedef struct s_hook_data
-{
-	mlx_t		*mlx;
-	t_scene		*scene;
-	mlx_image_t	*image;
-} t_hook_container;
-
-
 t_ray			ray_to_object(t_scene *scene, t_viewport *viewport,
 					t_pixel_cdts *p);
 

@@ -2,6 +2,7 @@
 // Created by Jules Cayot on 5/18/24.
 //
 
+#include <miniRT_trans.h>
 #include <miniRT_render.h>
 #include <miniRT.h>
 
