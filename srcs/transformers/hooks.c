@@ -18,7 +18,7 @@ void	key_function(mlx_key_data_t keydata, void *param)
 	static  int			flag = 0;
 
 	data = (t_hook_container *)param;
-	if (flag == 0)
+	if (flag == 0 && keydata.key != MLX_KEY_ESCAPE)
 		print_instructions();
 	flag = 1;
 	if (keydata.key == MLX_KEY_A && keydata.action == MLX_PRESS)

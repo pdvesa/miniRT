@@ -39,7 +39,7 @@ char	**sanitize_input(void)
 	int		i;
 
 	printf("Input please\n");
-	input = get_next_line(1);
+	input = get_next_line(1); //when we wait exiting is kind eh
 	cont_arr = ft_split(input, ' ');
 	free(input);
 	if (!cont_arr)
