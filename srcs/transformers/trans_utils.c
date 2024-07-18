@@ -55,3 +55,19 @@ char	**sanitize_input(void)
 	}
 	return (cont_arr);
 }
+
+void	*get_value(void *original, void *mod_value, char *str, int mod_num)
+{
+	int	error;
+	
+	error = 0;
+	if (mod_num == 1)
+		error = extract_cords((t_coordinates *)mod_value, str);
+	else if (mod_num == 2)
+		error = extract_vector((t_vector *)mod_value, str);
+	else if (mod_num == 3)
+		*(float *)mod_value = (float) get_numbers(str, 1);
+	if (error || *(float *)mod_value < 0.0F || *(float *)mod_value > HEIGHT)
+		return (ft_putendl_fd("Follow the damn instructions\n", 2), original);
+	return (mod_value);
+}
