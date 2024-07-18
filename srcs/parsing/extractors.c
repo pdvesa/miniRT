@@ -90,62 +90,33 @@ int	extract_cords(t_coordinates *cords, char *content)
 	return (EXIT_SUCCESS);
 }
 
-int	save_vector(t_scene *scene, char *content_str, int obj_type, int i)
-{
-	if (obj_type == C)
-	{
-		if (extract_vector(&(scene->camera->vector), content_str))
-			return (EXIT_FAILURE);
-	}
-	else if (obj_type == pl)
-	{
-		if (extract_vector(&(scene->plane[i]->vector), content_str))
-			return (EXIT_FAILURE);
-	}
-	else if (obj_type == cyka)
-	{
-		if (extract_vector(&(scene->cylinder[i]->vector), content_str))
-			return (EXIT_FAILURE);
-	}
-	return (EXIT_SUCCESS);
-}
-
 int	save_cords(t_scene *scene, char *content_str, int obj_type, int i)
+ {
+ 	void			*cords_array[2] = {&(scene->camera->center), &(scene->light->center)};
+	void			*temp_cord;
+
+	if (obj_type == C || obj_type == L)
+ 	{
+		if (extract_cords((t_coordinates *)cords_array[obj_type - 1], content_str))
+ 				return (EXIT_FAILURE);
+	}
+	else
+	{
+		if (obj_type == sp)
+			temp_cord = &(scene->sphere[i])->center;
+		if (obj_type == pl)
+			temp_cord = &(scene->plane[i])->coordinates;
+		if (obj_type == cyka)
+			temp_cord = &(scene->cylinder[i])->center;
+		if (extract_cords((t_coordinates *)temp_cord, content_str))
+ 				return (EXIT_FAILURE);
+	}
+ 	return (EXIT_SUCCESS);
+ }
+
+int	erreur_dictateur(char **array, int obj_type)
 {
-	if (obj_type == C)
-	{
-		if (extract_cords(&(scene->camera->center), content_str))
-			return (EXIT_FAILURE);
-	}
-	else if (obj_type == L)
-	{
-		if (extract_cords(&(scene->light->center), content_str))
-			return (EXIT_FAILURE);
-	}
-	else if (obj_type == sp)
-	{
-		if (extract_cords(&(scene->sphere[i])->center, content_str))
-			return (EXIT_FAILURE);
-	}
-	else if (obj_type == pl)
-	{
-		if (extract_cords(&(scene->plane[i])->coordinates, content_str))
-			return (EXIT_FAILURE);
-	}
-	else if (obj_type == cyka)
-	{
-		if (extract_cords(&(scene->cylinder[i])->center, content_str))
-			return (EXIT_FAILURE);
-	}
-	return (EXIT_SUCCESS);
+	ft_strarray_free(array);
+	extract_error(obj_type);
+	return (EXIT_FAILURE);
 }
-
-// int	save_cords(t_scene *scene, char *content_str, int obj_type, int i)
-// {
-// 	t_coordinates	*cords_array[3] = {&(scene->cam->center), &(scene->light->center), &(scene->sphere[i]->center)};
-
-// 	printf("str %s and obj %d and i %d\n", content_str, obj_type, i);
-// 	if (extract_cords(cords_array[obj_type - 1], content_str))
-// 			return (EXIT_FAILURE);
-// 	return (EXIT_SUCCESS);
-// }

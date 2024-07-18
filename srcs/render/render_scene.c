@@ -59,27 +59,6 @@ void	ray_trace(mlx_image_t *image, t_scene *scene)
 	}
 }
 
-void	resize_function(int32_t width, int32_t height, void *param)
-{
-	t_hook_container	*data;
-	static int			count = 1;
-
-	data = (t_hook_container *)param;
-	if (count % 2 != 0)
-	{
-		mlx_get_monitor_size(0, &width, &height);
-		mlx_set_window_size(data->mlx, width, height);
-		mlx_resize_image(data->image, width, height);
-		count++;
-	}
-	else
-	{
-		mlx_set_window_size(data->mlx, WIDTH, HEIGHT);
-		mlx_resize_image(data->image, WIDTH, HEIGHT);
-		count++;
-	}
-}
-
 int	render_scene(mlx_t *mlx, t_scene *scene)
 {
 	mlx_image_t				*render_image;
@@ -98,7 +77,7 @@ int	render_scene(mlx_t *mlx, t_scene *scene)
 	hook_data.scene = scene;
 	hook_data.image = render_image;
 	printf("If you want to modify objects press O, for camera C and for light L\n");
-	mlx_resize_hook(mlx, &resize_function, &hook_data);
+//	mlx_resize_hook(mlx, &resize_function, &hook_data);
 	mlx_key_hook(mlx, &key_function, &hook_data);
 	mlx_loop(mlx);
 	mlx_delete_image(mlx, render_image);

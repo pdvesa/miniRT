@@ -12,15 +12,6 @@
 
 #include <miniRT_parsing.h>
 
-int	erreur_dictateur(char **array, int obj_type)
-{
-	ft_strarray_free(array);
-	extract_error(obj_type);
-	return (EXIT_FAILURE);
-}
-
-// i love norminette
-
 int	parse_cylinder(t_scene *scene, char **content, int n_objs)
 {
 	int	i;
