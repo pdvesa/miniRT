@@ -1,24 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_object_color.c                                 :+:      :+:    :+:   */
+/*   add_vector.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcayot <jcayot.student@hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/18 21:05:34 by jcayot            #+#    #+#             */
-/*   Updated: 2024/07/18 21:05:35 by jcayot           ###   ########.fr       */
+/*   Created: 2024/07/18 20:12:23 by jcayot            #+#    #+#             */
+/*   Updated: 2024/07/18 20:12:25 by jcayot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <render_utils.h>
+#include <ft_maths.h>
 
-t_rgb	get_object_color(t_ray *ray)
+t_vector	add_vector(t_vector v1, t_vector v2)
 {
-	if (ray->inter.object_type == sp)
-		return (((t_sphere *)(ray->inter.object))->rgb);
-	if (ray->inter.object_type == pl)
-		return (((t_plane *)(ray->inter.object))->rgb);
-	if (ray->inter.object_type == cyka || ray->inter.object_type == cyka_circle)
-		return (((t_cylinder *)(ray->inter.object))->rgb);
-	return ((t_rgb){0, 0, 0});
+	t_vector	result;
+
+	result.x = v1.x + v2.x;
+	result.y = v1.y + v2.y;
+	result.z = v1.z + v2.z;
+	return (result);
 }

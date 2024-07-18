@@ -1,24 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_object_color.c                                 :+:      :+:    :+:   */
+/*   normalize_vector.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcayot <jcayot.student@hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/18 21:05:34 by jcayot            #+#    #+#             */
-/*   Updated: 2024/07/18 21:05:35 by jcayot           ###   ########.fr       */
+/*   Created: 2024/07/18 20:13:36 by jcayot            #+#    #+#             */
+/*   Updated: 2024/07/18 20:13:40 by jcayot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <render_utils.h>
+#include <ft_maths.h>
 
-t_rgb	get_object_color(t_ray *ray)
+t_vector	normalize_vector(t_vector v)
 {
-	if (ray->inter.object_type == sp)
-		return (((t_sphere *)(ray->inter.object))->rgb);
-	if (ray->inter.object_type == pl)
-		return (((t_plane *)(ray->inter.object))->rgb);
-	if (ray->inter.object_type == cyka || ray->inter.object_type == cyka_circle)
-		return (((t_cylinder *)(ray->inter.object))->rgb);
-	return ((t_rgb){0, 0, 0});
+	t_vector	result;
+	float		norm;
+
+	norm = sqrtf(powf(v.x, 2.0f) + powf(v.y, 2.0f) + powf(v.z, 2.0f));
+	if (norm == 0)
+		return (v);
+	result.x = v.x / norm;
+	result.y = v.y / norm;
+	result.z = v.z / norm;
+	return (result);
 }

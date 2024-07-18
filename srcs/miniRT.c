@@ -1,6 +1,14 @@
-//
-// Created by Jules Cayot on 13/05/2024.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   miniRT.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jcayot <jcayot.student@hive.fi>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/18 21:01:02 by jcayot            #+#    #+#             */
+/*   Updated: 2024/07/18 21:01:04 by jcayot           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include <miniRT.h>
 
@@ -13,11 +21,11 @@ void	close_hook(void *param)
 		mlx_close_window(mlx);
 }
 
-int	miniRT(char *filename)
+int	minirt(char *filename)
 {
-	mlx_t			*mlx;
-	t_scene			scene;
-	int 			result;
+	mlx_t	*mlx;
+	t_scene	scene;
+	int		result;
 
 	scene = parse_file(filename);
 	if (!scene.ambient_light)
@@ -40,5 +48,5 @@ int	main(int n, char *args[])
 {
 	if (n != 2)
 		return (1);
-	return (miniRT(args[1]));
+	return (minirt(args[1]));
 }

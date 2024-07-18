@@ -1,24 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_object_color.c                                 :+:      :+:    :+:   */
+/*   scalar_vec.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcayot <jcayot.student@hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/18 21:05:34 by jcayot            #+#    #+#             */
-/*   Updated: 2024/07/18 21:05:35 by jcayot           ###   ########.fr       */
+/*   Created: 2024/07/18 20:11:36 by jcayot            #+#    #+#             */
+/*   Updated: 2024/07/18 20:11:37 by jcayot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <render_utils.h>
+#include <ft_maths.h>
 
-t_rgb	get_object_color(t_ray *ray)
+t_vector	scalar_vec(float scalar, t_vector v)
 {
-	if (ray->inter.object_type == sp)
-		return (((t_sphere *)(ray->inter.object))->rgb);
-	if (ray->inter.object_type == pl)
-		return (((t_plane *)(ray->inter.object))->rgb);
-	if (ray->inter.object_type == cyka || ray->inter.object_type == cyka_circle)
-		return (((t_cylinder *)(ray->inter.object))->rgb);
-	return ((t_rgb){0, 0, 0});
+	t_vector	result;
+
+	result.x = v.x * scalar;
+	result.y = v.y * scalar;
+	result.z = v.z * scalar;
+	return (result);
 }

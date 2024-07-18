@@ -1,6 +1,14 @@
-//
-// Created by jules on 06/06/2024.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lights.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jcayot <jcayot.student@hive.fi>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/18 20:22:18 by jcayot            #+#    #+#             */
+/*   Updated: 2024/07/18 20:22:20 by jcayot           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include <miniRT_render.h>
 
@@ -19,7 +27,8 @@ int	light_visible(t_scene *scene, t_ray *ray)
 	float	inter_distance;
 
 	inter_to_light.origin = ray->inter.point;
-	inter_to_light.direction = vector_from_points(ray->inter.point, scene->light->center);
+	inter_to_light.direction = vector_from_points(ray->inter.point,
+			scene->light->center);
 	if (hide_itself(ray, scene->light))
 		return (0);
 	closer_inter = get_closer_inter(&inter_to_light, scene);
@@ -44,16 +53,17 @@ t_rgb	inter_to_light(t_scene *scene, t_ray *ray, t_rgb *object_color)
 	color.b = 0;
 	if (light_visible(scene, ray))
 	{
-		inter_to_light = vector_from_points(ray->inter.point, scene->light->center);
+		inter_to_light = vector_from_points(ray->inter.point,
+				scene->light->center);
 		inter_to_light = normalize_vector(inter_to_light);
 		normal_to_inter = get_normal_to_inter(ray);
 		light_coefficient = dot_product(inter_to_light, normal_to_inter);
 		if (light_coefficient < 0.f)
 			light_coefficient *= -1.f;
 		light_coefficient *= scene->light->brightness;
-		color.r = (int) ((float) object_color->r * light_coefficient);
-		color.g = (int) ((float) object_color->g * light_coefficient);
-		color.b = (int) ((float) object_color->b * light_coefficient);
+		color.r = (int)((float)object_color->r * light_coefficient);
+		color.g = (int)((float)object_color->g * light_coefficient);
+		color.b = (int)((float)object_color->b * light_coefficient);
 	}
 	return (color);
 }

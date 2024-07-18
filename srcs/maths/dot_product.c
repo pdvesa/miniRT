@@ -1,24 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_object_color.c                                 :+:      :+:    :+:   */
+/*   dot_product.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcayot <jcayot.student@hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/18 21:05:34 by jcayot            #+#    #+#             */
-/*   Updated: 2024/07/18 21:05:35 by jcayot           ###   ########.fr       */
+/*   Created: 2024/07/18 20:14:21 by jcayot            #+#    #+#             */
+/*   Updated: 2024/07/18 20:14:24 by jcayot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <render_utils.h>
+#include <ft_maths.h>
 
-t_rgb	get_object_color(t_ray *ray)
+float	dot_product(t_vector v1, t_vector v2)
 {
-	if (ray->inter.object_type == sp)
-		return (((t_sphere *)(ray->inter.object))->rgb);
-	if (ray->inter.object_type == pl)
-		return (((t_plane *)(ray->inter.object))->rgb);
-	if (ray->inter.object_type == cyka || ray->inter.object_type == cyka_circle)
-		return (((t_cylinder *)(ray->inter.object))->rgb);
-	return ((t_rgb){0, 0, 0});
+	return ((v1.x * v2.x) + (v1.y * v2.y) + (v1.z * v2.z));
 }

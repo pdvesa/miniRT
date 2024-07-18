@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   normal_to_inter.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jcayot <jcayot.student@hive.fi>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/18 20:42:05 by jcayot            #+#    #+#             */
+/*   Updated: 2024/07/18 20:42:07 by jcayot           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 //
 // Created by jules on 08/06/2024.
 //
@@ -9,25 +21,25 @@ t_vector	normal_inter_sphere(t_ray *ray)
 	t_vector	result;
 
 	result = vector_from_points(((t_sphere *) ray->inter.object)->center,
-								ray->inter.point);
+			ray->inter.point);
 	result = normalize_vector(result);
 	return (result);
 }
 
 t_vector	normal_inter_cyka(t_ray *ray)
 {
-	t_vector		result;
-	float			vertical_distance;
-	t_cylinder		*cylinder;
+	t_vector	result;
+	float		v_dist;
+	t_cylinder	*cyl;
 
-	cylinder = (t_cylinder*) ray->inter.object;
-	vertical_distance = sqrtf(powf(point_distance(ray->inter.point,
-		cylinder->center), 2.f) - powf(cylinder->diameter / 2.f, 2.f));
-	if (dot_product(cylinder->vector,
-		vector_from_points(cylinder->center, ray->inter.point)) < 0.f)
-		vertical_distance *=-1.f;
-	result = vector_from_points(translate_point(cylinder->center,
-		scalar_vec(vertical_distance, cylinder->vector)), ray->inter.point);
+	cyl = (t_cylinder *) ray->inter.object;
+	v_dist = sqrtf(powf(point_distance(ray->inter.point, cyl->center), 2.f)
+			- powf(cyl->diameter / 2.f, 2.f));
+	if (dot_product(cyl->vector,
+			vector_from_points(cyl->center, ray->inter.point)) < 0.f)
+		v_dist *= -1.f;
+	result = vector_from_points(translate_point(cyl->center,
+				scalar_vec(v_dist, cyl->vector)), ray->inter.point);
 	result = normalize_vector(result);
 	return (result);
 }
