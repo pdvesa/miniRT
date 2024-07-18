@@ -59,6 +59,9 @@ t_vector	get_normal_to_inter(t_ray *ray);
 //self_hide
 int			plane_self_hide(t_ray *ray, t_light *light);
 
-# include <render_utils.h>
+//Utils
+t_rgb		get_object_color(t_ray *ray);
+t_rgb		add_rgb(t_rgb rgb1, t_rgb rgb2);
+void		get_cyka_circles_planes(t_cylinder *cylinder, t_plane *result);
 
 #endif //MINIRT_RENDER_H

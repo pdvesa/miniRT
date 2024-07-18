@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <render_utils.h>
+#include <miniRT_render.h>
 
 void	get_cyka_circles_planes(t_cylinder *cylinder, t_plane *result)
 {

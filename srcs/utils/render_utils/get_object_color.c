@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <render_utils.h>
+#include <miniRT_render.h>
 
 t_rgb	get_object_color(t_ray *ray)
 {

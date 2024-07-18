@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <render_utils.h>
+#include <miniRT_render.h>
 
 t_rgb	add_rgb(t_rgb rgb1, t_rgb rgb2)
 {
