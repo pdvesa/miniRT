@@ -13,10 +13,10 @@ int	hide_itself(t_ray *ray, t_light *light)
 
 int	light_visible(t_scene *scene, t_ray *ray)
 {
-	t_line			inter_to_light;
+	t_line	inter_to_light;
 	t_inter	closer_inter;
-	float			light_distance;
-	float			inter_distance;
+	float	light_distance;
+	float	inter_distance;
 
 	inter_to_light.origin = ray->inter.point;
 	inter_to_light.direction = vector_from_points(ray->inter.point, scene->light->center);

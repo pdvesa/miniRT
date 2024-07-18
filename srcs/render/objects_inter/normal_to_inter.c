@@ -17,15 +17,17 @@ t_vector	normal_inter_sphere(t_ray *ray)
 t_vector	normal_inter_cyka(t_ray *ray)
 {
 	t_vector		result;
-	t_vector		var;
+	float			vertical_distance;
 	t_cylinder		*cylinder;
 
 	cylinder = (t_cylinder*) ray->inter.object;
-	var = scalar_vec(dot_product(
-		vector_from_points(ray->inter.point, cylinder->center),
-		cylinder->vector), cylinder->vector);
-	result = vector_from_points(translate_point(cylinder->center, var),
-		ray->inter.point);
+	vertical_distance = sqrtf(powf(point_distance(ray->inter.point,
+		cylinder->center), 2.f) - powf(cylinder->diameter / 2.f, 2.f));
+	if (dot_product(cylinder->vector,
+		vector_from_points(cylinder->center, ray->inter.point)) < 0.f)
+		vertical_distance *=-1.f;
+	result = vector_from_points(translate_point(cylinder->center,
+		scalar_vec(vertical_distance, cylinder->vector)), ray->inter.point);
 	result = normalize_vector(result);
 	return (result);
 }

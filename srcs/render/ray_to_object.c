@@ -53,7 +53,7 @@ t_inter	get_closer_inter(t_line *line, t_scene *scene)
 	closer_obj(line, (t_objs_inter) {(void **) scene->plane,
 		(t_inter (*)(t_line*, void*)) &plane_inter}, &closer);
 	closer_obj(line, (t_objs_inter) {(void **) scene->cylinder,
-	 (t_inter (*)(t_line*, void*)) &closer_cylinder_inter}, &closer);
+		(t_inter (*)(t_line*, void*)) &closer_cylinder_inter}, &closer);
 
 	return (closer);
 }
