@@ -35,9 +35,14 @@ t_vector	normal_inter_cyka(t_ray *ray)
 	cyl = (t_cylinder *) ray->inter.object;
 	v_dist = sqrtf(powf(point_distance(ray->inter.point, cyl->center), 2.f)
 			- powf(cyl->diameter / 2.f, 2.f));
-	if (dot_product(cyl->vector,
-			vector_from_points(cyl->center, ray->inter.point)) < 0.f)
-		v_dist *= -1.f;
+	if (!isnanf(v_dist))
+	{
+		if (dot_product(cyl->vector,
+				vector_from_points(cyl->center, ray->inter.point)) < 0.f)
+			v_dist *= -1.f;
+	}
+	else
+		v_dist = 0.f;
 	result = vector_from_points(translate_point(cyl->center,
 				scalar_vec(v_dist, cyl->vector)), ray->inter.point);
 	result = normalize_vector(result);

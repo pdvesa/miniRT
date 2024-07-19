@@ -20,7 +20,7 @@ t_polyroot	poly_root(float a, float b, float c)
 	roots.values[0] = 0;
 	roots.values[1] = 0;
 	discriminant = b * b - (4.0f * a * c);
-	if (discriminant < 0.0f)
+	if (discriminant < 0.0f || isnanf(discriminant))
 		roots.n = 0;
 	else if (discriminant == 0.0f)
 	{
