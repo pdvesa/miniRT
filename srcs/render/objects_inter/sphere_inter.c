@@ -14,23 +14,25 @@
 
 float	sphere_inter_line_len(t_line *line, t_sphere *sphere)
 {
-	t_polyroot		roots;
+	t_polyroot		r;
 	t_vector		center_to_cam;
 
 	center_to_cam = vector_from_points(sphere->center, line->origin);
-	roots = poly_root(dot_product(line->direction, line->direction),
+	r = poly_root(dot_product(line->direction, line->direction),
 			2.0f * dot_product(line->direction, center_to_cam),
 			dot_product(center_to_cam, center_to_cam)
 			- powf(sphere->diameter / 2, 2));
-	if (roots.n == 0 || (roots.n == 1 && roots.values[0] < FLOAT_MARGIN)
-		|| (roots.n == 2 && roots.values[0] < FLOAT_MARGIN
-			&& roots.values[1] < FLOAT_MARGIN))
+	if (r.n == 0 || (r.n == 1 && !is_in_bounds(r.values[0],
+				FLOAT_MARGIN, ARBITARY_LIMIT)) || (r.n == 2 && !is_in_bounds(
+				r.values[0], FLOAT_MARGIN, ARBITARY_LIMIT)
+			&& !is_in_bounds(r.values[1], FLOAT_MARGIN, ARBITARY_LIMIT)))
 		return (-1.0f);
-	if (roots.n == 1)
-		return (roots.values[0]);
-	if (roots.values[0] > roots.values[1] && roots.values[1] > FLOAT_MARGIN)
-		return (roots.values[1]);
-	return (roots.values[0]);
+	if (r.n == 1)
+		return (r.values[0]);
+	if (r.values[0] > r.values[1] && is_in_bounds(r.values[1],
+			FLOAT_MARGIN, ARBITARY_LIMIT))
+		return (r.values[1]);
+	return (r.values[0]);
 }
 
 t_inter	closer_sphere_inter(t_line *line, t_sphere *sphere)

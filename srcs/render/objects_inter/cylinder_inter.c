@@ -100,7 +100,8 @@ t_inter	cyka_curve_inter(t_line *line, t_cylinder *cylinder)
 
 	inter.object = NULL;
 	curve_line_lenghts(line, cylinder, line_lenghts);
-	if (line_lenghts[0] < FLOAT_MARGIN && line_lenghts[1] < FLOAT_MARGIN)
+	if (!is_in_bounds(line_lenghts[0], FLOAT_MARGIN, ARBITARY_LIMIT)
+		&& !is_in_bounds(line_lenghts[0], FLOAT_MARGIN, ARBITARY_LIMIT))
 		return (inter);
 	inter.object_type = cyka;
 	inter.object = cylinder;

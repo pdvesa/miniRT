@@ -24,7 +24,7 @@ t_inter	plane_inter(t_line *line, t_plane *plan)
 		return (inter);
 	line_len = dot_product(plan->vector, vector_from_points(line->origin,
 				plan->coordinates)) / dot;
-	if (line_len < FLOAT_MARGIN)
+	if (!is_in_bounds(line_len, FLOAT_MARGIN, ARBITARY_LIMIT))
 		return (inter);
 	inter.object_type = pl;
 	inter.object = plan;
