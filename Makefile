@@ -1,5 +1,5 @@
 NAME                := miniRT
-CFLAGS              := -Wextra -Wall -Werror
+CFLAGS              := -Wextra -Wall -Werror -g
 LIBMLX_DIR          := ./lib/MLX42
 
 LIBFT               := ./lib/libft/libft.a
@@ -13,6 +13,7 @@ PARSING_DIR         := $(SRCS_DIR)/parsing
 RENDER_DIR          := $(SRCS_DIR)/render
 MATHS_DIR           := $(SRCS_DIR)/maths
 UTILS_DIR           := $(SRCS_DIR)/utils
+TRANS_DIR           := $(SRCS_DIR)/transformers
 
 INTER_DIR           := $(RENDER_DIR)/objects_inter
 
@@ -52,7 +53,10 @@ SRCS                := $(SRCS_DIR)/miniRT.c \
                         $(RENDER_UTILS_DIR)/get_cyka_circles_planes.c \
                         $(RENDER_UTILS_DIR)/get_object_color.c \
                         $(MLX_UTILS_DIR)/ft_mlx_error.c \
-                        $(MLX_UTILS_DIR)/set_pixel_color.c
+                        $(MLX_UTILS_DIR)/set_pixel_color.c \
+                        $(TRANS_DIR)/modifiers.c \
+                        $(TRANS_DIR)/hooks.c \
+                        $(TRANS_DIR)/trans_utils.c 
 
 BUILD_PATH          := build
 OBJS                := $(patsubst %.c,$(BUILD_PATH)/%.o,$(SRCS))

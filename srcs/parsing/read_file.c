@@ -27,7 +27,6 @@ int	check_filename(char *name)
 		return (EXIT_SUCCESS);
 }
 
-
 char	*read_fd(int fd)
 {
 	char	*content;
@@ -77,5 +76,3 @@ char	**read_file(char *filename)
 	free(content);
 	return (splitted_content);
 }
-
-//maybe we need general file validity checker, this was just segfault fix for empty file

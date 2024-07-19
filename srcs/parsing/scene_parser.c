@@ -51,10 +51,10 @@ int	parse_camera(t_scene *scene, char **content)
 		return (erreur_dictateur(cont_arr, C));
 	if (save_cords(scene, cont_arr[1], C, 0))
 		return (erreur_dictateur(cont_arr, C));
-	if (save_vector(scene, cont_arr[2], C, 0))
+	if (extract_vector(&(scene->camera->vector), cont_arr[2]))
 		return (erreur_dictateur(cont_arr, C));
 	scene->camera->fov = get_numbers(cont_arr[3], 0);
-	if (scene->camera->fov > 180 || scene->camera->fov < 0)
+	if (scene->camera->fov > 179 || scene->camera->fov < 0)
 		return (erreur_dictateur(cont_arr, C));
 	return (ft_strarray_free(cont_arr), EXIT_SUCCESS);
 }
@@ -93,7 +93,7 @@ int	parse_sphere(t_scene *scene, char **content, int n_objs)
 	{
 		scene->sphere[i] = ft_calloc(1, sizeof(t_sphere));
 		if (!(scene->sphere[i]))
-			return (EXIT_FAILURE); //i think we free after error so no free here
+			return (EXIT_FAILURE);
 		if (extract_sphere(scene, content, i))
 			return (EXIT_FAILURE);
 		i++;
@@ -122,26 +122,3 @@ int	parse_plane(t_scene *scene, char **content, int n_objs)
 	scene->plane[i] = NULL;
 	return (EXIT_SUCCESS);
 }
-
-// rounding errors in floatoi, need fix
-// check floats in general
-// if (!scene.ambient_light)
-//		return (1);
-
-// int scene_parser(t_scene *scene, char **content, int *n_objs, int item)
-// {	
-// 	if (item == A)
-// 		return (parse_ambient(scene, content));
-// 	else if (item == C)
-// 		return (parse_camera(scene, content));
-// 	else if (item == L)
-// 		return (parse_light(scene, content));
-// 	else if (item == sp)
-// 		return (parse_sphere(scene, content, n_objs[3]));
-// 	else if (item == pl)
-// 		return (parse_plane(scene, content, n_objs[4]));
-// 	else if (item == cyka)
-// 		return (parse_cylinder(scene, content, n_objs[5]));
-// 	else 
-// 		return (EXIT_FAILURE);
-// }

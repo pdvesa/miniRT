@@ -42,12 +42,12 @@ double	get_numbers(char *str, int type)
 	float	ftemp;
 
 	if (!str)
-		return (-42069); //might be useless after changes 
+		return (-42069);
 	if (type == 0)
 	{
-		temp = ft_mod_atoi(str); //this might be problem idk
+		temp = ft_mod_atoi(str);
 		if (temp == 0 && str[0] != '0')
-			return (-42069); // figure out better number or decide the max limit for size so this can overflow so dont need to make retarded checks
+			return (-42069);
 		return (temp);
 	}
 	else
@@ -55,7 +55,7 @@ double	get_numbers(char *str, int type)
 		ftemp = ft_floatoi(str);
 		if ((ftemp == 0.0F && str[0] != '0' && !str[1])
 			|| (ftemp == 0.0F && ft_strncmp("0.", str, 2) && ft_strlen(str) > 2)
-			|| (ftemp == -1 && ft_strncmp("-1", str, 2))) // fix this garbage monster shit
+			|| (ftemp == -1 && ft_strncmp("-1", str, 2)))
 			return (-42069);
 		return (ftemp);
 	}
@@ -64,13 +64,11 @@ double	get_numbers(char *str, int type)
 void	extract_error(int object)
 {
 	const char	category[6][3] = {"A", "C", "L", "sp", "pl", "cy"};
-	// const char	error_name[3][12] = {"colors", "vectors", "coordinates"};
 
 	ft_putendl_fd("Error: \tTerminating program on first error occured!", 2);
 	ft_putstr_fd("\tInput file has illegal data in field: ", 2);
 	ft_putendl_fd((char *)category[object], 2);
 }
-//floatoi has some rounding problems and we still save perhaps too many digits after .
 
 void	convert_tabs(char *str)
 {
