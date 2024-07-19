@@ -114,6 +114,6 @@ typedef struct s_scene
 t_scene	parse_file(char *filename);
 void	free_render_scene(t_scene *scene);
 
-int		render_scene(mlx_t *mlx, t_scene *scene);
+void	*ray_trace(t_scene *scene, uint32_t width, uint32_t height);
 
 #endif //MINIRT_H

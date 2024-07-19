@@ -59,6 +59,8 @@ int	extract_vector(t_vector *vector, char *content)
 	vector->z = get_numbers(temp_array[2], 1);
 	if (vector->z > 1.0F || vector->z < -1.0F)
 		error = 2;
+	if (vector->x == 0.0F && vector->y == 0.0F && vector->z == 0.0F)
+		error = 2;
 	ft_strarray_free(temp_array);
 	if (error)
 		return (EXIT_FAILURE);

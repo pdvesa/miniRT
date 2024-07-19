@@ -12,12 +12,12 @@
 
 #include <miniRT_render.h>
 
-t_viewport	initialise_viewport(mlx_image_t *image, t_camera *camera)
+t_viewport	init_viewport(t_camera *camera, uint32_t width, uint32_t height)
 {
 	t_viewport	viewport;
 
-	viewport.w = image->width;
-	viewport.h = image->height;
+	viewport.w = width;
+	viewport.h = height;
 	viewport.cam = camera;
 	viewport.cam_scalar = cosf((float)(camera->fov / 2) * (M_PI / 180.f));
 	viewport.v_right = cross_product((t_vector){0, 1, 0}, camera->vector);
@@ -43,45 +43,31 @@ t_rgb	calculate_color(t_scene *scene, t_viewport *viewport, t_pixel_cdts *p)
 	return (get_ambient_light(scene->ambient_light, NULL));
 }
 
-void	ray_trace(mlx_image_t *img, t_scene *scene)
+void	*ray_trace(t_scene *scene, uint32_t width, uint32_t height)
 {
-	t_pixel_cdts	p;
+	void			*render;
 	t_viewport		viewport;
+	t_pixel_cdts	p;
 	t_rgb			color;
-	void			*address;
 
+	render = malloc(width * height * sizeof (uint32_t));
+	if (!render)
+		return (NULL);
+	ft_putendl_fd("MiniRT : Rendering starting", 1);
+	viewport = init_viewport(scene->camera, width, height);
 	p.x = 0;
 	p.y = 0;
-	viewport = initialise_viewport(img, scene->camera);
 	while (p.y < viewport.h)
 	{
 		p.x = 0;
 		while (p.x < viewport.w)
 		{
 			color = calculate_color(scene, &viewport, &p);
-			address = img -> pixels + (((p.y * img -> width) + (p.x))
-					* sizeof (uint32_t));
-			set_pixel_color(address, color.r, color.g, color.b);
+			set_pixel_color(render + (((p.y * width) + (p.x))
+					* sizeof (uint32_t)), color.r, color.g, color.b);
 			p.x++;
 		}
 		p.y++;
 	}
-}
-
-int	render_scene(mlx_t *mlx, t_scene *scene)
-{
-	mlx_image_t				*render_image;
-
-	render_image = mlx_new_image(mlx, mlx -> width, mlx -> height);
-	if (!render_image)
-		return (ft_putmlx_error());
-	ray_trace(render_image, scene);
-	if (mlx_image_to_window(mlx, render_image, 0, 0) == -1)
-	{
-		mlx_delete_image(mlx, render_image);
-		return (ft_putmlx_error());
-	}
-	mlx_loop(mlx);
-	mlx_delete_image(mlx, render_image);
-	return (EXIT_SUCCESS);
+	return (render);
 }
