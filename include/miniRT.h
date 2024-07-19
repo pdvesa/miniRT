@@ -31,6 +31,11 @@
 #  define HEIGHT 1080
 # endif //HEIGHT
 
+# ifndef ARBITARY_LIMIT
+#  define ARBITARY_LIMIT 42000.0f
+# endif //ARBITARY_LIMIT
+
+
 typedef enum s_objs_index
 {
 	A = 0,
@@ -111,7 +116,5 @@ t_scene	parse_file(char *filename);
 void	free_render_scene(t_scene *scene);
 
 int		render_scene(mlx_t *mlx, t_scene *scene);
-
-void	print_all(t_scene *scene);
 
 #endif //MINIRT_H

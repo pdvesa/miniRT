@@ -13,10 +13,6 @@
 #ifndef MINIRT_PARSING_H
 # define MINIRT_PARSING_H
 
-# ifndef ARBITARY_LIMIT
-#  define ARBITARY_LIMIT 42000
-# endif //ARBITARY_LIMIT
-
 # include <miniRT.h>
 
 typedef struct s_object_amount

@@ -30,7 +30,7 @@ void	ft_re_render(t_hook_container *data)
 	ray_trace(data->image, data->scene);
 	if (mlx_image_to_window(data->mlx, data->image, 0, 0) == -1) // dont know if we can just re_render without deleting or do we need to make new image for not leaking
 	{
-		mlx_delete_image(data->mlx, data->image);
+		mlx_close_window(data->mlx);
 		ft_putmlx_error();
 	}
 }

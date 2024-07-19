@@ -12,6 +12,14 @@
 
 #include <ft_maths.h>
 
+/**
+ * Calculates the scalar multiple of a vector.
+ *
+ * @param scalar The scalar value to multiply the vector by.
+ * @param v The vector to be multiplied.
+ * @return The result of multiplying the vector by the scalar.
+ */
+
 t_vector	scalar_vec(float scalar, t_vector v)
 {
 	t_vector	result;

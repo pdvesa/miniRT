@@ -12,6 +12,15 @@
 
 #include <ft_maths.h>
 
+/**
+ * Calculates the roots of a quadratic equation of the form "ax^2 + bx + c = 0".
+ *
+ * @param a The coefficient of x^2 in the equation
+ * @param b The coefficient of x in the equation
+ * @param c The constant term in the equation
+ * @return t_polyroot The roots of the equation
+ */
+
 t_polyroot	poly_root(float a, float b, float c)
 {
 	t_polyroot	roots;

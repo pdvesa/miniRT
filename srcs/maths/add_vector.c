@@ -12,6 +12,16 @@
 
 #include <ft_maths.h>
 
+/**
+ * @brief Adds two vectors together.
+ *
+ * This function takes two vectors as input and returns their sum.
+ *
+ * @param v1 The first vector.
+ * @param v2 The second vector.
+ * @return The sum of the two input vectors.
+ */
+
 t_vector	add_vector(t_vector v1, t_vector v2)
 {
 	t_vector	result;

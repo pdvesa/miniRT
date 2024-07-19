@@ -12,6 +12,14 @@
 
 #include <ft_maths.h>
 
+/**
+ * @brief Calculates the distance between two given points in 3D space.
+ *
+ * @param p1 The coordinates of the first point.
+ * @param p2 The coordinates of the second point.
+ * @return The distance between the two given points.
+ */
+
 float	point_distance(t_coordinates p1, t_coordinates p2)
 {
 	return (sqrtf(powf(p2.x - p1.x, 2)

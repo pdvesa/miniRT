@@ -43,7 +43,8 @@ void	closer_obj(t_line *line, void **objects, t_inter (*f) (t_line*, void*),
 		if (compet.object)
 		{
 			compet_dist = point_distance(line->origin, compet.point);
-			if (compet_dist > FLOAT_MARGIN && (!closer->object || compet_dist
+			if (is_in_bounds(compet_dist, FLOAT_MARGIN, ARBITARY_LIMIT)
+				&& (!closer->object || compet_dist
 					< point_distance(line->origin, closer->point)))
 				*closer = compet;
 		}

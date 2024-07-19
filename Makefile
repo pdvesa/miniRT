@@ -21,7 +21,6 @@ RENDER_UTILS_DIR    := $(UTILS_DIR)/render_utils
 MLX_UTILS_DIR       := $(UTILS_DIR)/mlx_utils
 
 SRCS                := $(SRCS_DIR)/miniRT.c \
-                        $(SRCS_DIR)/debug/parsing_test.c \
                         $(PARSING_DIR)/parse_file.c \
                         $(PARSING_DIR)/read_file.c \
                         $(PARSING_DIR)/validate_content.c \
@@ -40,6 +39,7 @@ SRCS                := $(SRCS_DIR)/miniRT.c \
                         $(MATHS_DIR)/add_vector.c \
                         $(MATHS_DIR)/cross_product.c \
                         $(MATHS_DIR)/dot_product.c \
+                        $(MATHS_DIR)/is_in_bounds.c \
                         $(MATHS_DIR)/normalize_vector.c \
                         $(MATHS_DIR)/point_distance.c \
                         $(MATHS_DIR)/poly_root.c \
@@ -76,7 +76,7 @@ $(NAME): $(LIBFT) $(OBJS)
 	@$(CC) $(OBJS) $(LIBS) $(LIBFT) $(HEADERS) -o $(NAME)
 
 $(LIBFT): $(LIBFT_DIR)
-	@$(MAKE) -C $(LIBFT_DIR)
+	@$(MAKE) -C $(LIBFT_DIR) gnl
 
 clean:
 	@rm -rf $(BUILD_PATH)

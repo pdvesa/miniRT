@@ -40,6 +40,7 @@ typedef struct s_polyroot
 }	t_polyroot;
 
 float			point_distance(t_coordinates p1, t_coordinates p2);
+int				is_in_bounds(float value, float min, float max);
 
 t_polyroot		poly_root(float a, float b, float c);
 
