@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <miniRT_trans.h>
 #include <miniRT_render.h>
 #include <miniRT.h>
 
@@ -73,7 +72,6 @@ void	ray_trace(mlx_image_t *img, t_scene *scene)
 int	render_scene(mlx_t *mlx, t_scene *scene)
 {
 	mlx_image_t				*render_image;
-	t_hook_container		hook_data;
 
 	render_image = mlx_new_image(mlx, mlx -> width, mlx -> height);
 	if (!render_image)
@@ -84,13 +82,6 @@ int	render_scene(mlx_t *mlx, t_scene *scene)
 		mlx_delete_image(mlx, render_image);
 		return (ft_putmlx_error());
 	}
-	hook_data.mlx = mlx;
-	hook_data.scene = scene;
-	hook_data.image = render_image;
-	printf("If you want to modify object hover mouse over it and press O,");
-	printf(" for camera press C and for light press L\n");
-//	mlx_resize_hook(mlx, &resize_function, &hook_data);
-	mlx_key_hook(mlx, &key_function, &hook_data);
 	mlx_loop(mlx);
 	mlx_delete_image(mlx, render_image);
 	return (EXIT_SUCCESS);

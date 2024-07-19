@@ -31,6 +31,7 @@ int	minirt(char *filename)
 	if (!scene.ambient_light)
 		return (1);
 	result = 1;
+	mlx_set_setting(MLX_STRETCH_IMAGE, true);
 	mlx = mlx_init(WIDTH, HEIGHT, "miniRT", true);
 	if (mlx)
 	{
