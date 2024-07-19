@@ -10,10 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-//
-// Created by jules on 08/06/2024.
-//
-
 #include <miniRT_render.h>
 
 t_vector	normal_inter_sphere(t_ray *ray)
