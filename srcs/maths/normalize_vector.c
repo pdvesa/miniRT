@@ -18,7 +18,7 @@ t_vector	normalize_vector(t_vector v)
 	float		norm;
 
 	norm = sqrtf(powf(v.x, 2.0f) + powf(v.y, 2.0f) + powf(v.z, 2.0f));
-	if (norm == 0)
+	if (norm == 0 || isnanf(norm))
 		return (v);
 	result.x = v.x / norm;
 	result.y = v.y / norm;
