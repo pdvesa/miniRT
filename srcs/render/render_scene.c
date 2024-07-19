@@ -10,7 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <miniRT_trans.h>
 #include <miniRT_render.h>
+#include <miniRT.h>
 
 t_viewport	initialise_viewport(mlx_image_t *image, t_camera *camera)
 {
@@ -81,6 +83,12 @@ int	render_scene(mlx_t *mlx, t_scene *scene)
 		mlx_delete_image(mlx, render_image);
 		return (ft_putmlx_error());
 	}
+	hook_data.mlx = mlx;
+	hook_data.scene = scene;
+	hook_data.image = render_image;
+	printf("If you want to modify objects press O, for camera C and for light L\n");
+//	mlx_resize_hook(mlx, &resize_function, &hook_data);
+	mlx_key_hook(mlx, &key_function, &hook_data);
 	mlx_loop(mlx);
 	mlx_delete_image(mlx, render_image);
 	return (EXIT_SUCCESS);

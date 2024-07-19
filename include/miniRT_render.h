@@ -44,6 +44,7 @@ typedef struct s_pixel_cdts
 	unsigned int	y;
 }	t_pixel_cdts;
 
+
 t_ray		ray_to_object(t_scene *scene, t_viewport *viewport,
 				t_pixel_cdts *p);
 t_inter		get_closer_inter(t_line *line, t_scene *scene);
@@ -63,5 +64,8 @@ int			plane_self_hide(t_ray *ray, t_light *light);
 t_rgb		get_object_color(t_ray *ray);
 t_rgb		add_rgb(t_rgb rgb1, t_rgb rgb2);
 void		get_cyka_circles_planes(t_cylinder *cylinder, t_plane *result);
+
+//Hooks
+
 
 #endif //MINIRT_RENDER_H
