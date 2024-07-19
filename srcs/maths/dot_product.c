@@ -1,19 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   point_distance.c                                   :+:      :+:    :+:   */
+/*   dot_product.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcayot <jcayot.student@hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/18 20:06:05 by jcayot            #+#    #+#             */
-/*   Updated: 2024/07/18 20:06:07 by jcayot           ###   ########.fr       */
+/*   Created: 2024/07/18 20:14:21 by jcayot            #+#    #+#             */
+/*   Updated: 2024/07/18 20:14:24 by jcayot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_maths.h>
 
-float	point_distance(t_coordinates p1, t_coordinates p2)
+float	dot_product(t_vector v1, t_vector v2)
 {
-	return (sqrtf(powf(p2.x - p1.x, 2)
-			+ powf(p2.y - p1.y, 2) + powf(p2.z - p1.z, 2)));
+	return ((v1.x * v2.x) + (v1.y * v2.y) + (v1.z * v2.z));
 }

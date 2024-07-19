@@ -1,19 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   point_distance.c                                   :+:      :+:    :+:   */
+/*   vector_from_points.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcayot <jcayot.student@hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/18 20:06:05 by jcayot            #+#    #+#             */
-/*   Updated: 2024/07/18 20:06:07 by jcayot           ###   ########.fr       */
+/*   Created: 2024/07/18 20:10:58 by jcayot            #+#    #+#             */
+/*   Updated: 2024/07/18 20:10:59 by jcayot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_maths.h>
 
-float	point_distance(t_coordinates p1, t_coordinates p2)
+t_vector	vector_from_points(t_coordinates origin, t_coordinates destination)
 {
-	return (sqrtf(powf(p2.x - p1.x, 2)
-			+ powf(p2.y - p1.y, 2) + powf(p2.z - p1.z, 2)));
+	t_vector	result;
+
+	result.x = destination.x - origin.x;
+	result.y = destination.y - origin.y;
+	result.z = destination.z - origin.z;
+	return (result);
 }

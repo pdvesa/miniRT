@@ -1,22 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render_utils.h                                     :+:      :+:    :+:   */
+/*   normalize_vector.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcayot <jcayot.student@hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/11 18:23:12 by jcayot            #+#    #+#             */
-/*   Updated: 2024/07/11 18:23:14 by jcayot           ###   ########.fr       */
+/*   Created: 2024/07/18 20:13:36 by jcayot            #+#    #+#             */
+/*   Updated: 2024/07/18 20:13:40 by jcayot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RENDER_UTILS_H
-# define RENDER_UTILS_H
+#include <ft_maths.h>
 
-# include <miniRT_render.h>
+t_vector	normalize_vector(t_vector v)
+{
+	t_vector	result;
+	float		norm;
 
-t_rgb	get_object_color(t_ray *ray);
-t_rgb	add_rgb(t_rgb rgb1, t_rgb rgb2);
-void	get_cyka_circles_planes(t_cylinder *cylinder, t_plane *result);
-
-#endif //RENDER_UTILS_H
+	norm = sqrtf(powf(v.x, 2.0f) + powf(v.y, 2.0f) + powf(v.z, 2.0f));
+	if (norm == 0)
+		return (v);
+	result.x = v.x / norm;
+	result.y = v.y / norm;
+	result.z = v.z / norm;
+	return (result);
+}

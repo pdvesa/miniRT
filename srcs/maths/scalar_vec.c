@@ -1,19 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   point_distance.c                                   :+:      :+:    :+:   */
+/*   scalar_vec.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcayot <jcayot.student@hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/18 20:06:05 by jcayot            #+#    #+#             */
-/*   Updated: 2024/07/18 20:06:07 by jcayot           ###   ########.fr       */
+/*   Created: 2024/07/18 20:11:36 by jcayot            #+#    #+#             */
+/*   Updated: 2024/07/18 20:11:37 by jcayot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_maths.h>
 
-float	point_distance(t_coordinates p1, t_coordinates p2)
+t_vector	scalar_vec(float scalar, t_vector v)
 {
-	return (sqrtf(powf(p2.x - p1.x, 2)
-			+ powf(p2.y - p1.y, 2) + powf(p2.z - p1.z, 2)));
+	t_vector	result;
+
+	result.x = v.x * scalar;
+	result.y = v.y * scalar;
+	result.z = v.z * scalar;
+	return (result);
 }

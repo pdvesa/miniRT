@@ -37,11 +37,15 @@ SRCS                := $(SRCS_DIR)/miniRT.c \
                         $(INTER_DIR)/sphere_inter.c \
                         $(INTER_DIR)/plane_inter.c \
                         $(INTER_DIR)/cylinder_inter.c \
-                        $(MATHS_DIR)/vector_arithmetics.c \
+                        $(MATHS_DIR)/add_vector.c \
+                        $(MATHS_DIR)/cross_product.c \
+                        $(MATHS_DIR)/dot_product.c \
+                        $(MATHS_DIR)/normalize_vector.c \
                         $(MATHS_DIR)/point_distance.c \
                         $(MATHS_DIR)/poly_root.c \
+                        $(MATHS_DIR)/scalar_vec.c \
                         $(MATHS_DIR)/translate_point.c \
-                        $(MATHS_DIR)/convertors.c \
+                        $(MATHS_DIR)/vector_from_points.c \
                         $(UTILS_DIR)/ft_strappend.c \
                         $(UTILS_DIR)/ft_free_array.c \
                         $(UTILS_DIR)/atois.c \

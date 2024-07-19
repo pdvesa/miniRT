@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <miniRT_parsing.h>
+#include <ft_maths.h>
 
 int	extract_rgb(t_rgb *colors, char *content)
 {
@@ -61,6 +62,7 @@ int	extract_vector(t_vector *vector, char *content)
 	ft_strarray_free(temp_array);
 	if (error)
 		return (EXIT_FAILURE);
+	*vector = normalize_vector(*vector);
 	return (EXIT_SUCCESS);
 }
 
