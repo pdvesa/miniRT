@@ -35,7 +35,6 @@
 #  define ARBITARY_LIMIT 42000.0f
 # endif //ARBITARY_LIMIT
 
-
 typedef enum s_objs_index
 {
 	A = 0,

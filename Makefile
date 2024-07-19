@@ -72,7 +72,7 @@ $(NAME): $(LIBFT) $(OBJS)
 	@$(CC) $(OBJS) $(LIBS) $(LIBFT) $(HEADERS) -o $(NAME)
 
 $(LIBFT): $(LIBFT_DIR)
-	@$(MAKE) -C $(LIBFT_DIR) gnl
+	@$(MAKE) -C $(LIBFT_DIR)
 
 clean:
 	@rm -rf $(BUILD_PATH)

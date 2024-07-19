@@ -44,7 +44,6 @@ typedef struct s_pixel_cdts
 	unsigned int	y;
 }	t_pixel_cdts;
 
-
 t_ray		ray_to_object(t_scene *scene, t_viewport *viewport,
 				t_pixel_cdts *p);
 t_inter		get_closer_inter(t_line *line, t_scene *scene);

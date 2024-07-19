@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include <miniRT_render.h>
-#include <miniRT.h>
 
 t_viewport	initialise_viewport(mlx_image_t *image, t_camera *camera)
 {
