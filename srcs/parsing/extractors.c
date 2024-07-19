@@ -78,7 +78,7 @@ int	extract_cords(t_coordinates *cords, char *content)
 	if (ft_strarray_len(temp_array) != 3)
 		return (ft_strarray_free(temp_array), EXIT_FAILURE);
 	cords->x = get_numbers(temp_array[0], 1);
-	if (cords->x > 1000.0F || cords->x < -1000.0F) //no idea for limits here
+	if (cords->x > 1000.0F || cords->x < -1000.0F)
 		error = 3;
 	cords->y = get_numbers(temp_array[1], 1);
 	if (cords->y > 1000.0F || cords->y < -1000.0F)
@@ -92,15 +92,16 @@ int	extract_cords(t_coordinates *cords, char *content)
 	return (EXIT_SUCCESS);
 }
 
-int	save_cords(t_scene *scene, char *content_str, int obj_type, int i)
- {
- 	void			*cords_array[2] = {&(scene->camera->center), &(scene->light->center)};
-	void			*temp_cord;
+int	save_cords(t_scene *scene, char *cnt_str, int obj_type, int i)
+{
+	const void	*cords_array[2] = {&(scene->camera->center),
+		&(scene->light->center)};
+	void		*temp_cord;
 
 	if (obj_type == C || obj_type == L)
- 	{
-		if (extract_cords((t_coordinates *)cords_array[obj_type - 1], content_str))
- 				return (EXIT_FAILURE);
+	{
+		if (extract_cords((t_coordinates *)cords_array[obj_type - 1], cnt_str))
+			return (EXIT_FAILURE);
 	}
 	else
 	{
@@ -110,11 +111,11 @@ int	save_cords(t_scene *scene, char *content_str, int obj_type, int i)
 			temp_cord = &(scene->plane[i])->coordinates;
 		if (obj_type == cyka)
 			temp_cord = &(scene->cylinder[i])->center;
-		if (extract_cords((t_coordinates *)temp_cord, content_str))
- 				return (EXIT_FAILURE);
+		if (extract_cords((t_coordinates *)temp_cord, cnt_str))
+			return (EXIT_FAILURE);
 	}
- 	return (EXIT_SUCCESS);
- }
+	return (EXIT_SUCCESS);
+}
 
 int	erreur_dictateur(char **array, int obj_type)
 {

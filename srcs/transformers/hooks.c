@@ -15,7 +15,7 @@
 void	key_function(mlx_key_data_t keydata, void *param)
 {
 	t_hook_container	*data;
-	static  int			flag = 0;
+	static int			flag = 0;
 
 	data = (t_hook_container *)param;
 	if (flag == 0 && keydata.key != MLX_KEY_ESCAPE)
@@ -26,9 +26,9 @@ void	key_function(mlx_key_data_t keydata, void *param)
 	if (keydata.key == MLX_KEY_O && keydata.action == MLX_PRESS)
 	{
 		modify_objects(data);
-		ft_re_render(data);	
+		ft_re_render(data);
 	}
-	if ((keydata.key == MLX_KEY_C && keydata.action == MLX_PRESS) 
+	if ((keydata.key == MLX_KEY_C && keydata.action == MLX_PRESS)
 		|| (keydata.key == MLX_KEY_L && keydata.action == MLX_PRESS))
 	{
 		modify_statics(data->scene, keydata.key);

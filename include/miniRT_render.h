@@ -50,6 +50,8 @@ t_ray		ray_to_object(t_scene *scene, t_viewport *viewport,
 t_inter		get_closer_inter(t_line *line, t_scene *scene);
 t_rgb		get_ambient_light(t_ambient_light *am_light, t_rgb *object_color);
 t_rgb		inter_to_light(t_scene *scene, t_ray *ray, t_rgb *object_color);
+t_viewport	initialise_viewport(mlx_image_t *image, t_camera *camera);
+void		ray_trace(mlx_image_t *img, t_scene *scene);
 
 //render_inter
 t_inter		closer_sphere_inter(t_line *line, t_sphere *sphere);
@@ -64,8 +66,5 @@ int			plane_self_hide(t_ray *ray, t_light *light);
 t_rgb		get_object_color(t_ray *ray);
 t_rgb		add_rgb(t_rgb rgb1, t_rgb rgb2);
 void		get_cyka_circles_planes(t_cylinder *cylinder, t_plane *result);
-
-//Hooks
-
 
 #endif //MINIRT_RENDER_H

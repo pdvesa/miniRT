@@ -30,7 +30,7 @@ void	free_render_scene(t_scene *scene)
 	if (scene->ambient_light)
 	{
 		free(scene->ambient_light);
-		scene->ambient_light = NULL; //need this to exit
+		scene->ambient_light = NULL;
 	}
 	if (scene->camera)
 		free(scene->camera);

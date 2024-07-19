@@ -30,5 +30,7 @@ void	ft_re_render(t_hook_container *data);
 void	modify_objects(t_hook_container *data);
 char	**sanitize_input(void);
 void	*get_value(void *original, void *mod_value, char *str, int mod_num);
+void	key_function(mlx_key_data_t keydata, void *param);
+void	translate_error(char **array);
 
 #endif //MINIRT_TRANS_H
