@@ -29,6 +29,8 @@ SRCS                := $(SRCS_DIR)/miniRT.c \
                         $(PARSING_DIR)/array_extractors.c \
                         $(PARSING_DIR)/scene_parser2.c \
                         $(RENDER_DIR)/render_scene.c \
+                        $(RENDER_DIR)/render_thread.c \
+                        $(RENDER_DIR)/multi_thread_render.c \
                         $(RENDER_DIR)/ray_to_object.c \
                         $(RENDER_DIR)/lights.c \
                         $(INTER_DIR)/normal_to_inter.c \

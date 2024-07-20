@@ -25,6 +25,20 @@ t_viewport	init_viewport(t_camera *camera, uint32_t width, uint32_t height)
 	return (viewport);
 }
 
+t_render_data	init_single_data(t_scene *scene, t_viewport *vp, void *render)
+{
+	t_render_data	data;
+
+	data.scene = scene;
+	data.viewport = vp;
+	data.render = render;
+	data.x_min = 0;
+	data.x_max = vp->w;
+	data.y_min = 0;
+	data.y_max = vp->h;
+	return (data);
+}
+
 t_rgb	calculate_color(t_scene *scene, t_viewport *viewport, t_pixel_cdts *p)
 {
 	t_ray	ray;
@@ -47,27 +61,22 @@ void	*ray_trace(t_scene *scene, uint32_t width, uint32_t height)
 {
 	void			*render;
 	t_viewport		viewport;
-	t_pixel_cdts	p;
-	t_rgb			color;
+	t_render_data	single_data;
 
-	render = malloc(width * height * sizeof (uint32_t));
-	if (!render)
-		return (NULL);
-	ft_putendl_fd("MiniRT : Rendering starting", 1);
 	viewport = init_viewport(scene->camera, width, height);
-	p.x = 0;
-	p.y = 0;
-	while (p.y < viewport.h)
+	render = malloc(viewport.w * viewport.h * sizeof (uint32_t));
+	if (!render)
 	{
-		p.x = 0;
-		while (p.x < viewport.w)
-		{
-			color = calculate_color(scene, &viewport, &p);
-			set_pixel_color(render + (((p.y * width) + (p.x))
-					* sizeof (uint32_t)), color.r, color.g, color.b);
-			p.x++;
-		}
-		p.y++;
+		ft_putendl_fd("MiniRT malloc error", 2);
+		return (NULL);
 	}
+	if (THREAD_NUMBER > 1 && THREAD_NUMBER <= HEIGHT)
+	{
+		if (multi_thread_render(scene, &viewport, render))
+			return (render);
+	}
+	ft_putendl_fd("MiniRT single thread render", 1);
+	single_data = init_single_data(scene, &viewport, render);
+	render_thread(&single_data);
 	return (render);
 }

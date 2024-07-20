@@ -13,7 +13,12 @@
 #ifndef MINIRT_RENDER_H
 # define MINIRT_RENDER_H
 
+# ifndef THREAD_NUMBER
+#  define THREAD_NUMBER 20
+# endif
+
 # include <miniRT.h>
+# include <pthread.h>
 
 typedef struct s_inter
 {
@@ -43,6 +48,24 @@ typedef struct s_pixel_cdts
 	unsigned int	x;
 	unsigned int	y;
 }	t_pixel_cdts;
+
+typedef struct s_render_thread_data
+{
+	unsigned int	x_min;
+	unsigned int	x_max;
+	unsigned int	y_min;
+	unsigned int	y_max;
+	t_scene			*scene;
+	t_viewport		*viewport;
+	void			*render;
+
+}	t_render_data;
+
+void		*render_thread(void *data_ptr);
+
+int multi_thread_render(t_scene* scene, t_viewport* vp, void* render);
+
+t_rgb		calculate_color(t_scene *scene, t_viewport *viewport, t_pixel_cdts *p);
 
 t_ray		ray_to_object(t_scene *scene, t_viewport *viewport,
 				t_pixel_cdts *p);
