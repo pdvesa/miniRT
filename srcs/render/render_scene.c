@@ -53,7 +53,7 @@ void	*ray_trace(t_scene *scene, uint32_t width, uint32_t height)
 	render = malloc(width * height * sizeof (uint32_t));
 	if (!render)
 		return (NULL);
-	ft_putendl_fd("MiniRT : Rendering starting", 1);
+	ft_putendl_fd("MiniRT : Render starting", 1);
 	viewport = init_viewport(scene->camera, width, height);
 	p.x = 0;
 	p.y = 0;
