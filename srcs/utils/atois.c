@@ -12,7 +12,7 @@
 
 #include <ft_utils.h>
 
-static float	make_float(int n, char *s)
+static float	make_float(int n, char *s, int neg)
 {
 	double	result;
 
@@ -22,6 +22,8 @@ static float	make_float(int n, char *s)
 		result /= 10.f;
 		s++;
 	}
+	if (neg == -1)
+		result = result * neg;
 	return ((double) result);
 }
 
@@ -61,15 +63,13 @@ double	ft_floatoi(char *s)
 	int			neg;
 
 	neg = 1;
+	if (*s == '-')
+		neg = -1;
 	n = (double) ft_atoi(s);
 	if (simple_float_checker(s) || n > 16777216 || n < -16777216)
 		return (-1.0f);
 	if (*s == '+' || (*s == '-' && n == 0.0))
-	{
-		if ((*s == '-' && n == 0.0))
-			neg = -1;
 		s++;
-	}
 	s += ft_intlen((int) n);
 	if (*s != '.')
 		return (n);
@@ -78,8 +78,8 @@ double	ft_floatoi(char *s)
 	d_part = ft_atoi(++s);
 	if (d_part < 0)
 		return (-1.0f);
-	n += (make_float(d_part, s));
-	return ((n * (double)neg));
+	n += (make_float(d_part, s, neg));
+	return (n);
 }
 
 int	ft_mod_atoi(const char *str)
