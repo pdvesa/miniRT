@@ -77,8 +77,6 @@ int	minirt(char *filename)
 		}
 		free(render);
 	}
-	else
-		ft_putendl_fd("MiniRT : Malloc error", 2);
 	free_render_scene(&scene);
 	return (result);
 }
