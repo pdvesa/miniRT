@@ -12,6 +12,24 @@
 
 #include <miniRT_render.h>
 
+t_rgb	calculate_color(t_scene *scene, t_viewport *viewport, t_pixel_cdts *p)
+{
+	t_ray	ray;
+	t_rgb	ambient_light;
+	t_rgb	diffuse_lights;
+	t_rgb	object_color;
+
+	ray = ray_to_object(scene, viewport, p);
+	if (ray.inter.object)
+	{
+		object_color = get_object_color(&ray);
+		ambient_light = get_ambient_light(scene->ambient_light, &object_color);
+		diffuse_lights = inter_to_light(scene, &ray, &object_color);
+		return (add_rgb(ambient_light, diffuse_lights));
+	}
+	return (get_ambient_light(scene->ambient_light, NULL));
+}
+
 void	*render_thread(void *data_ptr)
 {
 	t_render_data	*data;
