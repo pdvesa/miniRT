@@ -1,6 +1,14 @@
-//
-// Created by jules on 20/07/2024.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   multi_thread_render.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jcayot <jcayot.student@hive.fi>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/20 14:56:19 by jcayot            #+#    #+#             */
+/*   Updated: 2024/07/20 14:56:20 by jcayot           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include <miniRT_render.h>
 
@@ -46,7 +54,7 @@ void	wait_threads(int n, pthread_t *threads)
 	}
 }
 
-int	multi_thread_render(t_scene* scene, t_viewport* vp, void* render)
+int	multi_thread_render(t_scene *scene, t_viewport *vp, void *render)
 {
 	pthread_t		threads[THREAD_NUMBER];
 	t_render_data	data[THREAD_NUMBER];
