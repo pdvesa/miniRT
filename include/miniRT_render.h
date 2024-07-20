@@ -65,9 +65,6 @@ void		*render_thread(void *data_ptr);
 
 int			multi_thread_render(t_scene *scene, t_viewport *vp, void *render);
 
-t_rgb		calculate_color(t_scene *scene, t_viewport *viewport,
-				t_pixel_cdts *p);
-
 t_ray		ray_to_object(t_scene *scene, t_viewport *viewport,
 				t_pixel_cdts *p);
 t_inter		get_closer_inter(t_line *line, t_scene *scene);
