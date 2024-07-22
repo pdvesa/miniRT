@@ -12,9 +12,9 @@
 
 #include <mlx_utils.h>
 
-int	ft_putmlx_error(void)
+void	*ft_putmlx_error(void)
 {
 	ft_putstr_fd("MiniRT : ", 2);
 	ft_putendl_fd((char *) mlx_strerror(mlx_errno), 2);
-	return (EXIT_FAILURE);
+	return (NULL);
 }

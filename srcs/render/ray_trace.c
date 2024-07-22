@@ -39,26 +39,18 @@ t_render_data	init_single_data(t_scene *scene, t_viewport *vp, void *render)
 	return (data);
 }
 
-void	*ray_trace(t_scene *scene, uint32_t width, uint32_t height)
+void	ray_trace(t_scene *scene, mlx_image_t *image)
 {
-	void			*render;
 	t_viewport		viewport;
 	t_render_data	single_data;
 
-	viewport = init_viewport(scene->camera, width, height);
-	render = malloc(viewport.w * viewport.h * sizeof (uint32_t));
-	if (!render)
-	{
-		ft_putendl_fd("MiniRT malloc error", 2);
-		return (NULL);
-	}
+	viewport = init_viewport(scene->camera, image->width, image->height);
 	if (THREAD_NUMBER > 1 && THREAD_NUMBER <= HEIGHT)
 	{
-		if (multi_thread_render(scene, &viewport, render))
-			return (render);
+		if (multi_thread_render(scene, &viewport, image->pixels))
+			return ;
 	}
 	ft_putendl_fd("MiniRT single thread render", 1);
-	single_data = init_single_data(scene, &viewport, render);
+	single_data = init_single_data(scene, &viewport, image->pixels);
 	render_thread(&single_data);
-	return (render);
 }

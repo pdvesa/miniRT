@@ -16,7 +16,15 @@
 # include <libft.h>
 # include <MLX42/MLX42.h>
 
-int		ft_putmlx_error(void);
+typedef struct s_rgb
+{
+	int	r;
+	int	g;
+	int	b;
+}	t_rgb;
+
+void	*ft_putmlx_error(void);
+t_rgb	get_pixel_color(void *address);
 void	set_pixel_color(void *address, u_int8_t r, u_int8_t g, u_int8_t b);
 double	ft_floatoi(char *s);
 int		ft_mod_atoi(const char *str);

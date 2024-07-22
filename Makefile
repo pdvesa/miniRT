@@ -28,11 +28,12 @@ SRCS                := $(SRCS_DIR)/miniRT.c \
                         $(PARSING_DIR)/extractors.c \
                         $(PARSING_DIR)/array_extractors.c \
                         $(PARSING_DIR)/scene_parser2.c \
-                        $(RENDER_DIR)/render_scene.c \
+                        $(RENDER_DIR)/ray_trace.c \
                         $(RENDER_DIR)/render_thread.c \
                         $(RENDER_DIR)/multi_thread_render.c \
                         $(RENDER_DIR)/ray_to_object.c \
                         $(RENDER_DIR)/lights.c \
+                        $(RENDER_DIR)/anti_aliasing.c \
                         $(INTER_DIR)/normal_to_inter.c \
                         $(INTER_DIR)/sphere_inter.c \
                         $(INTER_DIR)/plane_inter.c \
@@ -54,6 +55,7 @@ SRCS                := $(SRCS_DIR)/miniRT.c \
                         $(RENDER_UTILS_DIR)/get_cyka_circles_planes.c \
                         $(RENDER_UTILS_DIR)/get_object_color.c \
                         $(MLX_UTILS_DIR)/ft_mlx_error.c \
+                        $(MLX_UTILS_DIR)/get_pixel_color.c \
                         $(MLX_UTILS_DIR)/set_pixel_color.c 
 
 BUILD_PATH          := build

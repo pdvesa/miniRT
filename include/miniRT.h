@@ -46,13 +46,6 @@ typedef enum s_objs_index
 	cyka_circle = 6
 }	t_objs_index;
 
-typedef struct s_rgb
-{
-	int	r;
-	int	g;
-	int	b;
-}	t_rgb;
-
 typedef struct s_line
 {
 	t_coordinates	origin;
@@ -114,6 +107,8 @@ typedef struct s_scene
 t_scene	parse_file(char *filename);
 void	free_render_scene(t_scene *scene);
 
-void	*ray_trace(t_scene *scene, uint32_t width, uint32_t height);
+void	ray_trace(t_scene *scene, mlx_image_t *image);
+
+int		manual_anti_aliasing(void *pixels, unsigned int width, unsigned int heigth);
 
 #endif //MINIRT_H
