@@ -17,7 +17,7 @@ t_scene	new_render_scene(void)
 	t_scene	scene;
 
 	scene.ambient_light = NULL;
-	scene.camera = NULL;
+	scene.cam = NULL;
 	scene.light = NULL;
 	scene.cylinder = NULL;
 	scene.plane = NULL;
@@ -32,8 +32,8 @@ void	free_render_scene(t_scene *scene)
 		free(scene->ambient_light);
 		scene->ambient_light = NULL;
 	}
-	if (scene->camera)
-		free(scene->camera);
+	if (scene->cam)
+		free(scene->cam);
 	if (scene->light)
 		free(scene->light);
 	if (scene->sphere)

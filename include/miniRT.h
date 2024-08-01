@@ -61,7 +61,7 @@ typedef struct s_ambient_light
 typedef struct s_camera
 {
 	t_coordinates	center;
-	t_vector		vector;
+	t_vector		vect;
 	int				fov;
 }	t_camera;
 
@@ -97,7 +97,7 @@ typedef struct s_cylinder
 typedef struct s_scene
 {
 	t_ambient_light	*ambient_light;
-	t_camera		*camera;
+	t_camera		*cam;
 	t_light			*light;
 	t_sphere		**sphere;
 	t_plane			**plane;
@@ -107,8 +107,5 @@ typedef struct s_scene
 t_scene	parse_file(char *filename);
 void	free_render_scene(t_scene *scene);
 
-void	ray_trace(t_scene *scene, mlx_image_t *image);
-
-int		manual_anti_aliasing(void *pixels, unsigned int width, unsigned int heigth);
-
-#endif //MINIRT_H
+int		render_scene(t_scene *scene, mlx_image_t *image);
+#endif	//MINIRT_H

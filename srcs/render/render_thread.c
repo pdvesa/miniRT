@@ -12,29 +12,31 @@
 
 #include <miniRT_render.h>
 
-t_rgb	calculate_color(t_scene *scene, t_viewport *viewport, t_pixel_cdts *p)
+t_raw_pixel	ray_trace_pixel(t_viewport *vp, t_pixel_cdts *p)
 {
-	t_ray	ray;
-	t_rgb	ambient_light;
-	t_rgb	diffuse_lights;
-	t_rgb	object_color;
+	t_raw_pixel	r_pxl;
+	t_rgb		ambient_light;
+	t_rgb		diffuse_lights;
+	t_rgb		object_color;
 
-	ray = ray_to_object(scene, viewport, p);
-	if (ray.inter.object)
+	r_pxl.ray = ray_to_object(vp, p);
+	if (r_pxl . ray.inter.object)
 	{
-		object_color = get_object_color(&ray);
-		ambient_light = get_ambient_light(scene->ambient_light, &object_color);
-		diffuse_lights = inter_to_light(scene, &ray, &object_color);
-		return (add_rgb(ambient_light, diffuse_lights));
+		object_color = get_object_color(&r_pxl.ray);
+		ambient_light = get_ambient_light(vp->scene->ambient_light, &object_color);
+		diffuse_lights = inter_to_light(vp->scene, &r_pxl, &object_color);
+		r_pxl.color = add_rgb(ambient_light, diffuse_lights);
 	}
-	return (get_ambient_light(scene->ambient_light, NULL));
+	else
+		r_pxl.color = get_ambient_light(vp->scene->ambient_light, NULL);
+	return (r_pxl);
 }
 
 void	*render_thread(void *data_ptr)
 {
 	t_render_data	*data;
+	t_raw_pixel		*current_raw_pxl;
 	t_pixel_cdts	p;
-	t_rgb			color;
 
 	data = (t_render_data *) data_ptr;
 	p.y = data->y_min;
@@ -43,9 +45,13 @@ void	*render_thread(void *data_ptr)
 		p.x = data->x_min;
 		while (p.x < data->x_max)
 		{
-			color = calculate_color(data->scene, data->viewport, &p);
-			set_pixel_color(data->render + (((p.y * data->viewport->w) + (p.x))
-					* sizeof (uint32_t)), color.r, color.g, color.b);
+			current_raw_pxl = data->raw_pixels + (((p.y * data->vp->w) + p.x)
+					* sizeof (t_raw_pixel));
+			printf("%d, %d \n", p.x, p.y);
+			printf("%p\n", current_raw_pxl);
+			*current_raw_pxl = ray_trace_pixel(data->vp, &p);
+			set_pixel_color(data->render + (((p.y * data->vp->w) + p.x)
+					* sizeof (uint32_t)), &current_raw_pxl->color);
 			p.x++;
 		}
 		p.y++;

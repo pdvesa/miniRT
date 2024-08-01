@@ -58,9 +58,7 @@ int	minirt(char *filename)
 	mlx = initialize_mlx(&image);
 	if (mlx)
 	{
-		result = 0;
-		ray_trace(&scene, image);
-		// manual_anti_aliasing(image->pixels, image->width, image->height);
+		result = render_scene(&scene, image);
 		mlx_loop(mlx);
 		mlx_delete_image(mlx, image);
 		mlx_terminate(mlx);

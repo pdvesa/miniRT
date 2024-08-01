@@ -33,13 +33,20 @@ typedef struct s_ray
 	t_inter			inter;
 }	t_ray;
 
+typedef struct s_raw_pixel
+{
+	t_ray	ray;
+	int		light_visible;
+	t_rgb	color;
+}	t_raw_pixel;
+
 typedef struct s_viewport
 {
 	unsigned int	w;
 	unsigned int	h;
 	t_vector		v_up;
 	t_vector		v_right;
-	t_camera		*cam;
+	t_scene			*scene;
 	float			cam_scalar;
 }	t_viewport;
 
@@ -55,21 +62,20 @@ typedef struct s_render_thread_data
 	unsigned int	x_max;
 	unsigned int	y_min;
 	unsigned int	y_max;
-	t_scene			*scene;
-	t_viewport		*viewport;
+	t_viewport		*vp;
+	t_raw_pixel		*raw_pixels;
 	void			*render;
 
 }	t_render_data;
 
 void		*render_thread(void *data_ptr);
 
-int			multi_thread_render(t_scene *scene, t_viewport *vp, void *render);
+int			multi_thread_render(t_viewport *vp, void *render, t_raw_pixel *raw_pixels);
 
-t_ray		ray_to_object(t_scene *scene, t_viewport *viewport,
-				t_pixel_cdts *p);
+t_ray		ray_to_object(t_viewport* vp, t_pixel_cdts* p);
 t_inter		get_closer_inter(t_line *line, t_scene *scene);
 t_rgb		get_ambient_light(t_ambient_light *am_light, t_rgb *object_color);
-t_rgb		inter_to_light(t_scene *scene, t_ray *ray, t_rgb *object_color);
+t_rgb inter_to_light(t_scene* scene, t_raw_pixel* r_pxl, t_rgb* object_color);
 
 //render_inter
 t_inter		closer_sphere_inter(t_line *line, t_sphere *sphere);
@@ -83,6 +89,7 @@ int			plane_self_hide(t_ray *ray, t_light *light);
 //Utils
 t_rgb		get_object_color(t_ray *ray);
 t_rgb		add_rgb(t_rgb rgb1, t_rgb rgb2);
+t_rgb		average_rgb(t_rgb *rgb, u_int n);
 void		get_cyka_circles_planes(t_cylinder *cylinder, t_plane *result);
 
 #endif //MINIRT_RENDER_H

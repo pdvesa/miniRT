@@ -12,8 +12,7 @@
 
 #include <miniRT_render.h>
 
-void	init_render_data(t_render_data *data, t_scene *scene,
-							t_viewport *vp, void *render)
+void	init_render_data(t_render_data *data, t_viewport *vp, void *render, t_raw_pixel *r_pxl)
 {
 	unsigned int	render_height;
 	unsigned int	y_min;
@@ -26,8 +25,8 @@ void	init_render_data(t_render_data *data, t_scene *scene,
 	y_max = render_height;
 	while (i < THREAD_NUMBER)
 	{
-		data[i].scene = scene;
-		data[i].viewport = vp;
+		data[i].vp = vp;
+		data[i].raw_pixels = r_pxl;
 		data[i].render = render;
 		data[i].x_min = 0;
 		data[i].x_max = vp->w;
@@ -54,7 +53,7 @@ void	wait_threads(int n, pthread_t *threads)
 	}
 }
 
-int	multi_thread_render(t_scene *scene, t_viewport *vp, void *render)
+int multi_thread_render(t_viewport *vp, void *render, t_raw_pixel *raw_pixels)
 {
 	pthread_t		threads[THREAD_NUMBER];
 	t_render_data	data[THREAD_NUMBER];
@@ -63,7 +62,7 @@ int	multi_thread_render(t_scene *scene, t_viewport *vp, void *render)
 	ft_putstr_fd("MiniRT : Rendering on ", 1);
 	ft_putnbr_fd(THREAD_NUMBER, 1);
 	ft_putendl_fd(" threads", 1);
-	init_render_data(data, scene, vp, render);
+	init_render_data(data, vp, render, raw_pixels);
 	i = 0;
 	while (i < THREAD_NUMBER)
 	{
