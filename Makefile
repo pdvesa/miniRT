@@ -33,7 +33,6 @@ SRCS                := $(SRCS_DIR)/miniRT.c \
                         $(RENDER_DIR)/multi_thread_render.c \
                         $(RENDER_DIR)/ray_to_object.c \
                         $(RENDER_DIR)/lights.c \
-                        $(RENDER_DIR)/anti_aliasing.c \
                         $(INTER_DIR)/normal_to_inter.c \
                         $(INTER_DIR)/sphere_inter.c \
                         $(INTER_DIR)/plane_inter.c \

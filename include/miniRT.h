@@ -109,6 +109,4 @@ void	free_render_scene(t_scene *scene);
 
 void	ray_trace(t_scene *scene, mlx_image_t *image);
 
-int		manual_anti_aliasing(void *pixels, unsigned int width, unsigned int heigth);
-
 #endif //MINIRT_H
