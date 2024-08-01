@@ -1,3 +1,4 @@
+CC					:= clang
 NAME                := miniRT
 CFLAGS              := -Wextra -Wall -Werror -g
 LIBMLX_DIR          := ./lib/MLX42
@@ -74,7 +75,7 @@ $(BUILD_PATH)/%.o: %.c
 	$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS)
 
 $(NAME): $(LIBFT) $(OBJS)
-	@$(CC) $(OBJS) $(LIBS) $(LIBFT) $(HEADERS) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJS) $(LIBS) $(LIBFT) $(HEADERS) -o $(NAME)
 
 $(LIBFT): $(LIBFT_DIR)
 	@$(MAKE) -C $(LIBFT_DIR)

@@ -41,7 +41,7 @@ int	light_visible(t_scene *scene, t_ray *ray)
 	return (1);
 }
 
-t_rgb inter_to_light(t_scene *scene, t_raw_pixel *r_pxl, t_rgb *object_color)
+t_rgb	inter_to_light(t_scene* scene, t_ray* ray, t_rgb* obj_col, int *light_v)
 {
 	t_rgb		color;
 	t_vector	inter_to_light;
@@ -51,21 +51,20 @@ t_rgb inter_to_light(t_scene *scene, t_raw_pixel *r_pxl, t_rgb *object_color)
 	color.r = 0;
 	color.g = 0;
 	color.b = 0;
-	r_pxl->light_visible = 0;
-	if (light_visible(scene, &r_pxl->ray))
+	*light_v = 0;
+	if (light_visible(scene, ray))
 	{
-		r_pxl->light_visible = 1;
-		inter_to_light = vector_from_points(r_pxl->ray.inter.point,
-				scene->light->center);
+		*light_v = 1;
+		inter_to_light = vector_from_points(ray->inter.point,scene->light->center);
 		inter_to_light = normalize_vector(inter_to_light);
-		normal_to_inter = get_normal_to_inter(&r_pxl->ray);
+		normal_to_inter = get_normal_to_inter(ray);
 		light_coefficient = dot_product(inter_to_light, normal_to_inter);
 		if (light_coefficient < 0.f)
 			light_coefficient *= -1.f;
 		light_coefficient *= scene->light->brightness;
-		color.r = (int)((float)object_color->r * light_coefficient);
-		color.g = (int)((float)object_color->g * light_coefficient);
-		color.b = (int)((float)object_color->b * light_coefficient);
+		color.r = (int)((float)obj_col->r * light_coefficient);
+		color.g = (int)((float)obj_col->g * light_coefficient);
+		color.b = (int)((float)obj_col->b * light_coefficient);
 	}
 	return (color);
 }

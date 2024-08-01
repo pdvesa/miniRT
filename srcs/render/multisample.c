@@ -4,7 +4,7 @@
 
 #include <miniRT_render.h>
 
-//int	pixel_is_bound(t_raw_pixel *raw_pixel, uint x, uint y, t_viewport *vp)
+//int	pixel_is_bound(t_msaa_data *raw_pixel, uint x, uint y, t_viewport *vp)
 //{
 //	if (x > 0 && raw_pixel[((y * vp->w) + x)].ray.inter.object
 //		!= raw_pixel[((y * vp->w) + (x - 1))].ray.inter.object)

@@ -12,7 +12,7 @@
 
 #include <miniRT_render.h>
 
-void	init_render_data(t_render_data *data, t_viewport *vp, void *render, t_raw_pixel *r_pxl)
+void	init_render_data(t_render_data *data, t_viewport *vp, void *render, t_msaa_data *r_pxl)
 {
 	unsigned int	render_height;
 	unsigned int	y_min;
@@ -53,7 +53,7 @@ void	wait_threads(int n, pthread_t *threads)
 	}
 }
 
-int multi_thread_render(t_viewport *vp, void *render, t_raw_pixel *raw_pixels)
+int multi_thread_render(t_viewport *vp, void *render, t_msaa_data *raw_pixels)
 {
 	pthread_t		threads[THREAD_NUMBER];
 	t_render_data	data[THREAD_NUMBER];
