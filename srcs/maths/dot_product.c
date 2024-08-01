@@ -15,8 +15,8 @@
 /**
  * Calculates the dot product of two vectors.
  *
- * @param v1 The first vector
- * @param v2 The second vector
+ * @param v1 The first vect
+ * @param v2 The second vect
  * @return The dot product of v1 and v2
  */
 

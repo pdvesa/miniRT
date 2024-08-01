@@ -13,12 +13,12 @@
 #include <ft_maths.h>
 
 /**
- * @brief Calculates a vector from two given points.
+ * @brief Calculates a vect from two given points.
  *
  * @param origin The origin point.
  * @param destination The destination point.
  *
- * @return The calculated vector.
+ * @return The calculated vect.
  */
 
 t_vector	vector_from_points(t_coordinates origin, t_coordinates destination)

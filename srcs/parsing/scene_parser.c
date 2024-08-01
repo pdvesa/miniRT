@@ -40,8 +40,8 @@ int	parse_camera(t_scene *scene, char **content)
 	char	*content_str;
 	char	**cont_arr;
 
-	scene->camera = ft_calloc(1, sizeof(t_camera));
-	if (!(scene->camera))
+	scene->cam = ft_calloc(1, sizeof(t_camera));
+	if (!(scene->cam))
 		return (EXIT_FAILURE);
 	content_str = find_content_str(content, "C");
 	cont_arr = ft_split(content_str, ' ');
@@ -51,10 +51,10 @@ int	parse_camera(t_scene *scene, char **content)
 		return (erreur_dictateur(cont_arr, C));
 	if (save_cords(scene, cont_arr[1], C, 0))
 		return (erreur_dictateur(cont_arr, C));
-	if (extract_vector(&(scene->camera->vector), cont_arr[2]))
+	if (extract_vector(&(scene->cam->vect), cont_arr[2]))
 		return (erreur_dictateur(cont_arr, C));
-	scene->camera->fov = get_numbers(cont_arr[3], 0);
-	if (scene->camera->fov > 179 || scene->camera->fov < 0)
+	scene->cam->fov = get_numbers(cont_arr[3], 0);
+	if (scene->cam->fov > 179 || scene->cam->fov < 0)
 		return (erreur_dictateur(cont_arr, C));
 	return (ft_strarray_free(cont_arr), EXIT_SUCCESS);
 }

@@ -13,10 +13,10 @@
 #include <ft_maths.h>
 
 /**
- * @brief Normalize a given vector.
+ * @brief Normalize a given vect.
  *
- * @param v The vector to be normalized.
- * @return The normalized vector.
+ * @param v The vect to be normalized.
+ * @return The normalized vect.
  */
 
 t_vector	normalize_vector(t_vector v)

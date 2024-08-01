@@ -17,8 +17,8 @@
  *
  * This function takes two vectors as input and returns their sum.
  *
- * @param v1 The first vector.
- * @param v2 The second vector.
+ * @param v1 The first vect.
+ * @param v2 The second vect.
  * @return The sum of the two input vectors.
  */
 

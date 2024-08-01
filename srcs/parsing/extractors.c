@@ -96,7 +96,7 @@ int	extract_cords(t_coordinates *cords, char *content)
 
 int	save_cords(t_scene *scene, char *cnt_str, int obj_type, int i)
 {
-	const void	*cords_array[2] = {&(scene->camera->center),
+	const void	*cords_array[2] = {&(scene->cam->center),
 		&(scene->light->center)};
 	void		*temp_cord;
 
