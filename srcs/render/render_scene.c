@@ -27,7 +27,7 @@ t_viewport	init_viewport(t_scene *scene, uint32_t width, uint32_t height)
 	return (viewport);
 }
 
-t_render_data init_single_data(t_viewport* vp, void* render, t_raw_pixel *r_pxl)
+t_render_data init_single_data(t_viewport* vp, void* render, t_msaa_data *r_pxl)
 {
 	t_render_data	data;
 
@@ -41,31 +41,30 @@ t_render_data init_single_data(t_viewport* vp, void* render, t_raw_pixel *r_pxl)
 	return (data);
 }
 
-t_raw_pixel	*ray_trace(t_scene *scene, mlx_image_t *image)
+t_msaa_data	*ray_trace(t_scene *scene, mlx_image_t *image)
 {
-	t_raw_pixel		*raw_pixels;
+	t_msaa_data		*mssa_data;
 	t_viewport		viewport;
 	t_render_data	single_data;
 
-	raw_pixels = malloc(image->width * image->height * sizeof (t_raw_pixel));
-	if (!raw_pixels)
+	mssa_data = malloc(image->width * image->height * sizeof (t_msaa_data));
+	if (!mssa_data)
 		return (NULL);
-	printf("%p\n", raw_pixels + (image->width * image->height * sizeof (t_raw_pixel)));
 	viewport = init_viewport(scene, image->width, image->height);
 	if (THREAD_NUMBER > 1 && THREAD_NUMBER <= HEIGHT)
 	{
-		if (multi_thread_render(&viewport, image->pixels, raw_pixels))
-			return (raw_pixels);
+		if (multi_thread_render(&viewport, image->pixels, mssa_data))
+			return (mssa_data);
 	}
 	ft_putendl_fd("MiniRT single thread render", 1);
-	single_data = init_single_data(&viewport, image->pixels, raw_pixels);
+	single_data = init_single_data(&viewport, image->pixels, mssa_data);
 	render_thread(&single_data);
-	return (raw_pixels);
+	return (mssa_data);
 }
 
 int	render_scene(t_scene *scene, mlx_image_t *image)
 {
-	t_raw_pixel	*raw_pixels;
+	t_msaa_data	*raw_pixels;
 
 	raw_pixels = ray_trace(scene, image);
 	if (!raw_pixels)

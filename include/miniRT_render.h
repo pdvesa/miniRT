@@ -33,12 +33,11 @@ typedef struct s_ray
 	t_inter			inter;
 }	t_ray;
 
-typedef struct s_raw_pixel
+typedef struct s_msaa_data
 {
-	t_ray	ray;
+	void	*object;
 	int		light_visible;
-	t_rgb	color;
-}	t_raw_pixel;
+}	t_msaa_data;
 
 typedef struct s_viewport
 {
@@ -63,19 +62,19 @@ typedef struct s_render_thread_data
 	unsigned int	y_min;
 	unsigned int	y_max;
 	t_viewport		*vp;
-	t_raw_pixel		*raw_pixels;
+	t_msaa_data		*raw_pixels;
 	void			*render;
 
 }	t_render_data;
 
 void		*render_thread(void *data_ptr);
 
-int			multi_thread_render(t_viewport *vp, void *render, t_raw_pixel *raw_pixels);
+int			multi_thread_render(t_viewport *vp, void *render, t_msaa_data *raw_pixels);
 
 t_ray		ray_to_object(t_viewport* vp, t_pixel_cdts* p);
 t_inter		get_closer_inter(t_line *line, t_scene *scene);
 t_rgb		get_ambient_light(t_ambient_light *am_light, t_rgb *object_color);
-t_rgb inter_to_light(t_scene* scene, t_raw_pixel* r_pxl, t_rgb* object_color);
+t_rgb inter_to_light(t_scene* scene, t_ray* ray, t_rgb* obj_col, int* light_v);
 
 //render_inter
 t_inter		closer_sphere_inter(t_line *line, t_sphere *sphere);
