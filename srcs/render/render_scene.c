@@ -12,21 +12,6 @@
 
 #include <miniRT_render.h>
 
-t_vp	init_viewport(t_scene *scene, uint32_t width, uint32_t height)
-{
-	t_vp	viewport;
-
-	viewport.w = width;
-	viewport.h = height;
-	viewport.scene = scene;
-	viewport.cam_scalar = cosf(((float) scene->cam->fov / 2.f)
-			* ((float) M_PI / 180.f));
-	viewport.v_right = cross_product((t_vector){0, 1, 0}
-			, scene->cam->vect);
-	viewport.v_up = cross_product(scene->cam->vect, viewport.v_right);
-	return (viewport);
-}
-
 void	do_full_ray_trace(mlx_image_t *image, t_vp *vp, t_msaa_data *mssa_data)
 {
 	t_render_data	single_data;
@@ -37,7 +22,7 @@ void	do_full_ray_trace(mlx_image_t *image, t_vp *vp, t_msaa_data *mssa_data)
 			return ;
 	}
 	ft_putendl_fd("MiniRT single thread render", 1);
-	single_data = init_single_data(vp, image->pixels, mssa_data);
+	single_data = init_single_data(vp, image->pixels, mssa_data, &simple_ray_trace);
 	render_thread(&single_data);
 }
 
@@ -45,7 +30,7 @@ void	do_msaa(mlx_image_t *image, t_vp *vp, t_msaa_data *mssa_data)
 {
 	t_render_data	render_data;
 
-	render_data = init_single_data(vp, image->pixels, mssa_data);
+	render_data = init_single_data(vp, image->pixels, mssa_data, &objs_bounds_ray_trace);
 	render_data.render_f = &objs_bounds_ray_trace;
 	render_thread(&objs_bounds_ray_trace);
 }
