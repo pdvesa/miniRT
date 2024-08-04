@@ -32,6 +32,7 @@ SRCS                := $(SRCS_DIR)/miniRT.c \
                         $(RENDER_DIR)/render_scene.c \
                         $(RENDER_DIR)/ray_trace.c \
                         $(RENDER_DIR)/render_thread.c \
+                        $(RENDER_DIR)/init_viewport.c \
                         $(RENDER_DIR)/init_render_data.c \
                         $(RENDER_DIR)/lights.c \
                         $(INTER_DIR)/ray_to_object.c \

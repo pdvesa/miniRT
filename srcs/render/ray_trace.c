@@ -4,15 +4,6 @@
 
 #include <miniRT_render.h>
 
-t_vp	get_super_vp(t_vp* vp)
-{
-	t_vp	super_vp;
-
-	super_vp.w = vp->w * MSAA_FACTOR;
-	super_vp.h = vp->h * MSAA_FACTOR;
-	return (super_vp);
-}
-
 t_rgb	ray_trace_pixel(t_vp *vp, t_pxl_cdts *p, t_msaa_data *msaa_data)
 {
 	t_ray	ray;
@@ -53,7 +44,7 @@ void	objs_bounds_ray_trace(t_vp* vp, t_pxl_cdts *p, t_msaa_data *msaa_data, void
 
 	if (pixel_is_obj_bound(msaa_data, p, vp))
 	{
-		super_vp = get_super_vp(vp);
+		super_vp = init_super_vp(vp);
 		n = 0;
 		super_p.y = p->y * MSAA_FACTOR;
 		while (super_p.y < (p->y * MSAA_FACTOR) + MSAA_FACTOR)
