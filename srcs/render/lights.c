@@ -51,10 +51,12 @@ t_rgb	inter_to_light(t_scene* scene, t_ray* ray, t_rgb* obj_col, int *light_v)
 	color.r = 0;
 	color.g = 0;
 	color.b = 0;
-	*light_v = 0;
+	if (light_v)
+		*light_v = 0;
 	if (light_visible(scene, ray))
 	{
-		*light_v = 1;
+		if (light_v)
+			*light_v = 1;
 		inter_to_light = vector_from_points(ray->inter.point,scene->light->center);
 		inter_to_light = normalize_vector(inter_to_light);
 		normal_to_inter = get_normal_to_inter(ray);

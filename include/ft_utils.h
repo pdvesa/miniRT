@@ -14,8 +14,10 @@
 # define FT_UTILS_H
 
 # include <libft.h>
+# include <pthread.h>
 
 char	*ft_strappend(char *s1, char *s2, int size);
 void	*ft_free_array(void **array);
+void	wait_threads(int n, pthread_t *threads);
 
 #endif //FT_UTILS_H

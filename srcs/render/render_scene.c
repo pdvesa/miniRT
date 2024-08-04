@@ -12,9 +12,9 @@
 
 #include <miniRT_render.h>
 
-t_viewport	init_viewport(t_scene *scene, uint32_t width, uint32_t height)
+t_vp	init_viewport(t_scene *scene, uint32_t width, uint32_t height)
 {
-	t_viewport	viewport;
+	t_vp	viewport;
 
 	viewport.w = width;
 	viewport.h = height;
@@ -27,48 +27,41 @@ t_viewport	init_viewport(t_scene *scene, uint32_t width, uint32_t height)
 	return (viewport);
 }
 
-t_render_data init_single_data(t_viewport* vp, void* render, t_msaa_data *r_pxl)
+void	do_full_ray_trace(mlx_image_t *image, t_vp *vp, t_msaa_data *mssa_data)
 {
-	t_render_data	data;
-
-	data.vp = vp;
-	data.raw_pixels = r_pxl;
-	data.render = render;
-	data.x_min = 0;
-	data.x_max = vp->w;
-	data.y_min = 0;
-	data.y_max = vp->h;
-	return (data);
-}
-
-t_msaa_data	*ray_trace(t_scene *scene, mlx_image_t *image)
-{
-	t_msaa_data		*mssa_data;
-	t_viewport		viewport;
 	t_render_data	single_data;
 
-	mssa_data = malloc(image->width * image->height * sizeof (t_msaa_data));
-	if (!mssa_data)
-		return (NULL);
-	viewport = init_viewport(scene, image->width, image->height);
 	if (THREAD_NUMBER > 1 && THREAD_NUMBER <= HEIGHT)
 	{
-		if (multi_thread_render(&viewport, image->pixels, mssa_data))
-			return (mssa_data);
+		if (multi_thread_render(vp, image->pixels, mssa_data))
+			return ;
 	}
 	ft_putendl_fd("MiniRT single thread render", 1);
-	single_data = init_single_data(&viewport, image->pixels, mssa_data);
+	single_data = init_single_data(vp, image->pixels, mssa_data);
 	render_thread(&single_data);
-	return (mssa_data);
+}
+
+void	do_msaa(mlx_image_t *image, t_vp *vp, t_msaa_data *mssa_data)
+{
+	t_render_data	render_data;
+
+	render_data = init_single_data(vp, image->pixels, mssa_data);
+	render_data.render_f = &objs_bounds_ray_trace;
+	render_thread(&objs_bounds_ray_trace);
 }
 
 int	render_scene(t_scene *scene, mlx_image_t *image)
 {
-	t_msaa_data	*raw_pixels;
+	t_vp		vp;
+	t_msaa_data	*msaa_data;
 
-	raw_pixels = ray_trace(scene, image);
-	if (!raw_pixels)
-		return (EXIT_FAILURE);
-	free(raw_pixels);
+	vp = init_viewport(scene, image->width, image->height);
+	msaa_data = malloc(image->width * image->height * sizeof (t_msaa_data));
+	do_full_ray_trace(image, &vp ,msaa_data);
+	if (msaa_data)
+	{
+		do_msaa(image, &vp, msaa_data);
+		free(msaa_data);
+	}
 	return (EXIT_SUCCESS);
 }
