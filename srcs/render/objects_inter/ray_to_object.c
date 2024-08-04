@@ -19,9 +19,9 @@ t_vector	ray_direction(t_vp *vp, t_pxl_cdts *p)
 	float			scalar_up;
 
 	scalar_right = ((float) vp->scene->cam->fov / 180.f)
-		* (((float) p->x - ((float) vp->w / 2.0f)) / ((float) vp->w / 2.0f));
+		* ((((float) p->x + 0.5f) - ((float) vp->w / 2.0f)) / ((float) vp->w / 2.0f));
 	scalar_up = (((float) vp->h / (float) vp->w) * (float) vp->scene->cam->fov / 180.f)
-		* (((float) p->y - ((float) vp->h / 2.0f)) / ((float) vp->h / 2.0f));
+		* ((((float) p->y + 0.5f) - ((float) vp->h / 2.0f)) / ((float) vp->h / 2.0f));
 	ray_vector = add_vector(scalar_vec(scalar_right, vp->v_right),
 			scalar_vec(scalar_up, vp->v_up));
 	ray_vector = add_vector(ray_vector,
