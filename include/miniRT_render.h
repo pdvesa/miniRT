@@ -17,8 +17,11 @@
 #  define THREAD_NUMBER 20
 # endif
 
+# ifndef MSAA_FACTOR
+#  define MSAA_FACTOR 2
+# endif
+
 # include <miniRT.h>
-# include <pthread.h>
 
 typedef struct s_inter
 {
@@ -47,13 +50,13 @@ typedef struct s_viewport
 	t_vector		v_right;
 	t_scene			*scene;
 	float			cam_scalar;
-}	t_viewport;
+}	t_vp;
 
 typedef struct s_pixel_cdts
 {
 	unsigned int	x;
 	unsigned int	y;
-}	t_pixel_cdts;
+}	t_pxl_cdts;
 
 typedef struct s_render_thread_data
 {
@@ -61,20 +64,26 @@ typedef struct s_render_thread_data
 	unsigned int	x_max;
 	unsigned int	y_min;
 	unsigned int	y_max;
-	t_viewport		*vp;
-	t_msaa_data		*raw_pixels;
+	t_vp			*vp;
+	t_msaa_data		*msaa_data;
 	void			*render;
-
+	void			(*render_f)(t_vp*, t_pxl_cdts*, t_msaa_data*, void*);
 }	t_render_data;
 
 void		*render_thread(void *data_ptr);
+int			multi_thread_render(t_vp *vp, void *render, t_msaa_data *msaa_data);
 
-int			multi_thread_render(t_viewport *vp, void *render, t_msaa_data *raw_pixels);
+t_render_data	init_single_data(t_vp* vp, void* render, t_msaa_data *msaa_data);
+void			multi_render_data(t_render_data *data, t_vp *vp, void *render, t_msaa_data *msaa_data);
 
-t_ray		ray_to_object(t_viewport* vp, t_pixel_cdts* p);
+t_rgb		ray_trace_pixel(t_vp *vp, t_pxl_cdts *p, t_msaa_data *msaa_data);
+void		simple_ray_trace(t_vp *vp, t_pxl_cdts *p, t_msaa_data *msaa_data, void *pxl_addr);
+void		objs_bounds_ray_trace(t_vp* vp, t_pxl_cdts *p, t_msaa_data *msaa_data, void *pxl_addr);
+
+t_ray		ray_to_object(t_vp* vp, t_pxl_cdts* p);
 t_inter		get_closer_inter(t_line *line, t_scene *scene);
 t_rgb		get_ambient_light(t_ambient_light *am_light, t_rgb *object_color);
-t_rgb inter_to_light(t_scene* scene, t_ray* ray, t_rgb* obj_col, int* light_v);
+t_rgb		inter_to_light(t_scene* scene, t_ray* ray, t_rgb* obj_col, int* light_v);
 
 //render_inter
 t_inter		closer_sphere_inter(t_line *line, t_sphere *sphere);
@@ -90,5 +99,6 @@ t_rgb		get_object_color(t_ray *ray);
 t_rgb		add_rgb(t_rgb rgb1, t_rgb rgb2);
 t_rgb		average_rgb(t_rgb *rgb, u_int n);
 void		get_cyka_circles_planes(t_cylinder *cylinder, t_plane *result);
+int			pixel_is_obj_bound(t_msaa_data *msaa_data, t_pxl_cdts *p, t_vp *vp);
 
 #endif //MINIRT_RENDER_H

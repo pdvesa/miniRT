@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <miniRT_render.h>
+#include "miniRT_render.h"
 
-t_vector	ray_direction(t_viewport *vp, t_pixel_cdts *p)
+t_vector	ray_direction(t_vp *vp, t_pxl_cdts *p)
 {
 	t_vector		ray_vector;
 	float			scalar_right;
@@ -66,7 +66,7 @@ t_inter	get_closer_inter(t_line *line, t_scene *scene)
 	return (closer);
 }
 
-t_ray ray_to_object(t_viewport* vp, t_pixel_cdts* p)
+t_ray ray_to_object(t_vp* vp, t_pxl_cdts* p)
 {
 	t_ray	ray;
 

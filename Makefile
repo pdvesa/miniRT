@@ -30,11 +30,11 @@ SRCS                := $(SRCS_DIR)/miniRT.c \
                         $(PARSING_DIR)/array_extractors.c \
                         $(PARSING_DIR)/scene_parser2.c \
                         $(RENDER_DIR)/render_scene.c \
+                        $(RENDER_DIR)/ray_trace.c \
                         $(RENDER_DIR)/render_thread.c \
-                        $(RENDER_DIR)/multi_thread_render.c \
-                        $(RENDER_DIR)/ray_to_object.c \
+                        $(RENDER_DIR)/init_render_data.c \
                         $(RENDER_DIR)/lights.c \
-                        $(RENDER_DIR)/multisample.c \
+                        $(INTER_DIR)/ray_to_object.c \
                         $(INTER_DIR)/normal_to_inter.c \
                         $(INTER_DIR)/sphere_inter.c \
                         $(INTER_DIR)/plane_inter.c \
@@ -52,10 +52,12 @@ SRCS                := $(SRCS_DIR)/miniRT.c \
                         $(UTILS_DIR)/ft_strappend.c \
                         $(UTILS_DIR)/ft_free_array.c \
                         $(UTILS_DIR)/atois.c \
+                        $(UTILS_DIR)/wait_threads.c \
                         $(RENDER_UTILS_DIR)/add_rgb.c \
                         $(RENDER_UTILS_DIR)/average_rgb.c \
                         $(RENDER_UTILS_DIR)/get_cyka_circles_planes.c \
                         $(RENDER_UTILS_DIR)/get_object_color.c \
+                        $(RENDER_UTILS_DIR)/pixel_is_obj_bound.c \
                         $(MLX_UTILS_DIR)/ft_mlx_error.c \
                         $(MLX_UTILS_DIR)/get_pixel_color.c \
                         $(MLX_UTILS_DIR)/set_pixel_color.c 

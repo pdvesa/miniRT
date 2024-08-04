@@ -12,43 +12,50 @@
 
 #include <miniRT_render.h>
 
-t_rgb	ray_trace_pixel(t_viewport *vp, t_pixel_cdts *p, t_msaa_data *msaa_data)
+int	multi_thread_render(t_vp *vp, void *render, t_msaa_data *msaa_data)
 {
-	t_ray	ray;
-	t_rgb	ambient_light;
-	t_rgb	diffuse_lights;
-	t_rgb	object_color;
+	pthread_t		threads[THREAD_NUMBER];
+	t_render_data	data[THREAD_NUMBER];
+	int				i;
 
-	ray = ray_to_object(vp, p);
-	msaa_data->object = ray.inter.object;
-	if (ray.inter.object)
+	ft_putstr_fd("MiniRT : Rendering on ", 1);
+	ft_putnbr_fd(THREAD_NUMBER, 1);
+	ft_putendl_fd(" threads", 1);
+	multi_render_data(data, vp, render, msaa_data);
+	i = 0;
+	while (i < THREAD_NUMBER)
 	{
-		object_color = get_object_color(&ray);
-		ambient_light = get_ambient_light(vp->scene->ambient_light, &object_color);
-		diffuse_lights = inter_to_light(vp->scene, &ray, &object_color,
-			&msaa_data->light_visible);
-		return (add_rgb(ambient_light, diffuse_lights));
+		if (pthread_create(&threads[i], NULL, &render_thread, &data[i]) != 0)
+		{
+			ft_putendl_fd("MiniRT : Error creating threads", 2);
+			wait_threads(i, threads);
+			return (0);
+		}
+		i++;
 	}
-	return (get_ambient_light(vp->scene->ambient_light, NULL));
+	wait_threads(i, threads);
+	return (1);
 }
 
 void	*render_thread(void *data_ptr)
 {
 	t_render_data	*data;
-	t_rgb			color;
-	t_pixel_cdts	p;
+	t_msaa_data		*current_msaa;
+	t_pxl_cdts		p;
+	void			*pxl_addr;
 
 	data = (t_render_data *) data_ptr;
+	current_msaa = NULL;
 	p.y = data->y_min;
 	while (p.y < data->y_max)
 	{
 		p.x = data->x_min;
 		while (p.x < data->x_max)
 		{
-			color = ray_trace_pixel(data->vp, &p, data->raw_pixels
-			+ (((p.y * data->vp->w) + p.x)));
-			set_pixel_color(data->render + (((p.y * data->vp->w) + p.x)
-					* sizeof (uint32_t)), &color);
+			if (data->msaa_data)
+				current_msaa = data->msaa_data + (((p.y * data->vp->w) + p.x));
+			pxl_addr = data->render + (((p.y * data->vp->w) + p.x) * sizeof (uint32_t));
+			data->render_f(data->vp, &p, current_msaa, pxl_addr);
 			p.x++;
 		}
 		p.y++;
