@@ -12,7 +12,7 @@
 
 #include <miniRT_render.h>
 
-int	multi_thread_render(t_vp *vp, void *render, t_msaa_data *msaa_data)
+int	multi_thread_render(t_vp *vp, void *render, t_aa_data *aa_data)
 {
 	pthread_t		threads[THREAD_NUMBER];
 	t_render_data	data[THREAD_NUMBER];
@@ -21,7 +21,7 @@ int	multi_thread_render(t_vp *vp, void *render, t_msaa_data *msaa_data)
 	ft_putstr_fd("MiniRT : Rendering on ", 1);
 	ft_putnbr_fd(THREAD_NUMBER, 1);
 	ft_putendl_fd(" threads", 1);
-	multi_render_data(data, vp, render, msaa_data);
+	multi_render_data(data, vp, render, aa_data);
 	i = 0;
 	while (i < THREAD_NUMBER)
 	{
@@ -40,7 +40,7 @@ int	multi_thread_render(t_vp *vp, void *render, t_msaa_data *msaa_data)
 void	*render_thread(void *data_ptr)
 {
 	t_render_data	*data;
-	t_msaa_data		*current_msaa;
+	t_aa_data		*current_msaa;
 	t_pxl_cdts		p;
 	void			*pxl_addr;
 
@@ -52,9 +52,10 @@ void	*render_thread(void *data_ptr)
 		p.x = data->x_min;
 		while (p.x < data->x_max)
 		{
-			if (data->msaa_data)
-				current_msaa = data->msaa_data + (((p.y * data->vp->w) + p.x));
-			pxl_addr = data->render + (((p.y * data->vp->w) + p.x) * sizeof (uint32_t));
+			if (data->aa_data)
+				current_msaa = data->aa_data + (((p.y * data->vp->w) + p.x));
+			pxl_addr = data->render + (((p.y * data->vp->w) + p.x)
+					* sizeof (uint32_t));
 			data->render_f(data->vp, &p, current_msaa, pxl_addr);
 			p.x++;
 		}

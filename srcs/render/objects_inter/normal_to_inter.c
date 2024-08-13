@@ -16,7 +16,7 @@ t_vector	normal_inter_sphere(t_ray *ray)
 {
 	t_vector	result;
 
-	result = vector_from_points(((t_sphere *) ray->inter.object)->center,
+	result = vect_from_points(((t_sphere *) ray->inter.object)->center,
 			ray->inter.point);
 	result = normalize_vector(result);
 	return (result);
@@ -33,14 +33,14 @@ t_vector	normal_inter_cyka(t_ray *ray)
 			- powf(cyl->diameter / 2.f, 2.f));
 	if (!isnanf(v_dist))
 	{
-		if (dot_product(cyl->vector,
-				vector_from_points(cyl->center, ray->inter.point)) < 0.f)
+		if (dot_product(cyl->vector, vect_from_points(cyl->center,
+					ray->inter.point)) < 0.f)
 			v_dist *= -1.f;
 	}
 	else
 		v_dist = 0.f;
-	result = vector_from_points(translate_point(cyl->center,
-				scalar_vec(v_dist, cyl->vector)), ray->inter.point);
+	result = vect_from_points(translate_point(cyl->center, scalar_vec(v_dist,
+					cyl->vector)), ray->inter.point);
 	result = normalize_vector(result);
 	return (result);
 }

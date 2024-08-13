@@ -96,7 +96,7 @@ typedef struct s_cylinder
 
 typedef struct s_scene
 {
-	t_ambient_light	*ambient_light;
+	t_ambient_light	*am_light;
 	t_camera		*cam;
 	t_light			*light;
 	t_sphere		**sphere;

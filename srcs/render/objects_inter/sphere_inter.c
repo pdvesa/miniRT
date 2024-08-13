@@ -17,7 +17,7 @@ float	sphere_inter_line_len(t_line *line, t_sphere *sphere)
 	t_polyroot		r;
 	t_vector		center_to_cam;
 
-	center_to_cam = vector_from_points(sphere->center, line->origin);
+	center_to_cam = vect_from_points(sphere->center, line->origin);
 	r = poly_root(dot_product(line->direction, line->direction),
 			2.0f * dot_product(line->direction, center_to_cam),
 			dot_product(center_to_cam, center_to_cam)
