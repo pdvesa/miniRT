@@ -55,12 +55,12 @@ void	curve_line_lenghts(t_line *line, t_cylinder *cyl, float *result)
 		return ;
 	cal2 = sqrtf((cal3 * powf(cyl->diameter / 2.f, 2.f))
 			- (dot_product(cyl->vector, cyl->vector) * powf(
-					dot_product(vector_from_points(line->origin, cyl->center),
+					dot_product(vect_from_points(line->origin, cyl->center),
 						cross_product(line->direction, cyl->vector)), 2.f)));
 	if (cal2 < 0.f || isnanf(cal2))
 		return ;
 	cal1 = dot_product(cross_product(line->direction, cyl->vector),
-			cross_product(vector_from_points(line->origin,
+			cross_product(vect_from_points(line->origin,
 					cyl->center), cyl->vector));
 	result[0] = (cal1 + cal2) / cal3;
 	result[1] = (cal1 - cal2) / cal3;

@@ -44,7 +44,7 @@ int				is_in_bounds(float value, float min, float max);
 
 t_polyroot		poly_root(float a, float b, float c);
 
-t_vector		vector_from_points(t_coordinates origin,
+t_vector		vect_from_points(t_coordinates origin,
 					t_coordinates destination);
 t_vector		normalize_vector(t_vector v);
 

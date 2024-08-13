@@ -52,7 +52,7 @@ int	minirt(char *filename)
 	int			result;
 
 	scene = parse_file(filename);
-	if (!scene.ambient_light)
+	if (!scene.am_light)
 		return (1);
 	result = 1;
 	mlx = initialize_mlx(&image);

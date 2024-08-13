@@ -56,6 +56,7 @@ SRCS                := $(SRCS_DIR)/miniRT.c \
                         $(UTILS_DIR)/wait_threads.c \
                         $(RENDER_UTILS_DIR)/add_rgb.c \
                         $(RENDER_UTILS_DIR)/average_rgb.c \
+                        $(RENDER_UTILS_DIR)/multiply_rgb.c \
                         $(RENDER_UTILS_DIR)/get_cyka_circles_planes.c \
                         $(RENDER_UTILS_DIR)/get_object_color.c \
                         $(RENDER_UTILS_DIR)/pixel_is_obj_bound.c \

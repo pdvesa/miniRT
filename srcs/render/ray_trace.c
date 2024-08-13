@@ -1,10 +1,18 @@
-//
-// Created by jules on 03/08/2024.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ray_trace.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jcayot <jcayot.student@hive.fi>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/13 14:46:48 by jcayot            #+#    #+#             */
+/*   Updated: 2024/08/13 14:46:51 by jcayot           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include <miniRT_render.h>
 
-t_rgb	ray_trace_pixel(t_vp *vp, t_pxl_cdts *p, t_msaa_data *msaa_data)
+t_rgb	ray_trace_pixel(t_vp *vp, t_pxl_cdts *p, t_aa_data *aa_data)
 {
 	t_ray	ray;
 	t_rgb	ambient_light;
@@ -12,29 +20,31 @@ t_rgb	ray_trace_pixel(t_vp *vp, t_pxl_cdts *p, t_msaa_data *msaa_data)
 	t_rgb	object_color;
 
 	ray = ray_to_object(vp, p);
-	if (msaa_data)
-		msaa_data->object = ray.inter.object;
+	if (aa_data)
+		aa_data->object = ray.inter.object;
 	if (ray.inter.object)
 	{
 		object_color = get_object_color(&ray);
-		ambient_light = get_ambient_light(vp->scene->ambient_light, &object_color);
+		ambient_light = get_am_light(vp->scene->am_light, &object_color);
 		diffuse_lights = inter_to_light(vp->scene, &ray, &object_color,
-										&msaa_data->light_visible);
+				&aa_data->light_visible);
 		return (add_rgb(ambient_light, diffuse_lights));
 	}
 	else
-		return (get_ambient_light(vp->scene->ambient_light, NULL));
+		return (get_am_light(vp->scene->am_light, NULL));
 }
 
-void	simple_ray_trace(t_vp *vp, t_pxl_cdts *p, t_msaa_data *msaa_data, void *pxl_addr)
+void	simple_ray_trace(t_vp *vp, t_pxl_cdts *p, t_aa_data *aa_data,
+			void *pxl_addr)
 {
 	t_rgb	color;
 
-	color = ray_trace_pixel(vp, p, msaa_data);
+	color = ray_trace_pixel(vp, p, aa_data);
 	set_pixel_color(pxl_addr, &color);
 }
 
-void	objs_bounds_ray_trace(t_vp* vp, t_pxl_cdts *p, t_msaa_data *msaa_data, void *pxl_addr)
+void	objs_bounds_ray_trace(t_vp *vp, t_pxl_cdts *p, t_aa_data *aa_data,
+			void *pxl_addr)
 {
 	static t_vp	super_vp;
 	t_rgb		color;
@@ -42,7 +52,7 @@ void	objs_bounds_ray_trace(t_vp* vp, t_pxl_cdts *p, t_msaa_data *msaa_data, void
 	int			n;
 	t_pxl_cdts	super_p;
 
-	if (pixel_is_obj_bound(msaa_data, p, vp))
+	if (pixel_is_obj_bound(aa_data, p, vp))
 	{
 		super_vp = init_super_vp(vp);
 		n = 0;
@@ -52,7 +62,7 @@ void	objs_bounds_ray_trace(t_vp* vp, t_pxl_cdts *p, t_msaa_data *msaa_data, void
 			super_p.x = p->x * MSAA_FACTOR;
 			while (super_p.x < (p->x * MSAA_FACTOR) + MSAA_FACTOR)
 			{
-				colors[n] = ray_trace_pixel(&super_vp, &super_p, msaa_data);
+				colors[n] = ray_trace_pixel(&super_vp, &super_p, aa_data);
 				n++;
 				super_p.x++;
 			}

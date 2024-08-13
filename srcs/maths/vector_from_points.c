@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vector_from_points.c                               :+:      :+:    :+:   */
+/*   vect_from_points.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcayot <jcayot.student@hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -13,15 +13,15 @@
 #include <ft_maths.h>
 
 /**
- * @brief Calculates a vect from two given points.
+ * @brief Calculates a vector from two given points.
  *
  * @param origin The origin point.
  * @param destination The destination point.
  *
- * @return The calculated vect.
+ * @return The calculated vector.
  */
 
-t_vector	vector_from_points(t_coordinates origin, t_coordinates destination)
+t_vector	vect_from_points(t_coordinates origin, t_coordinates destination)
 {
 	t_vector	result;
 

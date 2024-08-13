@@ -22,7 +22,7 @@ t_inter	plane_inter(t_line *line, t_plane *plan)
 	dot = dot_product(plan->vector, line->direction);
 	if (dot == 0)
 		return (inter);
-	line_len = dot_product(plan->vector, vector_from_points(line->origin,
+	line_len = dot_product(plan->vector, vect_from_points(line->origin,
 				plan->coordinates)) / dot;
 	if (!is_in_bounds(line_len, FLOAT_MARGIN, ARBITARY_LIMIT))
 		return (inter);
@@ -39,8 +39,7 @@ int	plane_self_hide(t_ray *ray, t_light *light)
 	t_line	cam_to_light;
 
 	cam_to_light.origin = ray->line.origin;
-	cam_to_light.direction = vector_from_points(ray->line.origin,
-			light->center);
+	cam_to_light.direction = vect_from_points(ray->line.origin, light->center);
 	inter = plane_inter(&cam_to_light, (t_plane *) ray->inter.object);
 	if (!inter.object)
 		return (0);

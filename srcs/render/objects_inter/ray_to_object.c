@@ -15,15 +15,16 @@
 t_vector	ray_direction(t_vp *vp, t_pxl_cdts *p)
 {
 	t_vector		ray_vector;
-	float			scalar_right;
-	float			scalar_up;
+	float			scalar_r;
+	float			scalar_u;
 
-	scalar_right = ((float) vp->scene->cam->fov / 180.f)
-		* ((((float) p->x + 0.5f) - ((float) vp->w / 2.0f)) / ((float) vp->w / 2.0f));
-	scalar_up = (((float) vp->h / (float) vp->w) * (float) vp->scene->cam->fov / 180.f)
-		* ((((float) p->y + 0.5f) - ((float) vp->h / 2.0f)) / ((float) vp->h / 2.0f));
-	ray_vector = add_vector(scalar_vec(scalar_right, vp->v_right),
-			scalar_vec(scalar_up, vp->v_up));
+	scalar_r = ((float) vp->scene->cam->fov / 180.f) * ((((float) p->x + 0.5f)
+				- ((float) vp->w / 2.0f)) / ((float) vp->w / 2.0f));
+	scalar_u = (((float) vp->h / (float) vp->w)
+			* (float) vp->scene->cam->fov / 180.f) * ((((float) p->y + 0.5f)
+				- ((float) vp->h / 2.0f)) / ((float) vp->h / 2.0f));
+	ray_vector = add_vector(scalar_vec(scalar_r, vp->v_right),
+			scalar_vec(scalar_u, vp->v_up));
 	ray_vector = add_vector(ray_vector,
 			scalar_vec(vp->cam_scalar, vp->scene->cam->vect));
 	return (normalize_vector(ray_vector));
@@ -66,7 +67,7 @@ t_inter	get_closer_inter(t_line *line, t_scene *scene)
 	return (closer);
 }
 
-t_ray ray_to_object(t_vp* vp, t_pxl_cdts* p)
+t_ray	ray_to_object(t_vp *vp, t_pxl_cdts *p)
 {
 	t_ray	ray;
 

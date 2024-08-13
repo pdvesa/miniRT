@@ -12,7 +12,7 @@
 
 #include <mlx_utils.h>
 
-void set_pixel_color(void* address, t_rgb* color)
+void	set_pixel_color(void *address, t_rgb *color)
 {
 	ft_memset(address, color->r, sizeof (u_int8_t));
 	ft_memset(address + sizeof (u_int8_t), color->g, sizeof (u_int8_t));

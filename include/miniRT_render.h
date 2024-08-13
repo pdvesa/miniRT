@@ -40,7 +40,7 @@ typedef struct s_msaa_data
 {
 	void	*object;
 	int		light_visible;
-}	t_msaa_data;
+}	t_aa_data;
 
 typedef struct s_viewport
 {
@@ -65,32 +65,36 @@ typedef struct s_render_thread_data
 	unsigned int	y_min;
 	unsigned int	y_max;
 	t_vp			*vp;
-	t_msaa_data		*msaa_data;
+	t_aa_data		*aa_data;
 	void			*render;
-	void			(*render_f)(t_vp*, t_pxl_cdts*, t_msaa_data*, void*);
+	void			(*render_f)(t_vp*, t_pxl_cdts*, t_aa_data*, void*);
 }	t_render_data;
 
 void			*render_thread(void *data_ptr);
-int				multi_thread_render(t_vp *vp, void *render, t_msaa_data *msaa_data);
+int				multi_thread_render(t_vp *vp, void *render, t_aa_data *aa_data);
 
 //Render data
-t_render_data	init_single_data(t_vp* vp, void* render, t_msaa_data* msaa_data,
-							   void (* render_f)(t_vp*, t_pxl_cdts*, t_msaa_data*, void*));
-void			multi_render_data(t_render_data *data, t_vp *vp, void *render, t_msaa_data *msaa_data);
+t_render_data	init_single_data(t_vp *vp, void *render, t_aa_data *aa_data,
+					void (*render_f)(t_vp*, t_pxl_cdts*, t_aa_data*, void*));
+void			multi_render_data(t_render_data *data, t_vp *vp, void *render,
+					t_aa_data *aa_data);
 
 //Viewport
 t_vp			init_viewport(t_scene *scene, uint32_t width, uint32_t height);
-t_vp			init_super_vp(t_vp* vp);
+t_vp			init_super_vp(t_vp *vp);
 
 //Pixel ray-trace
-void			simple_ray_trace(t_vp *vp, t_pxl_cdts *p, t_msaa_data *msaa_data, void *pxl_addr);
-void			objs_bounds_ray_trace(t_vp* vp, t_pxl_cdts *p, t_msaa_data *msaa_data, void *pxl_addr);
+void			simple_ray_trace(t_vp *vp, t_pxl_cdts *p, t_aa_data *aa_data,
+					void *pxl_addr);
+void			objs_bounds_ray_trace(t_vp *vp, t_pxl_cdts *p,
+					t_aa_data *aa_data, void *pxl_addr);
 
 //Ray-trace
-t_ray			ray_to_object(t_vp* vp, t_pxl_cdts* p);
+t_ray			ray_to_object(t_vp *vp, t_pxl_cdts *p);
 t_inter			get_closer_inter(t_line *line, t_scene *scene);
-t_rgb			get_ambient_light(t_ambient_light *am_light, t_rgb *object_color);
-t_rgb			inter_to_light(t_scene* scene, t_ray* ray, t_rgb* obj_col, int* light_v);
+t_rgb			get_am_light(t_ambient_light *am_light, t_rgb *obj_col);
+t_rgb			inter_to_light(t_scene *scene, t_ray *ray, t_rgb *obj_col,
+					int *light_v);
 
 //render_inter
 t_inter			closer_sphere_inter(t_line *line, t_sphere *sphere);
@@ -105,7 +109,8 @@ int				plane_self_hide(t_ray *ray, t_light *light);
 t_rgb			get_object_color(t_ray *ray);
 t_rgb			add_rgb(t_rgb rgb1, t_rgb rgb2);
 t_rgb			average_rgb(t_rgb *rgb, u_int n);
+t_rgb			multiply_rgb(t_rgb rgb, float factor);
 void			get_cyka_circles_planes(t_cylinder *cylinder, t_plane *result);
-int				pixel_is_obj_bound(t_msaa_data *msaa_data, t_pxl_cdts *p, t_vp *vp);
+int				pixel_is_obj_bound(t_aa_data *aa_data, t_pxl_cdts *p, t_vp *vp);
 
 #endif //MINIRT_RENDER_H

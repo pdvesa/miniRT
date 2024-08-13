@@ -16,7 +16,7 @@ t_scene	new_render_scene(void)
 {
 	t_scene	scene;
 
-	scene.ambient_light = NULL;
+	scene.am_light = NULL;
 	scene.cam = NULL;
 	scene.light = NULL;
 	scene.cylinder = NULL;
@@ -27,10 +27,10 @@ t_scene	new_render_scene(void)
 
 void	free_render_scene(t_scene *scene)
 {
-	if (scene->ambient_light)
+	if (scene->am_light)
 	{
-		free(scene->ambient_light);
-		scene->ambient_light = NULL;
+		free(scene->am_light);
+		scene->am_light = NULL;
 	}
 	if (scene->cam)
 		free(scene->cam);

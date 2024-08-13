@@ -17,8 +17,8 @@ int	parse_ambient(t_scene *scene, char **content)
 	char	*content_str;
 	char	**cont_arr;
 
-	scene->ambient_light = ft_calloc(1, sizeof(t_ambient_light));
-	if (!(scene->ambient_light))
+	scene->am_light = ft_calloc(1, sizeof(t_ambient_light));
+	if (!(scene->am_light))
 		return (EXIT_FAILURE);
 	content_str = find_content_str(content, "A");
 	cont_arr = ft_split(content_str, ' ');
@@ -26,11 +26,11 @@ int	parse_ambient(t_scene *scene, char **content)
 		return (EXIT_FAILURE);
 	if (ft_strarray_len(cont_arr) != 3)
 		return (erreur_dictateur(cont_arr, A));
-	scene->ambient_light->ratio = get_numbers(cont_arr[1], 1);
-	if (scene->ambient_light->ratio < 0.0F
-		|| scene->ambient_light->ratio > 1.0F)
+	scene->am_light->ratio = get_numbers(cont_arr[1], 1);
+	if (scene->am_light->ratio < 0.0F
+		|| scene->am_light->ratio > 1.0F)
 		return (erreur_dictateur(cont_arr, A));
-	if (extract_rgb(&(scene->ambient_light->rgb), cont_arr[2]))
+	if (extract_rgb(&(scene->am_light->rgb), cont_arr[2]))
 		return (erreur_dictateur(cont_arr, A));
 	return (ft_strarray_free(cont_arr), EXIT_SUCCESS);
 }
