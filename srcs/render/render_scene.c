@@ -40,14 +40,20 @@ int	render_scene(t_scene *scene, mlx_image_t *image)
 {
 	t_vp		vp;
 	t_aa_data	*aa_data;
+	u_long		start_t;
+	u_long		end_t;
 
 	vp = init_viewport(scene, image->width, image->height);
 	aa_data = malloc(image->width * image->height * sizeof (t_aa_data));
+	start_t = get_mst();
 	do_full_ray_trace(image, &vp, aa_data);
 	if (aa_data)
 	{
 		do_msaa(image, &vp, aa_data);
 		free(aa_data);
 	}
+	end_t = get_mst();
+	printf("Render done in : %.3f seconds\n",
+		(double)(end_t - start_t) / 1000.);
 	return (EXIT_SUCCESS);
 }

@@ -13,14 +13,6 @@
 #ifndef MINIRT_RENDER_H
 # define MINIRT_RENDER_H
 
-# ifndef THREAD_NUMBER
-#  define THREAD_NUMBER 20
-# endif
-
-# ifndef MSAA_FACTOR
-#  define MSAA_FACTOR 2
-# endif
-
 # include <miniRT.h>
 
 typedef struct s_inter

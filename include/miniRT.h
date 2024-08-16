@@ -35,6 +35,14 @@
 #  define ARBITARY_LIMIT 42000.0f
 # endif //ARBITARY_LIMIT
 
+# ifndef THREAD_NUMBER
+#  define THREAD_NUMBER 20
+# endif
+
+# ifndef MSAA_FACTOR
+#  define MSAA_FACTOR 2
+# endif
+
 typedef enum s_objs_index
 {
 	A = 0,
