@@ -52,6 +52,7 @@ SRCS                := $(SRCS_DIR)/miniRT.c \
                         $(MATHS_DIR)/vector_from_points.c \
                         $(UTILS_DIR)/ft_strappend.c \
                         $(UTILS_DIR)/ft_free_array.c \
+                        $(UTILS_DIR)/get_mst.c \
                         $(UTILS_DIR)/atois.c \
                         $(UTILS_DIR)/wait_threads.c \
                         $(RENDER_UTILS_DIR)/add_rgb.c \

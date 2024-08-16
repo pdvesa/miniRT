@@ -1,25 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_utils.h                                         :+:      :+:    :+:   */
+/*   get_mst.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcayot <jcayot.student@hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/11 18:21:33 by jcayot            #+#    #+#             */
-/*   Updated: 2024/07/11 18:21:35 by jcayot           ###   ########.fr       */
+/*   Created: 2024/08/16 15:42:39 by jcayot            #+#    #+#             */
+/*   Updated: 2024/08/16 15:42:42 by jcayot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_UTILS_H
-# define FT_UTILS_H
+#include <ft_utils.h>
 
-# include <libft.h>
-# include <pthread.h>
-# include <sys/time.h>
+u_long	get_mst(void)
+{
+	struct timeval	time;
 
-char	*ft_strappend(char *s1, char *s2, int size);
-void	*ft_free_array(void **array);
-u_long	get_mst(void);
-void	wait_threads(int n, pthread_t *threads);
-
-#endif //FT_UTILS_H
+	gettimeofday(&time, NULL);
+	return (time.tv_sec * 1000 + time.tv_usec / 1000);
+}
