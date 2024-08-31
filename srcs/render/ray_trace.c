@@ -14,24 +14,25 @@
 
 t_rgb	ray_trace_pixel(t_vp *vp, t_pxl_cdts *p, t_aa_data *aa_data)
 {
+	t_rgb	pixel_color;
 	t_ray	ray;
 	t_rgb	ambient_light;
 	t_rgb	diffuse_lights;
+	t_rgb	specular_lights;
 	t_rgb	object_color;
 
 	ray = ray_to_object(vp, p);
 	if (aa_data)
 		aa_data->object = ray.inter.object;
-	if (ray.inter.object)
-	{
-		object_color = get_object_color(&ray);
-		ambient_light = get_am_light(vp->scene->am_light, &object_color);
-		diffuse_lights = inter_to_light(vp->scene, &ray, &object_color,
-				&aa_data->light_visible);
-		return (add_rgb(ambient_light, diffuse_lights));
-	}
-	else
-		return (get_am_light(vp->scene->am_light, NULL));
+	if (!ray.inter.object)
+		return (get_ambiant_light(vp->scene->am_light, NULL));
+	object_color = get_object_color(ray.inter.object, ray.inter.object_type);
+	ambient_light = get_ambiant_light(vp->scene->am_light, &object_color);
+	diffuse_lights = get_diffuse_light(vp->scene, &ray, &object_color);
+	specular_lights = get_specular_light(vp->scene, &ray, &object_color);
+	pixel_color = add_rgb(ambient_light, diffuse_lights);
+	pixel_color = add_rgb(pixel_color, specular_lights);
+	return (pixel_color);
 }
 
 void	simple_ray_trace(t_vp *vp, t_pxl_cdts *p, t_aa_data *aa_data,

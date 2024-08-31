@@ -28,10 +28,14 @@ typedef struct s_ray
 	t_inter			inter;
 }	t_ray;
 
+typedef struct s_lightning {
+	t_rgb	color;
+	float	intensity;
+}	t_lightning;
+
 typedef struct s_msaa_data
 {
 	void	*object;
-	int		light_visible;
 }	t_aa_data;
 
 typedef struct s_viewport
@@ -84,9 +88,10 @@ void			objs_bounds_ray_trace(t_vp *vp, t_pxl_cdts *p,
 //Ray-trace
 t_ray			ray_to_object(t_vp *vp, t_pxl_cdts *p);
 t_inter			get_closer_inter(t_line *line, t_scene *scene);
-t_rgb			get_am_light(t_ambient_light *am_light, t_rgb *obj_col);
-t_rgb			inter_to_light(t_scene *scene, t_ray *ray, t_rgb *obj_col,
-					int *light_v);
+
+t_rgb			get_ambiant_light(t_ambient_light *am_light, t_rgb *obj_col);
+t_rgb			get_diffuse_light(t_scene *scene, t_ray *ray, t_rgb *obj_color);
+t_rgb			get_specular_light(t_scene *scene, t_ray *ray, t_rgb *obj_color);
 
 //render_inter
 t_inter			closer_sphere_inter(t_line *line, t_sphere *sphere);
@@ -98,7 +103,9 @@ t_vector		get_normal_to_inter(t_ray *ray);
 int				plane_self_hide(t_ray *ray, t_light *light);
 
 //Utils
-t_rgb			get_object_color(t_ray *ray);
+t_rgb			get_object_color(void* obj, int obj_type);
+float			get_obj_reflectivity(void *obj, int obj_type);
+t_coordinates	get_obj_coordinates(void *obj, int obj_type);
 t_rgb			add_rgb(t_rgb rgb1, t_rgb rgb2);
 t_rgb			average_rgb(t_rgb *rgb, u_int n);
 t_rgb			multiply_rgb(t_rgb rgb, float factor);

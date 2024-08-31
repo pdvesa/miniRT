@@ -59,6 +59,8 @@ SRCS                := $(SRCS_DIR)/miniRT.c \
                         $(RENDER_UTILS_DIR)/average_rgb.c \
                         $(RENDER_UTILS_DIR)/multiply_rgb.c \
                         $(RENDER_UTILS_DIR)/get_cyka_circles_planes.c \
+                        $(RENDER_UTILS_DIR)/get_obj_coordinates.c \
+                        $(RENDER_UTILS_DIR)/get_obj_reflectivity.c \
                         $(RENDER_UTILS_DIR)/get_object_color.c \
                         $(RENDER_UTILS_DIR)/pixel_is_obj_bound.c \
                         $(MLX_UTILS_DIR)/ft_mlx_error.c \
