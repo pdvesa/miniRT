@@ -1,4 +1,4 @@
-CC					:= clang
+CC					:= cc
 NAME                := miniRT
 CFLAGS              := -Wextra -Wall -Werror -g
 LIBMLX_DIR          := ./lib/MLX42
