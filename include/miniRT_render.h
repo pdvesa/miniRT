@@ -85,8 +85,7 @@ void			objs_bounds_ray_trace(t_vp *vp, t_pxl_cdts *p,
 t_ray			ray_to_object(t_vp *vp, t_pxl_cdts *p);
 t_inter			get_closer_inter(t_line *line, t_scene *scene);
 t_rgb			get_am_light(t_ambient_light *am_light, t_rgb *obj_col);
-t_rgb			inter_to_light(t_scene *scene, t_ray *ray, t_rgb *obj_col,
-					int *light_v);
+t_rgb			inter_to_light(t_scene *scene, t_ray *ray, t_rgb *obj_col);
 
 //render_inter
 t_inter			closer_sphere_inter(t_line *line, t_sphere *sphere);

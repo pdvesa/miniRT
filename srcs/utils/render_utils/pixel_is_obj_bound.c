@@ -14,17 +14,17 @@
 
 int	pixel_is_obj_bound(t_aa_data *aa_data, t_pxl_cdts *p, t_vp *vp)
 {
-	if (p->x > 0 && aa_data[((p->y * vp->w) + p->x)].object
-		!= aa_data[((p->y * vp->w) + (p->x - 1))].object)
+	if (p->x > 0 && aa_data[(p->y * vp->w) + p->x].object
+		!= aa_data[(p->y * vp->w) + (p->x - 1)].object)
 		return (1);
-	if (p->x < vp->w - 1 && aa_data[((p->y * vp->w) + p->x)].object
-		!= aa_data[((p->y * vp->w) + (p->x + 1))].object)
+	if (p->x < vp->w - 1 && aa_data[(p->y * vp->w) + p->x].object
+		!= aa_data[(p->y * vp->w) + (p->x + 1)].object)
 		return (1);
-	if (p->y > 0 && aa_data[((p->y * vp->w) + p->x)].object
-		!= aa_data[(((p->y - 1) * vp->w) + p->x)].object)
+	if (p->y > 0 && aa_data[(p->y * vp->w) + p->x].object
+		!= aa_data[((p->y - 1) * vp->w) + p->x].object)
 		return (1);
-	if (p->y < vp->h - 1 && aa_data[((p->y * vp->w) + p->x)].object
-		!= aa_data[(((p->y + 1) * vp->w) + p->x)].object)
+	if (p->y < vp->h - 1 && aa_data[(p->y * vp->w) + p->x].object
+		!= aa_data[((p->y + 1) * vp->w) + p->x].object)
 		return (1);
 	return (0);
 }

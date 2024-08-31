@@ -41,7 +41,7 @@ int	light_visible(t_scene *scene, t_ray *ray)
 	return (1);
 }
 
-t_rgb	inter_to_light(t_scene *scene, t_ray *ray, t_rgb *obj_col, int *light_v)
+t_rgb	inter_to_light(t_scene *scene, t_ray *ray, t_rgb *obj_col)
 {
 	t_rgb		color;
 	t_vector	inter_to_light;
@@ -49,12 +49,8 @@ t_rgb	inter_to_light(t_scene *scene, t_ray *ray, t_rgb *obj_col, int *light_v)
 	float		light_coefficient;
 
 	color = (t_rgb){0, 0, 0};
-	if (light_v)
-		*light_v = 0;
 	if (light_visible(scene, ray))
 	{
-		if (light_v)
-			*light_v = 1;
 		inter_to_light = vect_from_points(ray->inter.point,
 				scene->light->center);
 		inter_to_light = normalize_vector(inter_to_light);
