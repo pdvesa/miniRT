@@ -14,23 +14,25 @@
 
 t_rgb	ray_trace_pixel(t_vp *vp, t_pxl_cdts *p, t_aa_data *aa_data)
 {
+	t_rgb	pixel_color;
 	t_ray	ray;
 	t_rgb	ambient_light;
 	t_rgb	diffuse_lights;
+	t_rgb	specular_lights;
 	t_rgb	object_color;
 
 	ray = ray_to_object(vp, p);
 	if (aa_data)
 		aa_data->object = ray.inter.object;
-	if (ray.inter.object)
-	{
-		object_color = get_object_color(&ray);
-		ambient_light = get_am_light(vp->scene->am_light, &object_color);
-		diffuse_lights = inter_to_light(vp->scene, &ray, &object_color);
-		return (add_rgb(ambient_light, diffuse_lights));
-	}
-	else
-		return (get_am_light(vp->scene->am_light, NULL));
+	if (!ray.inter.object)
+		return (get_ambiant_light(vp->scene->am_light, NULL));
+	object_color = get_object_color(ray.inter.object, ray.inter.object_type);
+	ambient_light = get_ambiant_light(vp->scene->am_light, &object_color);
+	diffuse_lights = get_diffuse_light(vp->scene, &ray, &object_color);
+	specular_lights = get_specular_light(vp->scene, &ray, &object_color);
+	pixel_color = add_rgb(ambient_light, diffuse_lights);
+	pixel_color = add_rgb(pixel_color, specular_lights);
+	return (pixel_color);
 }
 
 void	simple_ray_trace(t_vp *vp, t_pxl_cdts *p, t_aa_data *aa_data,
@@ -38,7 +40,7 @@ void	simple_ray_trace(t_vp *vp, t_pxl_cdts *p, t_aa_data *aa_data,
 {
 	t_rgb	color;
 
-	color = ray_trace_pixel(vp, p, aa_data + (((p->y * vp->w) + p->x)));
+	color = ray_trace_pixel(vp, p, aa_data);
 	set_pixel_color(pxl_addr, &color);
 }
 
@@ -47,7 +49,7 @@ void	objs_bounds_ray_trace(t_vp *vp, t_pxl_cdts *p, t_aa_data *aa_data,
 {
 	static t_vp	super_vp;
 	t_rgb		color;
-	t_rgb		colors[MSAA_FACTOR * 2];
+	t_rgb		colors[MSAA_FACTOR];
 	int			n;
 	t_pxl_cdts	super_p;
 
@@ -61,7 +63,7 @@ void	objs_bounds_ray_trace(t_vp *vp, t_pxl_cdts *p, t_aa_data *aa_data,
 			super_p.x = p->x * MSAA_FACTOR;
 			while (super_p.x < (p->x * MSAA_FACTOR) + MSAA_FACTOR)
 			{
-				colors[n] = ray_trace_pixel(&super_vp, &super_p, NULL);
+				colors[n] = ray_trace_pixel(&super_vp, &super_p, aa_data);
 				n++;
 				super_p.x++;
 			}

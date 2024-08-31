@@ -84,6 +84,7 @@ typedef struct s_sphere
 	t_coordinates	center;
 	float			diameter;
 	t_rgb			rgb;
+	float			reflectivity;
 }	t_sphere;
 
 typedef struct s_plane
@@ -91,6 +92,7 @@ typedef struct s_plane
 	t_coordinates	coordinates;
 	t_vector		vector;
 	t_rgb			rgb;
+	float			reflectivity;
 }	t_plane;
 
 typedef struct s_cylinder
@@ -100,6 +102,7 @@ typedef struct s_cylinder
 	float			diameter;
 	float			height;
 	t_rgb			rgb;
+	float			reflectivity;
 }	t_cylinder;
 
 typedef struct s_scene
