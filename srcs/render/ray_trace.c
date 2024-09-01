@@ -31,7 +31,7 @@ t_rgb	ray_trace_pixel(t_vp *vp, t_pxl_cdts *p, t_aa_data *aa_data)
 	diffuse_lights = get_diffuse_light(vp->scene, &ray, &object_color);
 	specular_lights = get_specular_light(vp->scene, &ray, &object_color);
 	pixel_color = add_rgb(ambient_light, diffuse_lights);
-	pixel_color = add_rgb(pixel_color, specular_lights);
+	pixel_color = add_rgb(specular_lights, pixel_color);
 	return (pixel_color);
 }
 

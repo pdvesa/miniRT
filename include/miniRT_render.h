@@ -108,7 +108,8 @@ float			get_obj_reflectivity(void *obj, int obj_type);
 t_coordinates	get_obj_coordinates(void *obj, int obj_type);
 t_rgb			add_rgb(t_rgb rgb1, t_rgb rgb2);
 t_rgb			average_rgb(t_rgb *rgb, u_int n);
-t_rgb			multiply_rgb(t_rgb rgb, float factor);
+t_rgb			scalar_rgb(t_rgb rgb, float factor);
+t_rgb			combine_rgb(t_rgb rgb1, t_rgb rgb2);
 void			get_cyka_circles_planes(t_cylinder *cylinder, t_plane *result);
 int				pixel_is_obj_bound(t_aa_data *aa_data, t_pxl_cdts *p, t_vp *vp);
 

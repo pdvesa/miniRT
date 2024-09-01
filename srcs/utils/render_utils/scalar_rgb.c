@@ -13,20 +13,18 @@
 #include <miniRT_render.h>
 
 /**
- * @brief Multiplies each component of an RGB color by a factor.
+ * @brief Multiplies the RGB values of a given color with a given factor.
  *
- * This function multiplies the red (r), green (g), and blue (b) components
- * of the given RGB color by the specified factor. The result is returned
- * as a new RGB color.
+ * This function takes a t_rgb struct representing a color and a float value
+ * representing the factor, and multiplies each RGB value of the color with
+ * the factor. The result is returned as a new t_rgb struct.
  *
- * ACHTUNG factor must be included within 0.f and 1.f !!
- *
- * @param rgb The RGB color to multiply.
- * @param factor The factor by which to multiply the RGB components.
- * @return The resulting RGB color after multiplication.
+ * @param rgb The color to be multiplied.
+ * @param factor The factor to multiply the RGB values with.
+ * @return The resulting color after multiplication.
  */
 
-t_rgb	multiply_rgb(t_rgb rgb, float factor)
+t_rgb	scalar_rgb(t_rgb rgb, float factor)
 {
 	rgb.r = (int)((float)rgb.r * factor);
 	rgb.g = (int)((float)rgb.g * factor);

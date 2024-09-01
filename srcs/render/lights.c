@@ -38,7 +38,7 @@ t_rgb	reflective_light(t_scene *scene, t_ray *ray, void *reflect_obj, int obj_ty
 	reflection_coef = get_light_coef(indirect_ray.line.direction,
 		get_normal_to_inter(ray)) * get_obj_reflectivity(reflect_obj, obj_type);
 	color = get_diffuse_light(scene, &indirect_ray, obj_color);
-	color = multiply_rgb(color, reflection_coef);
+	color = scalar_rgb(color, reflection_coef);
 	return (color);
 }
 
@@ -80,7 +80,7 @@ t_rgb	get_diffuse_light(t_scene *scene, t_ray *ray, t_rgb *obj_color)
 		return ((t_rgb) {0, 0, 0});
 	light_coef = get_light_coef(inter_to_dest.direction,
 		get_normal_to_inter(ray)) * scene->light->brightness;
-	color = multiply_rgb(*obj_color, light_coef);
+	color = scalar_rgb(*obj_color, light_coef);
 	return (color);
 }
 
@@ -88,10 +88,8 @@ t_rgb	get_ambiant_light(t_ambient_light *am_light, t_rgb *obj_col)
 {
 	t_rgb	color;
 
+	color = scalar_rgb(am_light->rgb, am_light->ratio);
 	if (obj_col)
-		color = add_rgb(am_light->rgb, *obj_col);
-	else
-		color = am_light->rgb;
-	color = multiply_rgb(color, am_light->ratio);
+		color = combine_rgb(color, *obj_col);
 	return (color);
 }
