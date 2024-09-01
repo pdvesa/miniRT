@@ -40,23 +40,19 @@ int	multi_thread_render(t_vp *vp, void *render, t_aa_data *aa_data)
 void	*render_thread(void *data_ptr)
 {
 	t_render_data	*data;
-	t_aa_data		*current_msaa;
 	t_pxl_cdts		p;
 	void			*pxl_addr;
 
 	data = (t_render_data *) data_ptr;
-	current_msaa = NULL;
 	p.y = data->y_min;
 	while (p.y < data->y_max)
 	{
 		p.x = data->x_min;
 		while (p.x < data->x_max)
 		{
-			if (data->aa_data)
-				current_msaa = data->aa_data + (((p.y * data->vp->w) + p.x));
 			pxl_addr = data->render + (((p.y * data->vp->w) + p.x)
 					* sizeof (uint32_t));
-			data->render_f(data->vp, &p, current_msaa, pxl_addr);
+			data->render_f(data->vp, &p, data->aa_data, pxl_addr);
 			p.x++;
 		}
 		p.y++;

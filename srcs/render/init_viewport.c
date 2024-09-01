@@ -31,6 +31,7 @@ t_vp	init_super_vp(t_vp *vp)
 {
 	t_vp	super_vp;
 
+	super_vp = *vp;
 	super_vp.w = vp->w * MSAA_FACTOR;
 	super_vp.h = vp->h * MSAA_FACTOR;
 	return (super_vp);
