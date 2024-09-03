@@ -22,7 +22,7 @@ float	get_light_coef(t_vector vect_to_light, t_vector normal_inter)
 	return (light_coef);
 }
 
-t_rgb	reflective_light(t_scene *scene, t_ray *ray, void *reflect_obj, int obj_type, t_rgb *obj_color)
+t_rgb	reflective_light(t_scene *scene, t_ray *ray, void *obj, int obj_type)
 {
 	t_rgb	color;
 	float	reflection_coef;
@@ -31,18 +31,19 @@ t_rgb	reflective_light(t_scene *scene, t_ray *ray, void *reflect_obj, int obj_ty
 	color = (t_rgb){0, 0, 0};
 	indirect_ray.line.origin = ray->inter.point;
 	indirect_ray.line.direction = normalize_vector(
-		vect_from_points(ray->inter.point, get_obj_coordinates(reflect_obj, obj_type)));
+		vect_from_points(ray->inter.point, get_obj_coordinates(obj, obj_type)));
 	indirect_ray.inter = get_closer_inter(&indirect_ray.line, scene);
-	if (indirect_ray.inter.object != reflect_obj)
+	if (indirect_ray.inter.object != obj)
 		return (color);
 	reflection_coef = get_light_coef(indirect_ray.line.direction,
-		get_normal_to_inter(ray)) * get_obj_reflectivity(reflect_obj, obj_type);
-	color = get_diffuse_light(scene, &indirect_ray, obj_color);
+		get_normal_to_inter(ray)) * get_obj_reflectivity(obj, obj_type);
+	color = combine_rgb(get_diffuse_light(scene, &indirect_ray),
+		get_object_color(obj, obj_type));
 	color = scalar_rgb(color, reflection_coef);
 	return (color);
 }
 
-t_rgb	get_specular_light(t_scene *scene, t_ray *ray, t_rgb *obj_color)
+t_rgb	get_specular_light(t_scene *scene, t_ray *ray)
 {
 	t_rgb	specular;
 	int		i;
@@ -51,19 +52,19 @@ t_rgb	get_specular_light(t_scene *scene, t_ray *ray, t_rgb *obj_color)
 	i = 0;
 	while (scene->sphere[i])
 		specular = add_rgb(specular, reflective_light(scene, ray,
-			scene->sphere[i++], sp, obj_color));
+			scene->sphere[i++], sp));
 	i = 0;
 	while (scene->plane[i])
 		specular = add_rgb(specular, reflective_light(scene, ray,
-			scene->plane[i++], pl, obj_color));
+			scene->plane[i++], pl));
 	i = 0;
 	while (scene->cylinder[i])
 		specular = add_rgb(specular, reflective_light(scene, ray,
-			scene->cylinder[i++], cyka, obj_color));
+			scene->cylinder[i++], cyka));
 	return (specular);
 }
 
-t_rgb	get_diffuse_light(t_scene *scene, t_ray *ray, t_rgb *obj_color)
+t_rgb	get_diffuse_light(t_scene *scene, t_ray *ray)
 {
 	t_rgb	color;
 	float	light_coef;
@@ -80,16 +81,18 @@ t_rgb	get_diffuse_light(t_scene *scene, t_ray *ray, t_rgb *obj_color)
 		return ((t_rgb) {0, 0, 0});
 	light_coef = get_light_coef(inter_to_dest.direction,
 		get_normal_to_inter(ray)) * scene->light->brightness;
-	color = scalar_rgb(*obj_color, light_coef);
+	color = scalar_rgb(get_object_color(ray->inter.object, ray->inter.object_type),
+		light_coef);
 	return (color);
 }
 
-t_rgb	get_ambiant_light(t_ambient_light *am_light, t_rgb *obj_col)
+t_rgb	get_ambiant_light(t_ambient_light *am_light, t_ray *ray)
 {
 	t_rgb	color;
 
 	color = scalar_rgb(am_light->rgb, am_light->ratio);
-	if (obj_col)
-		color = combine_rgb(color, *obj_col);
+	if (ray->inter.object)
+		color = combine_rgb(color, get_object_color(ray->inter.object,
+			ray->inter.object_type));
 	return (color);
 }
