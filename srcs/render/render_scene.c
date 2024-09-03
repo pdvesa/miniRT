@@ -32,7 +32,6 @@ void	do_msaa(mlx_image_t *img, t_vp *vp, t_aa_data *aa_data)
 
 	render_data = init_single_data(vp, img->pixels, aa_data,
 			&objs_bounds_ray_trace);
-	render_data.render_f = &objs_bounds_ray_trace;
 	render_thread(&render_data);
 }
 

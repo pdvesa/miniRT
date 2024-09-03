@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT_render.h"
+#include <miniRT_render.h>
 
 t_vector	ray_direction(t_vp *vp, t_pxl_cdts *p)
 {
@@ -67,12 +67,14 @@ t_inter	get_closer_inter(t_line *line, t_scene *scene)
 	return (closer);
 }
 
-t_ray	ray_to_object(t_vp *vp, t_pxl_cdts *p)
+t_ray	ray_to_object(t_vp *vp, t_pxl_cdts *p, t_aa_data *aa_data)
 {
 	t_ray	ray;
 
 	ray.line.origin = vp->scene->cam->center;
 	ray.line.direction = ray_direction(vp, p);
 	ray.inter = get_closer_inter(&ray.line, vp->scene);
+	if (aa_data)
+		aa_data[(p->y * vp->w) + p->x].object = ray.inter.object;
 	return (ray);
 }
