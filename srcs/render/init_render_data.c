@@ -48,8 +48,8 @@ void	multi_render_data(t_render_data *data, t_vp *vp, void *render,
 		data[i].y_min = y_min;
 		data[i].y_max = y_max;
 		y_min = y_max;
-		if (i < THREAD_NUMBER - 1)
-			y_max += render_height;
+		if (i < THREAD_NUMBER - 2)
+			y_max += (render_height + i % 2);
 		else
 			y_max = vp->h;
 		i++;
