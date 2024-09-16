@@ -36,7 +36,7 @@
 # endif //ARBITARY_LIMIT
 
 # ifndef THREAD_NUMBER
-#  define THREAD_NUMBER 20
+#  define THREAD_NUMBER 64
 # endif
 
 # ifndef MSAA_FACTOR
