@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_obj_coordinates.c                              :+:      :+:    :+:   */
+/*   get_light_coef.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcayot <jcayot.student@hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,13 +12,12 @@
 
 #include <miniRT_render.h>
 
-t_coordinates	get_obj_coordinates(void *obj, int obj_type)
+float	get_light_coef(t_vector vect_to_light, t_vector normal_inter)
 {
-	if (obj_type == sp)
-		return (((t_sphere *)(obj))->center);
-	if (obj_type == pl)
-		return (((t_plane *)(obj))->coordinates);
-	if (obj_type == cyka || obj_type == cyka_circle)
-		return (((t_cylinder *)(obj))->center);
-	return ((t_coordinates){0.f, 0.f, 0.f});
+	float	light_coef;
+
+	light_coef = dot_product(vect_to_light, normal_inter);
+	if (light_coef < 0.0f)
+		light_coef *= -1.0f;
+	return (light_coef);
 }

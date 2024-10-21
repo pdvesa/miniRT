@@ -12,7 +12,7 @@
 
 #include <miniRT_render.h>
 
-t_rgb	get_object_color(void* obj, int obj_type)
+t_rgb	get_object_color(void *obj, int obj_type)
 {
 	if (obj_type == sp)
 		return (((t_sphere *) obj)->rgb);

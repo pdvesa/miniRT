@@ -48,7 +48,7 @@ int	render_scene(t_scene *scene, mlx_image_t *image)
 	do_full_ray_trace(image, &vp, aa_data);
 	if (aa_data)
 	{
-		// do_msaa(image, &vp, aa_data);
+		do_msaa(image, &vp, aa_data);
 		free(aa_data);
 	}
 	end_t = get_mst();
