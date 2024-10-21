@@ -1,29 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   add_rgb.c                                          :+:      :+:    :+:   */
+/*   combine_rgb.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcayot <jcayot.student@hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/18 21:02:31 by jcayot            #+#    #+#             */
-/*   Updated: 2024/07/18 21:02:33 by jcayot           ###   ########.fr       */
+/*   Created: 2024/07/18 21:05:34 by jcayot            #+#    #+#             */
+/*   Updated: 2024/07/18 21:05:35 by jcayot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <miniRT_render.h>
 
-t_rgb	add_rgb(t_rgb rgb1, t_rgb rgb2)
+t_rgb	combine_rgb(t_rgb rgb1, t_rgb rgb2)
 {
-	t_rgb	result;
+	t_rgb	rgb;
 
-	result.r = rgb1.r + rgb2.r;
-	if (result.r > 255)
-		result.r = 255;
-	result.g = rgb1.g + rgb2.g;
-	if (result.g > 255)
-		result.g = 255;
-	result.b = rgb1.b + rgb2.b;
-	if (result.b > 255)
-		result.b = 255;
-	return (result);
+	rgb.r = (int)((((float) rgb1.r / 255.f) * (float) rgb2.r / 255.f) * 255.f);
+	rgb.g = (int)((((float) rgb1.g / 255.f) * (float) rgb2.g / 255.f) * 255.f);
+	rgb.b = (int)((((float) rgb1.b / 255.f) * (float) rgb2.b / 255.f) * 255.f);
+	return (rgb);
 }
