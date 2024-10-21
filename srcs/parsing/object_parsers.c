@@ -32,7 +32,7 @@ int	extract_sphere(t_scene *scene, char **content, int i)
 		return (erreur_dictateur(cont_arr, sp));
 	if (extract_rgb(&(scene->sphere[i]->rgb), cont_arr[3]))
 		return (erreur_dictateur(cont_arr, sp));
-	scene->sphere[i]->reflection = get_numbers(cont_arr[4], 1);
+	scene->sphere[i]->reflexion = get_numbers(cont_arr[4], 1);
 	return (ft_strarray_free(cont_arr), EXIT_SUCCESS);
 }
 
@@ -54,7 +54,7 @@ int	extract_plane(t_scene *scene, char **content, int i)
 		return (erreur_dictateur(cont_arr, pl));
 	if (extract_rgb(&(scene->plane[i]->rgb), cont_arr[3]))
 		return (erreur_dictateur(cont_arr, pl));
-	scene->plane[i]->reflection = get_numbers(cont_arr[4], 1);
+	scene->plane[i]->reflexion = get_numbers(cont_arr[4], 1);
 	return (ft_strarray_free(cont_arr), EXIT_SUCCESS);
 }
 
@@ -84,6 +84,6 @@ int	extract_cylinder(t_scene *scene, char **content, int i)
 		return (erreur_dictateur(cont_arr, cyka));
 	if (extract_rgb(&(scene->cylinder[i]->rgb), cont_arr[5]))
 		return (erreur_dictateur(cont_arr, cyka));
-	scene->cylinder[i]->reflection = get_numbers(cont_arr[6], 1);
+	scene->cylinder[i]->reflexion = get_numbers(cont_arr[6], 1);
 	return (ft_strarray_free(cont_arr), EXIT_SUCCESS);
 }
