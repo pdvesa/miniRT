@@ -1,29 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   add_rgb.c                                          :+:      :+:    :+:   */
+/*   get_light_coef.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jcayot <jcayot.student@hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/18 21:02:31 by jcayot            #+#    #+#             */
-/*   Updated: 2024/07/18 21:02:33 by jcayot           ###   ########.fr       */
+/*   Created: 2024/07/18 21:05:34 by jcayot            #+#    #+#             */
+/*   Updated: 2024/07/18 21:05:35 by jcayot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <miniRT_render.h>
 
-t_rgb	add_rgb(t_rgb rgb1, t_rgb rgb2)
+float	get_light_coef(t_vector vect_to_light, t_vector normal_inter)
 {
-	t_rgb	result;
+	float	light_coef;
 
-	result.r = rgb1.r + rgb2.r;
-	if (result.r > 255)
-		result.r = 255;
-	result.g = rgb1.g + rgb2.g;
-	if (result.g > 255)
-		result.g = 255;
-	result.b = rgb1.b + rgb2.b;
-	if (result.b > 255)
-		result.b = 255;
-	return (result);
+	light_coef = dot_product(vect_to_light, normal_inter);
+	if (light_coef < 0.0f)
+		light_coef *= -1.0f;
+	return (light_coef);
 }

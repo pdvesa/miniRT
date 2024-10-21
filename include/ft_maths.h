@@ -16,7 +16,7 @@
 # include <math.h>
 
 # ifndef FLOAT_MARGIN
-#  define FLOAT_MARGIN 0.0005f
+#  define FLOAT_MARGIN 0.005f
 # endif //FLOAT_MARGIN
 
 typedef struct s_vector

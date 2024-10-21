@@ -12,13 +12,13 @@
 
 #include <miniRT_render.h>
 
-t_rgb	get_object_color(t_ray *ray)
+t_rgb	get_object_color(void *obj, int obj_type)
 {
-	if (ray->inter.object_type == sp)
-		return (((t_sphere *)(ray->inter.object))->rgb);
-	if (ray->inter.object_type == pl)
-		return (((t_plane *)(ray->inter.object))->rgb);
-	if (ray->inter.object_type == cyka || ray->inter.object_type == cyka_circle)
-		return (((t_cylinder *)(ray->inter.object))->rgb);
+	if (obj_type == sp)
+		return (((t_sphere *) obj)->rgb);
+	if (obj_type == pl)
+		return (((t_plane *) obj)->rgb);
+	if (obj_type == cyka || obj_type == cyka_circle)
+		return (((t_cylinder *) obj)->rgb);
 	return ((t_rgb){0, 0, 0});
 }

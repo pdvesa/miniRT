@@ -1,6 +1,6 @@
 CC					:= cc
 NAME                := miniRT
-CFLAGS              := -Wextra -Wall -Werror -g
+CFLAGS              := -Wextra -Wall -Werror
 LIBMLX_DIR          := ./lib/MLX42
 
 LIBFT               := ./lib/libft/libft.a
@@ -57,8 +57,12 @@ SRCS                := $(SRCS_DIR)/miniRT.c \
                         $(UTILS_DIR)/wait_threads.c \
                         $(RENDER_UTILS_DIR)/add_rgb.c \
                         $(RENDER_UTILS_DIR)/average_rgb.c \
-                        $(RENDER_UTILS_DIR)/multiply_rgb.c \
+                        $(RENDER_UTILS_DIR)/scalar_rgb.c \
+                        $(RENDER_UTILS_DIR)/combine_rgb.c \
                         $(RENDER_UTILS_DIR)/get_cyka_circles_planes.c \
+                        $(RENDER_UTILS_DIR)/get_light_coef.c \
+                        $(RENDER_UTILS_DIR)/get_obj_coordinates.c \
+                        $(RENDER_UTILS_DIR)/get_obj_reflectivity.c \
                         $(RENDER_UTILS_DIR)/get_object_color.c \
                         $(RENDER_UTILS_DIR)/pixel_is_obj_bound.c \
                         $(MLX_UTILS_DIR)/ft_mlx_error.c \
