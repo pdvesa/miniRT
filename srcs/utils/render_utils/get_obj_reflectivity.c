@@ -16,10 +16,10 @@ float	get_obj_reflectivity(void *obj, int obj_type)
 {
 	return (0.1f);
 	if (obj_type == sp)
-		return (((t_sphere *)(obj))->reflectivity);
+		return (((t_sphere *)(obj))->reflexion);
 	if (obj_type == pl)
-		return (((t_plane *)(obj))->reflectivity);
+		return (((t_plane *)(obj))->reflexion);
 	if (obj_type == cyka || obj_type == cyka_circle)
-		return (((t_cylinder *)(obj))->reflectivity);
+		return (((t_cylinder *)(obj))->reflexion);
 	return (0.f);
 }
