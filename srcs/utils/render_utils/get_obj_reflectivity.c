@@ -14,7 +14,6 @@
 
 float	get_obj_reflectivity(void *obj, int obj_type)
 {
-	return (0.1f);
 	if (obj_type == sp)
 		return (((t_sphere *)(obj))->reflexion);
 	if (obj_type == pl)
