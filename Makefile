@@ -60,6 +60,7 @@ SRCS                := $(SRCS_DIR)/miniRT.c \
                         $(RENDER_UTILS_DIR)/scalar_rgb.c \
                         $(RENDER_UTILS_DIR)/combine_rgb.c \
                         $(RENDER_UTILS_DIR)/get_cyka_circles_planes.c \
+                        $(RENDER_UTILS_DIR)/get_light_coef.c \
                         $(RENDER_UTILS_DIR)/get_obj_coordinates.c \
                         $(RENDER_UTILS_DIR)/get_obj_reflectivity.c \
                         $(RENDER_UTILS_DIR)/get_object_color.c \

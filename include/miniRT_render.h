@@ -28,7 +28,8 @@ typedef struct s_ray
 	t_inter			inter;
 }	t_ray;
 
-typedef struct s_lightning {
+typedef struct s_lightning
+{
 	t_rgb	color;
 	float	intensity;
 }	t_lightning;
@@ -86,7 +87,7 @@ void			objs_bounds_ray_trace(t_vp *vp, t_pxl_cdts *p,
 					t_aa_data *aa_data, void *pxl_addr);
 
 //Ray-trace
-t_ray			ray_to_object(t_vp *vp, t_pxl_cdts *p, t_aa_data* aa_data);
+t_ray			ray_to_object(t_vp *vp, t_pxl_cdts *p, t_aa_data *aa_data);
 t_inter			get_closer_inter(t_line *line, t_scene *scene);
 
 t_rgb			get_ambiant_light(t_ambient_light *am_light, t_ray *ray);
@@ -103,7 +104,7 @@ t_vector		get_normal_to_inter(t_ray *ray);
 int				plane_self_hide(t_ray *ray, t_light *light);
 
 //Utils
-t_rgb			get_object_color(void* obj, int obj_type);
+t_rgb			get_object_color(void *obj, int obj_type);
 float			get_obj_reflectivity(void *obj, int obj_type);
 t_coordinates	get_obj_coordinates(void *obj, int obj_type);
 t_rgb			add_rgb(t_rgb rgb1, t_rgb rgb2);
@@ -112,5 +113,6 @@ t_rgb			scalar_rgb(t_rgb rgb, float factor);
 t_rgb			combine_rgb(t_rgb rgb1, t_rgb rgb2);
 void			get_cyka_circles_planes(t_cylinder *cylinder, t_plane *result);
 int				pixel_is_obj_bound(t_aa_data *aa_data, t_pxl_cdts *p, t_vp *vp);
+float			get_light_coef(t_vector vect_to_light, t_vector normal_inter);
 
 #endif //MINIRT_RENDER_H
