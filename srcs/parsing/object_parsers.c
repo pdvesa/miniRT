@@ -22,7 +22,7 @@ int	extract_sphere(t_scene *scene, char **content, int i)
 	ft_memset(content_str, 0, ft_strlen(content_str));
 	if (!cont_arr)
 		return (EXIT_FAILURE);
-	if (ft_strarray_len(cont_arr) != 4)
+	if (ft_strarray_len(cont_arr) != 5)
 		return (erreur_dictateur(cont_arr, sp));
 	if (save_cords(scene, cont_arr[1], sp, i))
 		return (erreur_dictateur(cont_arr, sp));
@@ -32,6 +32,7 @@ int	extract_sphere(t_scene *scene, char **content, int i)
 		return (erreur_dictateur(cont_arr, sp));
 	if (extract_rgb(&(scene->sphere[i]->rgb), cont_arr[3]))
 		return (erreur_dictateur(cont_arr, sp));
+	scene->sphere[i]->reflection = get_numbers(cont_arr[4], 1);
 	return (ft_strarray_free(cont_arr), EXIT_SUCCESS);
 }
 
@@ -45,7 +46,7 @@ int	extract_plane(t_scene *scene, char **content, int i)
 	ft_memset(content_str, 0, ft_strlen(content_str));
 	if (!cont_arr)
 		return (EXIT_FAILURE);
-	if (ft_strarray_len(cont_arr) != 4)
+	if (ft_strarray_len(cont_arr) != 5)
 		return (erreur_dictateur(cont_arr, pl));
 	if (save_cords(scene, cont_arr[1], pl, i))
 		return (erreur_dictateur(cont_arr, pl));
@@ -53,6 +54,7 @@ int	extract_plane(t_scene *scene, char **content, int i)
 		return (erreur_dictateur(cont_arr, pl));
 	if (extract_rgb(&(scene->plane[i]->rgb), cont_arr[3]))
 		return (erreur_dictateur(cont_arr, pl));
+	scene->plane[i]->reflection = get_numbers(cont_arr[4], 1);
 	return (ft_strarray_free(cont_arr), EXIT_SUCCESS);
 }
 
@@ -66,7 +68,7 @@ int	extract_cylinder(t_scene *scene, char **content, int i)
 	ft_memset(content_str, 0, ft_strlen(content_str));
 	if (!cont_arr)
 		return (EXIT_FAILURE);
-	if (ft_strarray_len(cont_arr) != 6)
+	if (ft_strarray_len(cont_arr) != 7)
 		return (erreur_dictateur(cont_arr, cyka));
 	if (save_cords(scene, cont_arr[1], cyka, i))
 		return (erreur_dictateur(cont_arr, cyka));
@@ -82,5 +84,6 @@ int	extract_cylinder(t_scene *scene, char **content, int i)
 		return (erreur_dictateur(cont_arr, cyka));
 	if (extract_rgb(&(scene->cylinder[i]->rgb), cont_arr[5]))
 		return (erreur_dictateur(cont_arr, cyka));
+	scene->cylinder[i]->reflection = get_numbers(cont_arr[6], 1);
 	return (ft_strarray_free(cont_arr), EXIT_SUCCESS);
 }

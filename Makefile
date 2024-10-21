@@ -27,7 +27,7 @@ SRCS                := $(SRCS_DIR)/miniRT.c \
                         $(PARSING_DIR)/scene_parser.c \
                         $(PARSING_DIR)/parse_utils.c \
                         $(PARSING_DIR)/extractors.c \
-                        $(PARSING_DIR)/array_extractors.c \
+                        $(PARSING_DIR)/object_parsers.c \
                         $(PARSING_DIR)/scene_parser2.c \
                         $(RENDER_DIR)/render_scene.c \
                         $(RENDER_DIR)/ray_trace.c \
